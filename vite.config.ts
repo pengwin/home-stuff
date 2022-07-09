@@ -26,6 +26,12 @@ export default defineConfig({
       reportsDirectory: './.artifacts/coverage',
       reporter: ['text', 'json', 'html'],
     },
+    reporters: [
+      'dot', 'junit'
+    ],
+    outputFile: {
+      'junit' : '.artifacts/vitest.xml'
+    }
   },
   resolve: {
     conditions: ['development', 'browser'],

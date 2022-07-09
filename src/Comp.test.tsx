@@ -9,9 +9,15 @@ import Comp from './Comp';
 expect.extend(matchers);
 
 describe('<Comp />', () => {
-    test('it will render an text input and a button', () => {
-      const { getByPlaceholderText, getByText, unmount } = render(() => <Comp text='test' />);
+    test('it will render a text', () => {
+      const { getByText, unmount } = render(() => <Comp text='test' />);
       expect(getByText('test')).toBeInTheDocument();
       unmount();
     });
+
+    test('it will render a text', () => {
+        const { getByText, unmount } = render(() => <Comp text='some text' />);
+        expect(getByText('some text')).toBeInTheDocument();
+        unmount();
+      });
 });
