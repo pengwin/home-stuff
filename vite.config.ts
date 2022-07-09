@@ -1,11 +1,19 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
+import { visualizer } from 'rollup-plugin-visualizer';
 
-export default defineConfig({
-  plugins: [solidPlugin()],
+export default defineConfig(env => ({
+  plugins: [
+    solidPlugin(),
+    visualizer({
+      filename: './.artifacts/bundle.html'
+    })
+  ],
   build: {
     target: 'esnext',
     polyfillDynamicImport: false,
+    polyfillModulePreload: false,
+    minify: 'esbuild' // terser
   },
   test: {
     environment: 'happy-dom',
@@ -34,6 +42,6 @@ export default defineConfig({
     }
   },
   resolve: {
-    conditions: ['development', 'browser'],
+    conditions: env.mode == 'test' ? ['development', 'browser'] : ['browser'],
   }
-});
+}));
