@@ -1,3 +1,3 @@
-export default () => {
-  return <h1>Hello world from component!!!</h1>;
+export default (p: { text:string }) => {
+  return <h1>{p.text}</h1>;
 };
