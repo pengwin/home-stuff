@@ -8,7 +8,8 @@
     "build": "vite build",
     "serve": "vite preview",
     "test": "vitest run",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "prepare": "husky install"
   },
   "license": "MIT",
   "devDependencies": {
@@ -21,7 +22,8 @@
     "vite": "^2.9.14",
     "vite-plugin-solid": "^2.2.6",
     "vitest": "^0.17.1",
-    "rollup-plugin-visualizer": "^5.6.0"
+    "rollup-plugin-visualizer": "^5.6.0",
+    "husky": "^8.0.0"
   },
   "dependencies": {
     "solid-js": "^1.4.7"
