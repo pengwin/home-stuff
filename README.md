@@ -1,4 +1,4 @@
-[![CI] Build(https://github.com/pengwin/home-stuff/actions/workflows/ci.yml/badge.svg)](https://github.com/pengwin/home-stuff/actions/workflows/ci.yml)
+[![CI Build](https://github.com/pengwin/home-stuff/actions/workflows/ci.yml/badge.svg)](https://github.com/pengwin/home-stuff/actions/workflows/ci.yml)
 
 
 # home-stuff
