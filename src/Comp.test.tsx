@@ -10,14 +10,14 @@ expect.extend(matchers);
 
 describe('<Comp />', () => {
     test('it will render a text', () => {
-      const { getByPlaceholderText, getByText, unmount } = render(() => <Comp text='test' />);
+      const { getByText, unmount } = render(() => <Comp text='test' />);
       expect(getByText('test')).toBeInTheDocument();
       unmount();
     });
 
-    test('failed', () => {
-        const { getByPlaceholderText, getByText, unmount } = render(() => <Comp text='test' />);
-        expect(getByText('test1')).toBeInTheDocument();
+    test('it will render a text', () => {
+        const { getByText, unmount } = render(() => <Comp text='some text' />);
+        expect(getByText('some text')).toBeInTheDocument();
         unmount();
       });
 });
