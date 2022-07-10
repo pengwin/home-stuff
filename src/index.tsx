@@ -1,4 +1,5 @@
 /* @refresh reload */
+import '@unocss/reset/tailwind.css';
 import 'uno.css';
 import { render } from 'solid-js/web';
 

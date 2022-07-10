@@ -15,6 +15,9 @@ export default (p: { text: string }) => {
   const [text, setText] = createSignal(p.text);
   return <h1>
     <p>{text()}</p>
-    <button onClick={e => flipCase(text(), setText)}>Flip</button>
+    <button class="rounded border-solid border-black border" onClick={e => flipCase(text(), setText)}>
+      <i class="i-mdi-account text-base">T</i>
+      <span>Flip</span>
+    </button>
   </h1>;
 };
