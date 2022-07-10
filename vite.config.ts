@@ -31,7 +31,7 @@ export default defineConfig(env => ({
     // isolate: false,
     coverage: {
       reportsDirectory: './.artifacts/coverage',
-      reporter: ['text', 'json', 'html'],
+      reporter: ['text', 'json', 'html', 'json-summary'],
       branches: 70,
       /*all: true,
       src: ['./src']*/

@@ -4,6 +4,7 @@ specifiers:
   '@testing-library/jest-dom': ^5.16.4
   '@types/testing-library__jest-dom': ^5.14.5
   c8: ^7.11.3
+  coverage-badge-creator: ^1.0.12
   husky: ^8.0.0
   jsdom: ^20.0.0
   rollup-plugin-visualizer: ^5.6.0
@@ -21,6 +22,7 @@ devDependencies:
   '@testing-library/jest-dom': 5.16.4
   '@types/testing-library__jest-dom': 5.14.5
   c8: 7.11.3
+  coverage-badge-creator: 1.0.12
   husky: 8.0.1
   jsdom: 20.0.0
   rollup-plugin-visualizer: 5.6.0
@@ -763,6 +765,11 @@ packages:
   /core-js-pure/3.23.3:
     resolution: {integrity: sha512-XpoouuqIj4P+GWtdyV8ZO3/u4KftkeDVMfvp+308eGMhCrA3lVDSmAxO0c6GGOcmgVlaKDrgWVMo49h2ab/TDA==}
     requiresBuild: true
+    dev: true
+
+  /coverage-badge-creator/1.0.12:
+    resolution: {integrity: sha512-WKAUAw2M0qMXmDDoHwApfGvDMvZpyLZdgbXKai1pgmb1WxkPu3p3tFALDaIpHi2hN/Sm+y3plv5zFvXKzrxdkg==}
+    hasBin: true
     dev: true
 
   /cross-spawn/7.0.3:
