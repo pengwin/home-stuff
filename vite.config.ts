@@ -1,10 +1,17 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 import { visualizer } from 'rollup-plugin-visualizer';
+import UnocssPlugin from '@unocss/vite';
+import presetWind from '@unocss/preset-wind';
 
 export default defineConfig(env => ({
   plugins: [
     solidPlugin(),
+    UnocssPlugin({
+      presets: [
+        presetWind(),
+      ],
+    }),
     visualizer({
       filename: './.artifacts/bundle.html'
     })
