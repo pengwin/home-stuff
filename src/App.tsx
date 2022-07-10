@@ -5,7 +5,7 @@ const App: Component = () => {
   return (
     <>
       <h1>Hello world!!!!</h1>
-      <Comp />
+      <Comp text='test' />
     </>
   );
 };
