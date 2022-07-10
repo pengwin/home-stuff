@@ -9,6 +9,7 @@
     "jsxImportSource": "solid-js",
     "types": ["vite/client", "vitest"],
     "noEmit": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "resolveJsonModule": true
   }
 }
