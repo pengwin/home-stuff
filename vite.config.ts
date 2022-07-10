@@ -16,7 +16,7 @@ export default defineConfig(env => ({
     minify: 'esbuild' // terser
   },
   test: {
-    environment: 'happy-dom',
+    environment: 'jsdom',
     transformMode: {
       web: [/\.[jt]sx?$/],
     },
@@ -30,15 +30,17 @@ export default defineConfig(env => ({
     // threads: false,
     // isolate: false,
     coverage: {
-      clean: true,
       reportsDirectory: './.artifacts/coverage',
       reporter: ['text', 'json', 'html'],
+      branches: 70,
+      /*all: true,
+      src: ['./src']*/
     },
     reporters: [
       'dot', 'junit'
     ],
     outputFile: {
-      'junit' : '.artifacts/vitest.xml'
+      'junit': '.artifacts/vitest.xml'
     }
   },
   resolve: {
