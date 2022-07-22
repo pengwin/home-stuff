@@ -9,8 +9,8 @@ import App from './App';
 expect.extend(matchers);
 
 describe('<App /> smoke tests', () => {
-  test('it will render successfully', () => {
-    const { unmount } = render(() => <App />);
-    unmount();
-  });
+    test('it will render successfully', () => {
+        const { unmount } = render(() => <App />);
+        unmount();
+    });
 });

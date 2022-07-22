@@ -13,6 +13,7 @@ specifiers:
   c8: ^7.11.3
   coverage-badge-creator: ^1.0.12
   eslint: ^8.19.0
+  eslint-config-prettier: ^8.5.0
   eslint-plugin-solid: ^0.7.1
   husky: ^8.0.0
   jsdom: ^20.0.0
@@ -41,6 +42,7 @@ devDependencies:
   c8: 7.11.3
   coverage-badge-creator: 1.0.12
   eslint: 8.19.0
+  eslint-config-prettier: 8.5.0_eslint@8.19.0
   eslint-plugin-solid: 0.7.1_4x5o4skxv6sl53vpwefgt23khm
   husky: 8.0.1
   jsdom: 20.0.0
@@ -1579,6 +1581,15 @@ packages:
       optionator: 0.8.3
     optionalDependencies:
       source-map: 0.6.1
+    dev: true
+
+  /eslint-config-prettier/8.5.0_eslint@8.19.0:
+    resolution: {integrity: sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==}
+    hasBin: true
+    peerDependencies:
+      eslint: '>=7.0.0'
+    dependencies:
+      eslint: 8.19.0
     dev: true
 
   /eslint-plugin-solid/0.7.1_4x5o4skxv6sl53vpwefgt23khm:
