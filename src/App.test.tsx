@@ -10,7 +10,7 @@ expect.extend(matchers);
 
 describe('<App /> smoke tests', () => {
     test('it will render successfully', () => {
-      const { unmount } = render(() => <App />);
-      unmount();
+        const { unmount } = render(() => <App />);
+        unmount();
     });
 });

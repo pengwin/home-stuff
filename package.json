@@ -1,39 +1,48 @@
 {
-  "name": "home-stuff",
-  "version": "0.0.0",
-  "description": "",
-  "author": "ikruchkov0@gmail.com",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview",
-    "test": "vitest run",
-    "coverage:run": "vitest run --coverage",
-    "coverage:badge": "coverage-badge-creator",
-    "coverage": "pnpm coverage:run && pnpm coverage:badge",
-    "prepare": "husky install"
-  },
-  "license": "MIT",
-  "devDependencies": {
-    "@iconify-json/mdi": "^1.1.26",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@types/testing-library__jest-dom": "^5.14.5",
-    "@unocss/preset-icons": "^0.44.0",
-    "@unocss/preset-wind": "^0.44.0",
-    "@unocss/reset": "^0.44.0",
-    "@unocss/vite": "^0.44.0",
-    "c8": "^7.11.3",
-    "coverage-badge-creator": "^1.0.12",
-    "husky": "^8.0.0",
-    "jsdom": "^20.0.0",
-    "rollup-plugin-visualizer": "^5.6.0",
-    "solid-testing-library": "^0.3.0",
-    "typescript": "^4.7.4",
-    "vite": "^2.9.14",
-    "vite-plugin-solid": "^2.2.6",
-    "vitest": "^0.17.1"
-  },
-  "dependencies": {
-    "solid-js": "^1.4.7"
-  }
+    "name": "home-stuff",
+    "version": "0.0.0",
+    "description": "",
+    "author": "ikruchkov0@gmail.com",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "serve": "vite preview",
+        "test": "vitest run",
+        "coverage:run": "vitest run --coverage",
+        "coverage:badge": "coverage-badge-creator",
+        "coverage": "pnpm coverage:run && pnpm coverage:badge",
+        "prepare": "husky install",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "lint": "eslint src/* "
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "@iconify-json/mdi": "^1.1.26",
+        "@testing-library/jest-dom": "^5.16.4",
+        "@types/testing-library__jest-dom": "^5.14.5",
+        "@typescript-eslint/eslint-plugin": "^5.30.5",
+        "@typescript-eslint/parser": "^5.30.5",
+        "@unocss/preset-icons": "^0.44.0",
+        "@unocss/preset-wind": "^0.44.0",
+        "@unocss/reset": "^0.44.0",
+        "@unocss/vite": "^0.44.0",
+        "c8": "^7.11.3",
+        "coverage-badge-creator": "^1.0.12",
+        "eslint": "^8.19.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-solid": "^0.7.1",
+        "husky": "^8.0.0",
+        "jsdom": "^20.0.0",
+        "prettier": "^2.7.1",
+        "rollup-plugin-visualizer": "^5.6.0",
+        "solid-testing-library": "^0.3.0",
+        "typescript": "^4.7.4",
+        "vite": "^2.9.14",
+        "vite-plugin-solid": "^2.2.6",
+        "vitest": "^0.17.1"
+    },
+    "dependencies": {
+        "solid-js": "^1.4.7"
+    }
 }
