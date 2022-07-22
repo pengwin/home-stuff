@@ -6,7 +6,7 @@ module.exports = {
     'extends': [
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
-        '@solid/eslint-config-base'
+        'plugin:solid/typescript'
     ],
     'parser': '@typescript-eslint/parser',
     'parserOptions': {
@@ -14,17 +14,10 @@ module.exports = {
         'sourceType': 'module'
     },
     'plugins': [
-        '@typescript-eslint'
+        '@typescript-eslint',
+        'solid'
     ],
     'rules': {
-        'indent': [
-            'error',
-            4
-        ],
-        'linebreak-style': [
-            'error',
-            'unix'
-        ],
         'quotes': [
             'error',
             'single'

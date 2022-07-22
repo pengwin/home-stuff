@@ -24,14 +24,13 @@ describe('<Comp />', () => {
     test.each([
         ['text', 'TEXT'],
         ['TEXT', 'text']
-    ])
-        ('should flip %p to %p on click back and forth', async (text: string, expected: string) => {
-            const { getByText, unmount } = render(() => <Comp text={text} />);
-            const btn = getByText('Flip');
-            fireEvent.click(btn as HTMLInputElement);
-            expect(getByText(expected)).toBeInTheDocument();
-            fireEvent.click(btn as HTMLInputElement);
-            expect(getByText(text)).toBeInTheDocument();
-            unmount();
-        });
+    ])('should flip %p to %p on click back and forth', async (text: string, expected: string) => {
+        const { getByText, unmount } = render(() => <Comp text={text} />);
+        const btn = getByText('Flip');
+        fireEvent.click(btn as HTMLInputElement);
+        expect(getByText(expected)).toBeInTheDocument();
+        fireEvent.click(btn as HTMLInputElement);
+        expect(getByText(text)).toBeInTheDocument();
+        unmount();
+    });
 });
