@@ -3,4 +3,6 @@
 
 pnpm test
 pnpm coverage
+pnpm lint --max-warnings=0
+pnpm format:check
 #exit 1 # Commit will be aborted

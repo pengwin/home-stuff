@@ -1,23 +1,20 @@
 import type { Component } from 'solid-js';
-import {
-    I18nContext,
-    createI18nContext,
-} from '@solid-primitives/i18n';
+import { I18nContext, createI18nContext } from '@solid-primitives/i18n';
 
 import Comp from './Comp';
 
 const dict = {
     ru: {
-      'Comp': {
-        'SwitchLang': 'Переключить язык',
-        'Flip': 'Перевернуть'
-      }
+        Comp: {
+            SwitchLang: 'Переключить язык',
+            Flip: 'Перевернуть',
+        },
     },
     en: {
-      'Comp': {
-        'SwitchLang': 'Switch lang',
-        'Flip': 'Flip'
-      }
+        Comp: {
+            SwitchLang: 'Switch lang',
+            Flip: 'Flip',
+        },
     },
 };
 

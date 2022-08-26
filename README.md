@@ -1,5 +1,5 @@
 [![CI Build](https://github.com/pengwin/home-stuff/actions/workflows/ci.yml/badge.svg)](https://github.com/pengwin/home-stuff/actions/workflows/ci.yml)
-![](https://img.shields.io/badge/Coverage-82%25-83A603.svg?prefix=$branches$)
+![](https://img.shields.io/badge/Coverage-87%25-83A603.svg?prefix=$branches$)
 
 # home-stuff
 

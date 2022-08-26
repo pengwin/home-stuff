@@ -12,12 +12,12 @@ function flipCase(text: string, setText: Setter<string>) {
 }
 
 function flipLang(currentLang: string): string {
-  let lang = 'en';
-  if (currentLang === 'en') {
-    lang = 'ru';
-  }
-  console.log(`flip ${currentLang} to ${lang}`);
-  return lang;
+    let lang = 'en';
+    if (currentLang === 'en') {
+        lang = 'ru';
+    }
+    console.log(`flip ${currentLang} to ${lang}`);
+    return lang;
 }
 
 export const cssClasses = {
@@ -27,14 +27,18 @@ export const cssClasses = {
 
 export default (props: { text: string }) => {
     const [text, setText] = createSignal<string>();
-    const [t, { locale } ] = useI18n();
+    const [t, { locale }] = useI18n();
 
     const textGetter = () => text() || props.text;
     const changeLang = () => {
-      const currentLang = locale();
-      const newLang = flipLang(currentLang);
-      locale(newLang);
-      console.log(`Switch ${currentLang} to ${newLang}. Current lang ${locale()} ${t('Comp.SwitchLang')}`);
+        const currentLang = locale();
+        const newLang = flipLang(currentLang);
+        locale(newLang);
+        console.log(
+            `Switch ${currentLang} to ${newLang}. Current lang ${locale()} ${t(
+                'Comp.SwitchLang',
+            )}`,
+        );
     };
 
     return (
