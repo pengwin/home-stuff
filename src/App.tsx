@@ -1,24 +1,10 @@
 import type { Component } from 'solid-js';
 import { I18nContext, createI18nContext } from '@solid-primitives/i18n';
 
-import Comp from './Comp';
+import Comp from './Comp/Comp';
+import { locale } from './locale';
 
-const dict = {
-    ru: {
-        Comp: {
-            SwitchLang: 'Переключить язык',
-            Flip: 'Перевернуть',
-        },
-    },
-    en: {
-        Comp: {
-            SwitchLang: 'Switch lang',
-            Flip: 'Flip',
-        },
-    },
-};
-
-const value = createI18nContext(dict, 'en');
+const value = createI18nContext(locale, 'en');
 
 const App: Component = () => {
     return (
