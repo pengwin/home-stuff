@@ -1,6 +1,8 @@
 import { createSignal, Setter } from 'solid-js';
 import { useI18n } from '@solid-primitives/i18n';
 
+import { cssClasses } from './css-classes';
+
 function flipCase(text: string, setText: Setter<string>) {
     if (text[0] == text[0].toLowerCase()) {
         setText(text.toUpperCase());
@@ -19,11 +21,6 @@ function flipLang(currentLang: string): string {
     console.log(`flip ${currentLang} to ${lang}`);
     return lang;
 }
-
-export const cssClasses = {
-    btnSwitchLang: 'tst-switch-lang',
-    btnFlip: 'tst-flip',
-};
 
 export default (props: { text: string }) => {
     const [text, setText] = createSignal<string>();

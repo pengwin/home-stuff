@@ -71,3 +71,14 @@ jobs:
 
     - name: Coverage
       run: pnpm coverage:run
+
+    - name: Cypress Headless Chrome
+      uses: cypress-io/github-action@v4
+      timeout-minutes: 10
+      with:
+        # build: pnpm run build
+        start: pnpm serve
+        browser: chrome
+        headless: true
+      env:
+        NODE_ENV: ci

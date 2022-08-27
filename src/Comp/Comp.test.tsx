@@ -6,7 +6,8 @@ import { I18nContext, createI18nContext } from '@solid-primitives/i18n';
 
 import matchers from '@testing-library/jest-dom/matchers';
 
-import { default as Comp, cssClasses } from './Comp';
+import { default as Comp } from './Comp';
+import { cssClasses } from './css-classes';
 
 expect.extend(matchers);
 
