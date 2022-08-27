@@ -77,7 +77,7 @@ jobs:
       timeout-minutes: 10
       with:
         # build: pnpm run build
-        start: npm preview
+        start: pnpm serve
         browser: chrome
         headless: true
       env:
