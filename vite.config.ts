@@ -4,9 +4,19 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import UnocssPlugin from '@unocss/vite';
 import presetWind from '@unocss/preset-wind';
 import presetIcons from '@unocss/preset-icons';
+import istanbul from 'vite-plugin-istanbul';
 
 export default defineConfig((env) => ({
     plugins: [
+        istanbul({
+            include: 'src/*',
+            exclude: ['node_modules', 'test/'],
+            extension: ['.js', '.ts', '.vue'],
+            cypress: false,
+            requireEnv: false,
+            checkProd: false,
+            forceBuildInstrument: true,
+        }),
         solidPlugin(),
         UnocssPlugin({
             presets: [

@@ -17,36 +17,46 @@
         "lint": "eslint src/* ",
         "cypress:open": "cypress open"
     },
+    "nyc": {
+        "report-dir": "./.artifacts/coverage/cypress-coverage",
+        "reporter": [
+            "html",
+            "json"
+        ]
+    },
     "license": "MIT",
     "devDependencies": {
-        "@iconify-json/mdi": "^1.1.30",
-        "@solid-primitives/i18n": "^1.1.0",
+        "@cypress/code-coverage": "^3.10.0",
+        "@iconify-json/mdi": "^1.1.36",
+        "@solid-primitives/i18n": "^1.1.2",
         "@testing-library/jest-dom": "^5.16.5",
-        "@types/jsdom": "^20.0.0",
+        "@types/jsdom": "^20.0.1",
         "@types/testing-library__jest-dom": "^5.14.5",
-        "@typescript-eslint/eslint-plugin": "^5.35.1",
-        "@typescript-eslint/parser": "^5.35.1",
+        "@typescript-eslint/eslint-plugin": "^5.44.0",
+        "@typescript-eslint/parser": "^5.44.0",
         "@unocss/preset-icons": "^0.44.7",
         "@unocss/preset-wind": "^0.44.7",
         "@unocss/reset": "^0.44.7",
         "@unocss/vite": "^0.44.7",
+        "@vitest/coverage-c8": "^0.25.3",
         "c8": "^7.12.0",
-        "coverage-badge-creator": "^1.0.13",
-        "cypress": "^10.6.0",
-        "eslint": "^8.22.0",
+        "coverage-badge-creator": "^1.0.14",
+        "cypress": "^11.2.0",
+        "eslint": "^8.28.0",
         "eslint-config-prettier": "^8.5.0",
-        "eslint-plugin-solid": "^0.7.1",
-        "husky": "^8.0.1",
-        "jsdom": "^20.0.0",
-        "prettier": "^2.7.1",
-        "rollup-plugin-visualizer": "^5.8.0",
+        "eslint-plugin-solid": "^0.7.4",
+        "husky": "^8.0.2",
+        "jsdom": "^20.0.3",
+        "prettier": "^2.8.0",
+        "rollup-plugin-visualizer": "^5.8.3",
         "solid-testing-library": "^0.3.0",
-        "typescript": "^4.7.4",
-        "vite": "^3.0.9",
-        "vite-plugin-solid": "^2.3.0",
-        "vitest": "^0.17.1"
+        "typescript": "^4.9.3",
+        "vite": "^3.2.4",
+        "vite-plugin-istanbul": "^3.0.2",
+        "vite-plugin-solid": "^2.4.0",
+        "vitest": "^0.25.3"
     },
     "dependencies": {
-        "solid-js": "^1.4.8"
+        "solid-js": "^1.6.2"
     }
 }

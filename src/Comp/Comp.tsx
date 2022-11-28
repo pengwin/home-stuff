@@ -6,10 +6,8 @@ import { cssClasses } from './css-classes';
 function flipCase(text: string, setText: Setter<string>) {
     if (text[0] == text[0].toLowerCase()) {
         setText(text.toUpperCase());
-    } else if (text[0] == text[0].toUpperCase()) {
-        setText(text.toLowerCase());
     } else {
-        setText(text);
+        setText(text.toLowerCase());
     }
 }
 
