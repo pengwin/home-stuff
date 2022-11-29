@@ -42,9 +42,17 @@ jobs:
     - name: Run Playwright tests
       run: pnpm dlx playwright test --project chromium
 
-    - uses: actions/upload-artifact@v3
-      if: always()
+    #- uses: actions/upload-artifact@v3
+    #  if: always()
+    #  with:
+    #    name: playwright-report
+    #    path: playwright-report/
+    #    retention-days: 2
+
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: success() || failure()        # run this step even if previous step failed
       with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 2
+        name: Playwright Tests                # Name of the check run which will be created
+        path: .artifacts/e2e/results.xml    # Path to test results
+        reporter: java-junit            # Format of test results
