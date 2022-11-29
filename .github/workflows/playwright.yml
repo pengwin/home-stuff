@@ -13,7 +13,7 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 16
-        
+
     - name: Setup pnpm
       uses: pnpm/action-setup@v2.2.2
       with:
@@ -35,10 +35,13 @@ jobs:
     
     - name: Install dependencies
       run: pnpm install
+
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      run: pnpm dlx playwright install --with-deps
+
     - name: Run Playwright tests
       run: pnpm dlx playwright test --project chromium
+
     - uses: actions/upload-artifact@v3
       if: always()
       with:
