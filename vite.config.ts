@@ -38,6 +38,7 @@ export default defineConfig((env) => ({
         deps: {
             inline: [/solid-js/, /solid-testing-library/],
         },
+        exclude: ['./e2e'],
         // if you have few tests, try commenting one
         // or both out to improve performance:
         // threads: false,

@@ -6,4 +6,8 @@ describe('check', () => {
     test('it will render a text', () => {
         check('a');
     });
+
+    test('it will render a text', () => {
+        check(1);
+    });
 });

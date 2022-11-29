@@ -8,8 +8,6 @@ function flipCase(text: string, setText: Setter<string>) {
         setText(text.toUpperCase());
     } else if (text[0] == text[0].toUpperCase()) {
         setText(text.toLowerCase());
-    } else {
-        setText(text);
     }
 }
 
