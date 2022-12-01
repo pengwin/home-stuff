@@ -1,7 +1,6 @@
 import { createSignal, Setter } from 'solid-js';
 import { useI18n } from '@solid-primitives/i18n';
 import IconAccount from '~icons/mdi/account';
-
 import { cssClasses } from './css-classes';
 
 function flipCase(text: string, setText: Setter<string>) {
@@ -17,7 +16,6 @@ function flipLang(currentLang: string): string {
     if (currentLang === 'en') {
         lang = 'ru';
     }
-    console.log(`flip ${currentLang} to ${lang}`);
     return lang;
 }
 
@@ -30,11 +28,6 @@ export default (props: { text: string }) => {
         const currentLang = locale();
         const newLang = flipLang(currentLang);
         locale(newLang);
-        console.log(
-            `Switch ${currentLang} to ${newLang}. Current lang ${locale()} ${t(
-                'Comp.SwitchLang',
-            )}`,
-        );
     };
 
     return (

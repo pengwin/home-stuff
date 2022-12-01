@@ -20,6 +20,7 @@ module.exports = {
     rules: {
         quotes: ['error', 'single'],
         semi: ['error', 'always'],
+        'no-console': ['error', { allow: ['warn', 'error'] }],
     },
     ignorePatterns: ['**/index.css'],
 };
