@@ -1,10 +1,12 @@
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 import { visualizer } from 'rollup-plugin-visualizer';
+import Icons from 'unplugin-icons/vite';
 
 export default defineConfig((env) => ({
     plugins: [
         solidPlugin(),
+        Icons({ compiler: 'solid' }),
         visualizer({
             filename: './.artifacts/bundle.html',
         }),

@@ -1,5 +1,6 @@
 import { createSignal, Setter } from 'solid-js';
 import { useI18n } from '@solid-primitives/i18n';
+import IconAccount from '~icons/mdi/account';
 
 import { cssClasses } from './css-classes';
 
@@ -43,14 +44,14 @@ export default (props: { text: string }) => {
                 class={`rounded border border-solid border-black ${cssClasses.btnSwitchLang}`}
                 onClick={() => changeLang()}
             >
-                <i class="text-base"> </i>
+                <IconAccount class="inline-block text-base" />
                 <span>{t('Comp.SwitchLang')}</span>
             </button>
             <button
                 class={`rounded border border-solid border-black ${cssClasses.btnFlip}`}
                 onClick={() => flipCase(textGetter(), setText)}
             >
-                <i class="text-base">T</i>
+                <IconAccount class="inline-block text-base" />
                 <span>{t('Comp.Flip')}</span>
             </button>
         </h1>
