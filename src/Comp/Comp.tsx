@@ -40,17 +40,17 @@ export default (props: { text: string }) => {
         <h1>
             <p>{textGetter()}</p>
             <button
-                class={`rounded border-solid border-black border ${cssClasses.btnSwitchLang}`}
+                class={`rounded border border-solid border-black ${cssClasses.btnSwitchLang}`}
                 onClick={() => changeLang()}
             >
-                <i class="i-mdi-account text-base"> </i>
+                <i class="text-base"> </i>
                 <span>{t('Comp.SwitchLang')}</span>
             </button>
             <button
-                class={`rounded border-solid border-black border ${cssClasses.btnFlip}`}
+                class={`rounded border border-solid border-black ${cssClasses.btnFlip}`}
                 onClick={() => flipCase(textGetter(), setText)}
             >
-                <i class="i-mdi-account text-base">T</i>
+                <i class="text-base">T</i>
                 <span>{t('Comp.Flip')}</span>
             </button>
         </h1>
