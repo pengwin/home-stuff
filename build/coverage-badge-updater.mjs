@@ -29,6 +29,7 @@ export function replace(content, label, pct) {
     return prefix + `${pct}%-${getPercentageColor(pct)}` + postfix;
 }
 
+/* c8 ignore start */
 async function main() {
     const coverageUnit = await loadCoverage(
         './.artifacts/coverage/coverage-summary.json',
@@ -51,6 +52,7 @@ async function loadCoverage(file, type) {
     const coverage = JSON.parse(coverageStr);
     return coverage.total[type].pct;
 }
+/* c8 ignore stop */
 
 if (typeof module === 'undefined') {
     main();
