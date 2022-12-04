@@ -6,7 +6,7 @@ import { Router } from '@solidjs/router';
 import { locale } from '~/locale';
 import { store } from '~/store';
 
-import { useRouter } from '~/components/Router';
+import { useRouter } from '~/components/router';
 
 const localeContext = createI18nContext(locale, 'en');
 
