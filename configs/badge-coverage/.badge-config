@@ -1,8 +1,0 @@
-{
-  "coverage_file_path": "./.artifacts/coverage/coverage-summary.json",
-  "branches": {
-    "style": "plastic",
-    "logoColor": "black",
-    "color": "green"
-  }
-}

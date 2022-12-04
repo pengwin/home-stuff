@@ -50,6 +50,8 @@ class PageCoverage implements Coverage {
                 e2eRawDir,
                 `coverage_${counter}.json`,
             );
+            // eslint-disable-next-line no-console
+            console.info(`${counter}: Write coverage for ${entry.url}`);
             await writeFile(coveragePath, coverageResult);
             counter++;
         }
@@ -63,7 +65,7 @@ function checkUrl(url: string, baseUrl: string): boolean {
     }
     const u = url.replace(baseUrl, '');
 
-    return u.startsWith('src/');
+    return u.startsWith('src/') && !u.endsWith('.css');
 }
 
 export const coverage = new PageCoverage();

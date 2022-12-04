@@ -19,16 +19,13 @@ export default defineConfig((env) => ({
         minify: 'esbuild', // terser
     },
     test: {
-        environment: 'jsdom',
+        environment: 'happy-dom',
         transformMode: {
             web: [/\.[jt]sx?$/],
         },
         // solid needs to be inline to work around
         // a resolution issue in vitest:
-        deps: {
-            inline: [/solid-js/, /solid-testing-library/],
-        },
-        exclude: ['./e2e'],
+        exclude: ['./e2e', './node_modules'],
         // if you have few tests, try commenting one
         // or both out to improve performance:
         // threads: false,
@@ -47,6 +44,6 @@ export default defineConfig((env) => ({
     },
     resolve: {
         conditions:
-            env.mode == 'test' ? ['development', 'browser'] : ['browser'],
+            env.mode === 'test' ? ['development', 'browser'] : ['browser'],
     },
 }));

@@ -61,17 +61,15 @@ describe('<StatefulComponent />', () => {
         });
 
         test('should increase', async () => {
-            const { container, unmount, debug, getByRole, store } =
-                renderComp();
+            const { unmount, getByRole, store } = renderComp();
             componentUnmount = unmount;
 
             fireEvent.click(
                 getByRole('button', { name: 'inc' }) as HTMLElement,
             );
 
-            debug(container);
-
             expect(store.get().counter).toBe(1);
+            expect(getByRole('presentation')).toHaveTextContent('1');
         });
     });
 });
