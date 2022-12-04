@@ -27,6 +27,7 @@
         "@iconify-json/mdi": "^1.1.36",
         "@playwright/test": "^1.28.1",
         "@solid-primitives/i18n": "^1.1.2",
+        "@solidjs/router": "^0.5.1",
         "@storeon/solidjs": "^3.0.1",
         "@testing-library/jest-dom": "^5.16.5",
         "@types/jsdom": "^20.0.1",
@@ -41,8 +42,8 @@
         "eslint-plugin-css": "^0.6.0",
         "eslint-plugin-solid": "^0.9.1",
         "eslint-plugin-tailwindcss": "^3.7.1",
-        "happy-dom": "^7.7.2",
         "husky": "^8.0.2",
+        "jsdom": "^20.0.3",
         "nyc": "^15.1.0",
         "postcss": "^8.4.19",
         "prettier": "^2.8.0",
@@ -55,6 +56,7 @@
         "v8-to-istanbul": "^9.0.1",
         "vite": "^3.2.4",
         "vite-plugin-solid": "^2.4.0",
+        "vite-tsconfig-paths": "^3.6.0",
         "vitest": "^0.25.3"
     },
     "dependencies": {

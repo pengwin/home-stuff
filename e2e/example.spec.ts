@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 import { locale } from '../src/locale';
-import { cssClasses } from '../src/Comp/css-classes';
+import { cssClasses } from '../src/pages/test/Comp/css-classes';
 import { coverage } from './utils/coverage';
 
 test.describe('Localization tests', () => {
@@ -10,7 +10,7 @@ test.describe('Localization tests', () => {
     }, testInfo) => {
         await coverage.start(page, testInfo);
 
-        await page.goto('/');
+        await page.goto('/test/comp/test');
         const btn = await page.locator(`.${cssClasses.btnSwitchLang}`);
         await expect(btn).toHaveText(locale.en.Comp.SwitchLang);
         await btn.click();

@@ -7,8 +7,8 @@ import { createStoreon } from 'storeon';
 
 import matchers from '@testing-library/jest-dom/matchers';
 
-import { counterModule } from '../store';
-import { default as StatefulComponent } from './StatefulComponent';
+import { counterModule } from '~/store';
+import StatefulComponent from './StatefulComponent';
 
 expect.extend(matchers);
 

@@ -1,11 +1,11 @@
 import { createStoreon, StoreonModule } from 'storeon';
 
-export interface State {
+interface CounterState {
     counter: number;
 }
 
 // Events declaration: map of event names to type of event data
-export interface Events {
+interface CounterEvents {
     // `inc` event which do not goes with any data
     inc: undefined;
     // `set` event which goes with number as data
@@ -24,4 +24,11 @@ export const counterModule: StoreonModule<State, Events> = (store) => {
     store.on('set', (state, event) => ({ counter: event }));
 };
 
-export const store = createStoreon([counterModule]);
+export type State = CounterState;
+export type Events = CounterEvents;
+
+/*function navigateToFirstPost () {
+  store.dispatch(routerNavigate, '/blog/post/first-post')
+}*/
+
+export const store = createStoreon<State, Events>([counterModule]);

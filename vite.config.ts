@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 import { visualizer } from 'rollup-plugin-visualizer';
 import Icons from 'unplugin-icons/vite';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig((env) => ({
     plugins: [
@@ -10,6 +11,7 @@ export default defineConfig((env) => ({
         visualizer({
             filename: './.artifacts/bundle.html',
         }),
+        tsconfigPaths(),
     ],
     build: {
         target: 'esnext',
@@ -19,7 +21,7 @@ export default defineConfig((env) => ({
         minify: 'esbuild', // terser
     },
     test: {
-        environment: 'happy-dom',
+        environment: 'jsdom',
         transformMode: {
             web: [/\.[jt]sx?$/],
         },
