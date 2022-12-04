@@ -4,7 +4,7 @@ import matchers from '@testing-library/jest-dom/matchers';
 
 import { render } from 'solid-testing-library';
 
-import App from './App';
+import { App } from './App';
 
 expect.extend(matchers);
 

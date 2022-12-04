@@ -1,13 +1,16 @@
 import { useStoreon } from '@storeon/solidjs';
+import { createMemo } from 'solid-js';
 
-import { State, Events } from '../store';
+import { State, Events } from '~/store';
 
-export default () => {
+const Counter = () => {
     const [state, dispatch] = useStoreon<State, Events>();
+
+    const counter = createMemo(() => state.counter);
 
     return (
         <h1>
-            <p role="presentation">{state.counter}</p>
+            <p role="presentation">{counter()}</p>
             <button
                 class="rounded border border-solid border-black"
                 onClick={() => dispatch('inc')}
@@ -25,3 +28,5 @@ export default () => {
         </h1>
     );
 };
+
+export default Counter;
