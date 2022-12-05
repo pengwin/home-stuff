@@ -7,6 +7,7 @@ import { locale } from '~/locale';
 import { store } from '~/store';
 
 import { useRouter } from '~/components/router';
+import Navbar from '~/components/navbar';
 
 const localeContext = createI18nContext(locale, 'en');
 
@@ -17,6 +18,7 @@ export const App: Component = () => {
             <Router>
                 <I18nContext.Provider value={localeContext}>
                     <div class="container mx-auto">
+                        <Navbar />
                         <Routes />
                     </div>
                 </I18nContext.Provider>
