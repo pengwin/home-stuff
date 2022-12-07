@@ -1,19 +1,20 @@
 import { Logo } from './Logo';
 import { Burger } from './Burger';
-import { Menu } from './Menu';
-import { createSignal } from 'solid-js';
+import { Current } from './Current';
 
-export function Navbar() {
-    const [expanded, setExpanded] = createSignal(false);
-    const toggler = () => setExpanded(!expanded());
-
+export function Navbar(props: { drawerId: string }) {
     return (
-        <nav class="rounded border-gray-200 bg-white px-2 py-2.5 dark:bg-gray-900 sm:px-4">
-            <div class="container mx-auto flex flex-wrap items-center justify-between">
+        <div class="navbar bg-base-100">
+            <div class="navbar-start">
+                <Burger drawerId={props.drawerId} />
                 <Logo />
-                <Burger toggler={toggler} />
-                <Menu expanded={expanded} />
             </div>
-        </nav>
+            <div class="navbar-center flex">
+                <Current />
+            </div>
+            <div class="navbar-end">
+                <a class="btn">Get started</a>
+            </div>
+        </div>
     );
 }
