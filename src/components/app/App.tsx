@@ -1,28 +1,38 @@
 import type { Component } from 'solid-js';
 import { I18nContext, createI18nContext } from '@solid-primitives/i18n';
 import { StoreonProvider } from '@storeon/solidjs';
-import { Router } from '@solidjs/router';
 
 import { locale } from '~/locale';
 import { store } from '~/store';
 
-import { useRouter } from '~/components/router';
 import Navbar from '~/components/navbar';
+import Sidebar from '~/components/sidebar';
+import Drawer from '~/components/drawer';
 
 const localeContext = createI18nContext(locale, 'en');
 
+const Content: Component<{ drawerId: string }> = (props: {
+    drawerId: string;
+}) => {
+    return (
+        <div class="container mx-auto">
+            <Navbar drawerId={props.drawerId} />
+            <div>Page Content</div>
+        </div>
+    );
+};
+
 export const App: Component = () => {
-    const Routes = useRouter();
+    const drawerId = 'sidebar-drawer';
     return (
         <StoreonProvider store={store}>
-            <Router>
-                <I18nContext.Provider value={localeContext}>
-                    <div class="container mx-auto">
-                        <Navbar />
-                        <Routes />
-                    </div>
-                </I18nContext.Provider>
-            </Router>
+            <I18nContext.Provider value={localeContext}>
+                <Drawer
+                    drawerId={drawerId}
+                    children={<Content drawerId={drawerId} />}
+                    sidebar={<Sidebar />}
+                />
+            </I18nContext.Provider>
         </StoreonProvider>
     );
 };
