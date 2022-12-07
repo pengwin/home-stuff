@@ -2,30 +2,21 @@ import { describe, expect, Nullable, test, afterEach } from 'vitest';
 
 import { render, fireEvent } from 'solid-testing-library';
 
-import { StoreonProvider } from '@storeon/solidjs';
-import { createStoreon } from 'storeon';
-
 import matchers from '@testing-library/jest-dom/matchers';
 
-import { counterModule } from '~/store';
+import { CounterProvider } from '~/store';
 import StatefulComponent from './StatefulComponent';
 
 expect.extend(matchers);
 
 const renderComp = () => {
-    const store = createStoreon([counterModule]);
     const res = render(() => (
-        <StoreonProvider store={store}>
+        <CounterProvider initialCounter={0}>
             <StatefulComponent />
-        </StoreonProvider>
+        </CounterProvider>
     ));
 
-    return {
-        ...res,
-        queryByRole: res.queryByRole,
-        getByRole: res.getByRole,
-        store,
-    };
+    return res;
 };
 
 describe('<StatefulComponent />', () => {
@@ -61,14 +52,13 @@ describe('<StatefulComponent />', () => {
         });
 
         test('should increase', async () => {
-            const { unmount, getByRole, store } = renderComp();
+            const { unmount, getByRole } = renderComp();
             componentUnmount = unmount;
 
             fireEvent.click(
                 getByRole('button', { name: 'inc' }) as HTMLElement,
             );
 
-            expect(store.get().counter).toBe(1);
             expect(getByRole('presentation')).toHaveTextContent('1');
         });
     });

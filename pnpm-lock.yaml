@@ -5,7 +5,6 @@ specifiers:
   '@iconify-json/mdi': ^1.1.36
   '@playwright/test': ^1.28.1
   '@solid-primitives/i18n': ^1.1.2
-  '@storeon/solidjs': ^3.0.1
   '@testing-library/jest-dom': ^5.16.5
   '@types/jsdom': ^20.0.1
   '@types/testing-library__jest-dom': ^5.14.5
@@ -28,7 +27,6 @@ specifiers:
   rollup-plugin-visualizer: ^5.8.3
   solid-js: ^1.6.2
   solid-testing-library: ^0.5.0
-  storeon: ^3.1.5
   tailwindcss: ^3.2.4
   typescript: ^4.9.3
   unplugin-icons: ^0.14.14
@@ -46,7 +44,6 @@ devDependencies:
   '@iconify-json/mdi': 1.1.36
   '@playwright/test': 1.28.1
   '@solid-primitives/i18n': 1.1.2_solid-js@1.6.2
-  '@storeon/solidjs': 3.0.1_bgceov6id5poh2qhrc34xeehsy
   '@testing-library/jest-dom': 5.16.5
   '@types/jsdom': 20.0.1
   '@types/testing-library__jest-dom': 5.14.5
@@ -68,7 +65,6 @@ devDependencies:
   prettier: 2.8.0
   rollup-plugin-visualizer: 5.8.3
   solid-testing-library: 0.5.0_solid-js@1.6.2
-  storeon: 3.1.5
   tailwindcss: 3.2.4_postcss@8.4.19
   typescript: 4.9.3
   unplugin-icons: 0.14.14
@@ -634,17 +630,6 @@ packages:
       solid-js: ^1.5.0
     dependencies:
       solid-js: 1.6.2
-    dev: true
-
-  /@storeon/solidjs/3.0.1_bgceov6id5poh2qhrc34xeehsy:
-    resolution: {integrity: sha512-XhRmm+krIsYQK/I6/qBWKHVqCc+Tm0RYNFWKVR9Sa1PEVrRLMCC/MB5SU6oIkwHGdbYdo60IxLudb0oGVhGxxw==}
-    engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
-    peerDependencies:
-      solid-js: ^1.0.0
-      storeon: ^3.0.0
-    dependencies:
-      solid-js: 1.6.2
-      storeon: 3.1.5
     dev: true
 
   /@testing-library/dom/8.19.0:
@@ -4265,19 +4250,6 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       escape-string-regexp: 2.0.0
-    dev: true
-
-  /storeon/3.1.5:
-    resolution: {integrity: sha512-VuW4GQr3LGQr+gqscqsOz2c9asK9N+B+8+sWs7Pj4OqU7bngYIqsPF3IYpkbmccKNWjs7wwxUAlR+gtL9cEMEg==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      preact: '>=10.0.0'
-      react: '>=16.8.0'
-    peerDependenciesMeta:
-      preact:
-        optional: true
-      react:
-        optional: true
     dev: true
 
   /string-width/4.2.3:
