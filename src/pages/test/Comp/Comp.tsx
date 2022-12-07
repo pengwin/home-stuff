@@ -19,7 +19,7 @@ function flipLang(currentLang: string): string {
     return lang;
 }
 
-export default (props: { text: string }) => {
+export function Comp(props: { text: string }) {
     const [text, setText] = createSignal<string>();
     const [t, { locale }] = useI18n();
 
@@ -49,4 +49,4 @@ export default (props: { text: string }) => {
             </button>
         </h1>
     );
-};
+}

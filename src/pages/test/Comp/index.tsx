@@ -1,8 +1,5 @@
-import Comp from './Comp';
-
-import { useParams } from '@solidjs/router';
+import { Comp } from './Comp';
 
 export default function () {
-    const params = useParams();
-    return <Comp text={params.text} />;
+    return <Comp text={'123'} />;
 }

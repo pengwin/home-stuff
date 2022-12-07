@@ -8,6 +8,7 @@ import { store } from '~/store';
 import Navbar from '~/components/navbar';
 import Sidebar from '~/components/sidebar';
 import Drawer from '~/components/drawer';
+import { Comp } from '~/pages/test/Comp/Comp';
 
 const localeContext = createI18nContext(locale, 'en');
 
@@ -17,7 +18,7 @@ const Content: Component<{ drawerId: string }> = (props: {
     return (
         <div class="container mx-auto">
             <Navbar drawerId={props.drawerId} />
-            <div>Page Content</div>
+            <Comp text={'test'} />
         </div>
     );
 };
