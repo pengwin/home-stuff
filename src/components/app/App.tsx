@@ -1,9 +1,8 @@
 import type { Component } from 'solid-js';
 import { I18nContext, createI18nContext } from '@solid-primitives/i18n';
-import { StoreonProvider } from '@storeon/solidjs';
 
 import { locale } from '~/locale';
-import { store } from '~/store';
+import { CounterProvider } from '~/store';
 
 import Navbar from '~/components/navbar';
 import Sidebar from '~/components/sidebar';
@@ -26,7 +25,7 @@ const Content: Component<{ drawerId: string }> = (props: {
 export const App: Component = () => {
     const drawerId = 'sidebar-drawer';
     return (
-        <StoreonProvider store={store}>
+        <CounterProvider initialCounter={0}>
             <I18nContext.Provider value={localeContext}>
                 <Drawer
                     drawerId={drawerId}
@@ -34,6 +33,6 @@ export const App: Component = () => {
                     sidebar={<Sidebar />}
                 />
             </I18nContext.Provider>
-        </StoreonProvider>
+        </CounterProvider>
     );
 };

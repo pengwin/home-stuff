@@ -1,10 +1,9 @@
-import { useStoreon } from '@storeon/solidjs';
 import { createMemo } from 'solid-js';
 
-import { State, Events } from '~/store';
+import { useCounter } from '~/store';
 
 const Counter = () => {
-    const [state, dispatch] = useStoreon<State, Events>();
+    const [state, store] = useCounter();
 
     const counter = createMemo(() => state.counter);
 
@@ -13,14 +12,14 @@ const Counter = () => {
             <p role="presentation">{counter()}</p>
             <button
                 class="rounded border border-solid border-black"
-                onClick={() => dispatch('inc')}
+                onClick={() => store.increment()}
                 role="button"
             >
                 <span>inc</span>
             </button>
             <button
                 class="rounded border border-solid border-black"
-                onClick={() => dispatch('set', 0)}
+                onClick={() => store.decrement()}
                 role="button"
             >
                 <span>reset</span>
