@@ -19,7 +19,7 @@ export const routes: Route[] = [
                 path: '/comp/:text',
                 metadata: {
                     title: 'Comp',
-                    component: lazy(() => import('~/pages/test/comp')),
+                    component: lazy(() => import('~/pages/test/Сomp')),
                 },
             },
         ],
