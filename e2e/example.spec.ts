@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 import { locale } from '../src/locale';
-import { cssClasses } from '../src/pages/test/Comp/css-classes';
+import { cssClasses } from '../src/pages/test/comp/css-classes';
 import { coverage } from './utils/coverage';
 
 test.describe('Localization tests', () => {

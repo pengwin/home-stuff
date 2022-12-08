@@ -1,4 +1,5 @@
 import { children, ParentProps } from 'solid-js';
+import { useRouter } from '~/store';
 
 interface PropsA {
     href: string;
@@ -8,10 +9,18 @@ interface PropsA {
 }
 
 function A(props: ParentProps<PropsA>) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [s, router] = useRouter();
     const content = children(() => props.children);
     const classValue = () => (props.class || '') + (props.activeClass || '');
+
+    const onClick = (e: Event) => {
+        e.preventDefault();
+        router.navigate(props.href);
+    };
+
     return (
-        <a href={props.href} class={classValue()}>
+        <a href={props.href} class={classValue()} onClick={onClick}>
             {content}
         </a>
     );
