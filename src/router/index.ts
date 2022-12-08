@@ -1,4 +1,4 @@
-export { Router } from './Router';
+export { Router, normalizePath } from './Router';
 export type { Route, RouteMetadata } from './Router';
 
 export { BrowserNavigationApi } from './BrowserNavigationApi';

@@ -15,9 +15,7 @@ export default defineConfig((env) => ({
     ],
     build: {
         target: 'esnext',
-        modulePreload: {
-            polyfill: false,
-        },
+        modulePreload: false,
         minify: 'esbuild', // terser
     },
     test: {

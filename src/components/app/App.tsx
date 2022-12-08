@@ -1,26 +1,16 @@
-import { Component, createMemo } from 'solid-js';
-import { Dynamic } from 'solid-js/web';
+import { Component, lazy } from 'solid-js';
 import { I18nContext, createI18nContext } from '@solid-primitives/i18n';
 
 import { locale } from '~/locale';
-import { CounterProvider, RouterProvider, useRouter } from '~/store';
+import { CounterProvider, RouterProvider } from '~/store';
 
 import Navbar from '~/components/navbar';
 import Sidebar from '~/components/sidebar';
 import Drawer from '~/components/drawer';
+import { CurrentRoute } from '~/components/routing';
 import { BrowserNavigationApi, Router } from '~/router';
 
 const localeContext = createI18nContext(locale, 'en');
-
-const NotFound: Component = () => <div>Not Found</div>;
-
-const Page: Component = () => {
-    const [route] = useRouter();
-    const current = createMemo(
-        () => route?.currentRoute?.component || NotFound,
-    );
-    return <Dynamic component={current()} />;
-};
 
 const Content: Component<{ drawerId: string }> = (props: {
     drawerId: string;
@@ -28,7 +18,7 @@ const Content: Component<{ drawerId: string }> = (props: {
     return (
         <div class="container mx-auto">
             <Navbar drawerId={props.drawerId} />
-            <Page />
+            <CurrentRoute notFound={lazy(() => import('~/pages/not-found'))} />
         </div>
     );
 };
