@@ -15,11 +15,18 @@ const Counter = () => {
                 onClick={() => store.increment()}
                 role="button"
             >
-                <span>inc</span>
+                <span>+</span>
             </button>
             <button
                 class="rounded border border-solid border-black"
                 onClick={() => store.decrement()}
+                role="button"
+            >
+                <span>-</span>
+            </button>
+            <button
+                class="rounded border border-solid border-black"
+                onClick={() => store.reset()}
                 role="button"
             >
                 <span>reset</span>

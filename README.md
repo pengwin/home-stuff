@@ -1,6 +1,6 @@
 [![CI Build](https://github.com/pengwin/home-stuff/actions/workflows/ci.yml/badge.svg)](https://github.com/pengwin/home-stuff/actions/workflows/ci.yml)
-![](https://img.shields.io/badge/Unit_Test_Coverage-96.23%-brightgreen.svg?prefix=$lines$)
-![](https://img.shields.io/badge/E2E_Coverage-94.93%-brightgreen.svg?prefix=$lines$)
+![](https://img.shields.io/badge/Unit_Test_Coverage-96.36%-brightgreen.svg?prefix=$lines$)
+![](https://img.shields.io/badge/E2E_Coverage-94.41%-brightgreen.svg?prefix=$lines$)
 
 # home-stuff
 
