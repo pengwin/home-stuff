@@ -2,6 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 pnpm test
+pnpm e2e
 pnpm coverage
 pnpm lint --max-warnings=0
 pnpm format:check

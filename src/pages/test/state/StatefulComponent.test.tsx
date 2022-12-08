@@ -39,7 +39,7 @@ describe('<StatefulComponent />', () => {
             const { unmount, queryByRole } = renderComp();
             componentUnmount = unmount;
 
-            expect(queryByRole('button', { name: 'inc' })).toBeInTheDocument();
+            expect(queryByRole('button', { name: '+' })).toBeInTheDocument();
         });
 
         test('should have button Reset', async () => {
@@ -55,9 +55,7 @@ describe('<StatefulComponent />', () => {
             const { unmount, getByRole } = renderComp();
             componentUnmount = unmount;
 
-            fireEvent.click(
-                getByRole('button', { name: 'inc' }) as HTMLElement,
-            );
+            fireEvent.click(getByRole('button', { name: '+' }) as HTMLElement);
 
             expect(getByRole('presentation')).toHaveTextContent('1');
         });

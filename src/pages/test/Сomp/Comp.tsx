@@ -1,14 +1,28 @@
-import { createSignal, Setter } from 'solid-js';
+import { createSignal, createMemo, Setter } from 'solid-js';
 import { useI18n } from '@solid-primitives/i18n';
 import IconAccount from '~icons/mdi/account';
 import { cssClasses } from './css-classes';
 
-function flipCase(text: string, setText: Setter<string>) {
+type CharCase = 'upper' | 'lower' | undefined;
+
+function flipCase(text: string, setCharCase: Setter<CharCase>) {
     if (text[0] == text[0].toLowerCase()) {
-        setText(text.toUpperCase());
+        setCharCase('upper');
     } else if (text[0] == text[0].toUpperCase()) {
-        setText(text.toLowerCase());
+        setCharCase('lower');
     }
+}
+
+function applyCase(text: string, charCase: CharCase) {
+    if (charCase === 'upper') {
+        return text.toUpperCase();
+    }
+
+    if (charCase === 'lower') {
+        return text.toLowerCase();
+    }
+
+    return text;
 }
 
 function flipLang(currentLang: string): string {
@@ -20,10 +34,10 @@ function flipLang(currentLang: string): string {
 }
 
 export function Comp(props: { text: string }) {
-    const [text, setText] = createSignal<string>();
+    const [charCase, setCharCase] = createSignal<CharCase>();
     const [t, { locale }] = useI18n();
 
-    const textGetter = () => text() || props.text;
+    const text = createMemo(() => applyCase(props.text, charCase()));
     const changeLang = () => {
         const currentLang = locale();
         const newLang = flipLang(currentLang);
@@ -32,7 +46,7 @@ export function Comp(props: { text: string }) {
 
     return (
         <h1>
-            <p>{textGetter()}</p>
+            <p>{text()}</p>
             <button
                 class={`rounded border border-solid border-black ${cssClasses.btnSwitchLang}`}
                 onClick={() => changeLang()}
@@ -42,7 +56,7 @@ export function Comp(props: { text: string }) {
             </button>
             <button
                 class={`rounded border border-solid border-black ${cssClasses.btnFlip}`}
-                onClick={() => flipCase(textGetter(), setText)}
+                onClick={() => flipCase(text(), setCharCase)}
             >
                 <IconAccount class="inline-block text-base" />
                 <span>{t('Comp.Flip')}</span>
