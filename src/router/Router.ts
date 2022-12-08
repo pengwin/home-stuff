@@ -13,6 +13,7 @@ export interface Route {
 }
 
 interface RouteMatch {
+    normalizedPath: string;
     metadata: RouteMetadata;
     params?: {
         [key: string]: string;
@@ -34,6 +35,7 @@ class PathMatcher {
         }
 
         return {
+            normalizedPath: path,
             metadata: this.metadata,
             params: match.groups,
         };
@@ -88,7 +90,7 @@ export class Router {
     }
 }
 
-function normalizePath(path: string) {
+export function normalizePath(path: string) {
     return (
         path
             .split('/')

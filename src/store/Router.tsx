@@ -9,6 +9,7 @@ import {
 } from '~/router';
 
 interface RouterState {
+    currentPath?: string;
     currentRoute?: RouteMetadata;
     params?: {
         [key: string]: string;
@@ -59,6 +60,7 @@ function createRouterStore(props: RouterProviderProps): RouterModule {
         const routeMatch = matchRoute();
         setState(
             produce((s) => {
+                s.currentPath = routeMatch?.normalizedPath;
                 s.currentRoute = routeMatch?.metadata;
                 s.params = routeMatch?.params;
             }),

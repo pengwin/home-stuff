@@ -21,6 +21,10 @@ module.exports = {
         quotes: ['error', 'single'],
         semi: ['error', 'always'],
         'no-console': ['error', { allow: ['warn', 'error'] }],
+        '@typescript-eslint/no-unused-vars': [
+            'warn',
+            { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+        ],
     },
     ignorePatterns: ['**/index.css'],
 };
