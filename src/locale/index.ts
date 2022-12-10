@@ -1,14 +1,3 @@
-export const locale = {
-    ru: {
-        Comp: {
-            SwitchLang: 'Переключить язык',
-            Flip: 'Перевернуть',
-        },
-    },
-    en: {
-        Comp: {
-            SwitchLang: 'Switch lang',
-            Flip: 'Flip',
-        },
-    },
-};
+export { locales, langs } from './locales';
+export type { LangInfo } from './locales';
+export { LocaleProvider } from './LocaleProvider';

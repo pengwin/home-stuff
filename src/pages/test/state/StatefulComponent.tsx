@@ -1,8 +1,10 @@
+import { useI18n } from '@solid-primitives/i18n';
 import { createMemo } from 'solid-js';
 
 import { useCounter } from '~/store';
 
 const Counter = () => {
+    const [t] = useI18n();
     const [state, store] = useCounter();
 
     const counter = createMemo(() => state.counter);
@@ -29,7 +31,7 @@ const Counter = () => {
                 onClick={() => store.reset()}
                 role="button"
             >
-                <span>reset</span>
+                <span>{t('pages.test.state.reset')}</span>
             </button>
         </h1>
     );

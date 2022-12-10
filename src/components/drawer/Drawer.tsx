@@ -14,7 +14,7 @@ export function Drawer(props: ParentProps<Props>) {
             <div class="drawer-content flex flex-col items-center">
                 {content}
             </div>
-            <div class="drawer-side">
+            <div class="drawer-side lg:shadow-sm">
                 <label for={props.drawerId} class="drawer-overlay" />
                 {sidebar}
             </div>

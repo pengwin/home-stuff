@@ -17,6 +17,7 @@ specifiers:
   eslint: ^8.29.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-css: ^0.6.0
+  eslint-plugin-i18next: 6.0.0-2
   eslint-plugin-solid: ^0.9.1
   eslint-plugin-tailwindcss: ^3.7.1
   husky: ^8.0.2
@@ -56,6 +57,7 @@ devDependencies:
   eslint: 8.29.0
   eslint-config-prettier: 8.5.0_eslint@8.29.0
   eslint-plugin-css: 0.6.0_eslint@8.29.0
+  eslint-plugin-i18next: 6.0.0-2
   eslint-plugin-solid: 0.9.1_s5ps7njkmjlaqajutnox5ntcla
   eslint-plugin-tailwindcss: 3.7.1
   husky: 8.0.2
@@ -2041,6 +2043,13 @@ packages:
       eslint-utils: 3.0.0_eslint@8.29.0
       known-css-properties: 0.24.0
       postcss-value-parser: 4.2.0
+    dev: true
+
+  /eslint-plugin-i18next/6.0.0-2:
+    resolution: {integrity: sha512-3jm5ufmACjecaE/q6R3ZHhc3uzgx5ZMXoJhArZyg2tmBlk6AP/q1dfY12JWLFb4loNJdJPJncGCBOhG+cJsv9Q==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      requireindex: 1.1.0
     dev: true
 
   /eslint-plugin-solid/0.9.1_s5ps7njkmjlaqajutnox5ntcla:
@@ -4045,6 +4054,11 @@ packages:
 
   /require-main-filename/2.0.0:
     resolution: {integrity: sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==}
+    dev: true
+
+  /requireindex/1.1.0:
+    resolution: {integrity: sha512-LBnkqsDE7BZKvqylbmn7lTIVdpx4K/QCduRATpO5R+wtPmky/a8pN1bO2D6wXppn1497AJF9mNjqAXr6bdl9jg==}
+    engines: {node: '>=0.10.5'}
     dev: true
 
   /requires-port/1.0.0:

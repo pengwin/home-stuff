@@ -52,14 +52,14 @@ export function Comp(props: { text: string }) {
                 onClick={() => changeLang()}
             >
                 <IconAccount class="inline-block text-base" />
-                <span>{t('Comp.SwitchLang')}</span>
+                <span>{t('pages.test.Comp.SwitchLang')}</span>
             </button>
             <button
                 class={`rounded border border-solid border-black ${cssClasses.btnFlip}`}
                 onClick={() => flipCase(text(), setCharCase)}
             >
                 <IconAccount class="inline-block text-base" />
-                <span>{t('Comp.Flip')}</span>
+                <span>{t('pages.test.Comp.Flip')}</span>
             </button>
         </h1>
     );
