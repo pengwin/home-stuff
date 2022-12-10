@@ -5,6 +5,7 @@ import { render, fireEvent } from 'solid-testing-library';
 import matchers from '@testing-library/jest-dom/matchers';
 
 import { CounterProvider } from '~/store';
+import { LocaleProvider, locales } from '~/locale';
 import StatefulComponent from './StatefulComponent';
 
 expect.extend(matchers);
@@ -12,7 +13,9 @@ expect.extend(matchers);
 const renderComp = () => {
     const res = render(() => (
         <CounterProvider initialCounter={0}>
-            <StatefulComponent />
+            <LocaleProvider defaultLang="en">
+                <StatefulComponent />
+            </LocaleProvider>
         </CounterProvider>
     ));
 
@@ -47,7 +50,9 @@ describe('<StatefulComponent />', () => {
             componentUnmount = unmount;
 
             expect(
-                queryByRole('button', { name: 'reset' }),
+                queryByRole('button', {
+                    name: locales.en.pages.test.state.reset,
+                }),
             ).toBeInTheDocument();
         });
 

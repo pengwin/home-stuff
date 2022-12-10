@@ -14,15 +14,23 @@ expect.extend(matchers);
 function createLocaleDict() {
     return {
         ru: {
-            Comp: {
-                SwitchLang: 'Переключить язык',
-                Flip: 'Перевернуть',
+            pages: {
+                test: {
+                    Comp: {
+                        SwitchLang: 'Переключить язык',
+                        Flip: 'Перевернуть',
+                    },
+                },
             },
         },
         en: {
-            Comp: {
-                SwitchLang: 'Switch lang',
-                Flip: 'Flip',
+            pages: {
+                test: {
+                    Comp: {
+                        SwitchLang: 'Switch lang',
+                        Flip: 'Flip',
+                    },
+                },
             },
         },
     };
@@ -90,12 +98,14 @@ describe('<Comp />', () => {
         test('should have "switch lang" button', () => {
             const { getByText, unmount } = renderComp();
             componentUnmount = unmount;
-            expect(getByText(dict.en.Comp.SwitchLang)).toBeInTheDocument();
+            expect(
+                getByText(dict.en.pages.test.Comp.SwitchLang),
+            ).toBeInTheDocument();
         });
 
         test.each([
-            [5, 'en', dict.en.Comp.SwitchLang],
-            [3, 'ru', dict.ru.Comp.SwitchLang],
+            [5, 'en', dict.en.pages.test.Comp.SwitchLang],
+            [3, 'ru', dict.ru.pages.test.Comp.SwitchLang],
         ])(
             '%d:[%s] "switch lang" button should switch lang and label on click from "%s" to "%s" and back.',
             async (testNo: number, lang: string, expected: string) => {

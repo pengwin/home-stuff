@@ -1,5 +1,8 @@
+import { useI18n } from '@solid-primitives/i18n';
+
 function NotFound() {
-    return <div>Not Found</div>;
+    const [t] = useI18n();
+    return <div>{t('pages.notFound.mainText')}</div>;
 }
 
 export default NotFound;

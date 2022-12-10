@@ -1,18 +1,10 @@
 import type { Component } from 'solid-js';
-import { A } from '@solidjs/router';
+import PackageVariant from '~icons/mdi/package-variant';
 
 const Index: Component = () => {
     return (
         <div>
-            <A class="block" href="/test/comp/111">
-                Test.Comp 111
-            </A>
-            <A class="block" href="/test/comp/abc">
-                Test.Comp abc
-            </A>
-            <A class="block" href="/test/state">
-                Test.State
-            </A>
+            <PackageVariant class="mr-3 h-6 text-xl lg:h-9 lg:text-3xl" />
         </div>
     );
 };

@@ -10,13 +10,14 @@ module.exports = {
         'prettier',
         'plugin:tailwindcss/recommended',
         'plugin:css/recommended',
+        'plugin:i18next/recommended',
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
     },
-    plugins: ['@typescript-eslint', 'solid', 'tailwindcss', 'css'],
+    plugins: ['@typescript-eslint', 'solid', 'tailwindcss', 'css', 'i18next'],
     rules: {
         quotes: ['error', 'single'],
         semi: ['error', 'always'],

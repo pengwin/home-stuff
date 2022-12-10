@@ -1,12 +1,19 @@
-import { MenuItem } from './MenuItem';
+import { useI18n } from '@solid-primitives/i18n';
+import { NavigationMenu } from './NavigationMenu';
+import { LangMenu } from './LangMenu';
 
 export function Sidebar() {
+    const [t] = useI18n();
     return (
-        <ul class="menu w-56 bg-base-100 p-4 text-base-content">
-            <MenuItem href="/test/comp/111" text="Test.Comp 111" />
-            <MenuItem href="/test/comp/abc" text="Test.Comp abc" />
-            <MenuItem href="/test/comp/test" text="Test.Comp Test" />
-            <MenuItem href="/test/state" text="Test.State" />
-        </ul>
+        <div class="flex w-48 flex-col bg-base-100">
+            <div class="divider">{t('components.sidebar.navigation')}</div>
+            <div class="card   grid place-items-center">
+                <NavigationMenu />
+            </div>
+            <div class="divider">{t('components.sidebar.lang.title')}</div>
+            <div class="card  grid place-items-center">
+                <LangMenu />
+            </div>
+        </div>
     );
 }
