@@ -1,11 +1,13 @@
 export default {
+    langs: {
+        en: 'English',
+        ru: 'Russian',
+    },
     components: {
         sidebar: {
             navigation: 'Navigation',
             lang: {
                 title: 'Language',
-                en: 'En',
-                ru: 'Ru',
             },
         },
     },

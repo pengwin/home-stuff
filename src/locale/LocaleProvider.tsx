@@ -7,9 +7,8 @@ interface LocaleProviderProps {
     defaultLang: 'en' | 'ru';
 }
 
-const localeContext = createI18nContext(locales, 'en');
-
 export function LocaleProvider(props: ParentProps<LocaleProviderProps>) {
+    const localeContext = createI18nContext(locales, props.defaultLang);
     return (
         <I18nContext.Provider value={localeContext}>
             {props.children}

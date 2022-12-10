@@ -1,2 +1,3 @@
-export { locales } from './locales';
+export { locales, langs } from './locales';
+export type { LangInfo } from './locales';
 export { LocaleProvider } from './LocaleProvider';
