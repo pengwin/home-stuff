@@ -2,8 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 pnpm test
-pnpm e2e
-pnpm coverage
+pnpm e2e:test
 pnpm lint --max-warnings=0
 pnpm format:check
 #exit 1 # Commit will be aborted

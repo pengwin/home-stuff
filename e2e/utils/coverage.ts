@@ -1,4 +1,4 @@
-import { writeFile, mkdir, rm } from 'fs/promises';
+import { writeFile, mkdir } from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
 
@@ -28,13 +28,15 @@ class PageCoverage implements Coverage {
             return this;
         }
 
+        const fullPath = testInfo.titlePath.join('_');
+        const hash = hashCode(fullPath).toString();
+
         const coverage = await page.coverage.stopJSCoverage();
         let counter = 0;
-        const e2eRawDir = './.artifacts/e2e/raw/';
-        if (existsSync(e2eRawDir)) {
-            await rm(e2eRawDir, { recursive: true });
+        const e2eRawDir = './.artifacts/e2e/raw';
+        if (!existsSync(e2eRawDir)) {
+            await mkdir(e2eRawDir, { recursive: true });
         }
-        await mkdir(e2eRawDir, { recursive: true });
 
         for (const entry of coverage) {
             if (!checkUrl(entry.url, testInfo.project.use.baseURL)) {
@@ -48,7 +50,7 @@ class PageCoverage implements Coverage {
             const coverageResult = JSON.stringify(converter.toIstanbul());
             const coveragePath = path.join(
                 e2eRawDir,
-                `coverage_${counter}.json`,
+                `coverage_${hash}_${counter}.json`,
             );
             // eslint-disable-next-line no-console
             console.info(`${counter}: Write coverage for ${entry.url}`);
@@ -66,6 +68,14 @@ function checkUrl(url: string, baseUrl: string): boolean {
     const u = url.replace(baseUrl, '');
 
     return u.startsWith('src/') && !u.endsWith('.css');
+}
+
+function hashCode(s: string) {
+    let h = 0;
+    const l = s.length;
+    let i = 0;
+    if (l > 0) while (i < l) h = ((h << 5) - h + s.charCodeAt(i++)) | 0;
+    return h;
 }
 
 export const coverage = new PageCoverage();

@@ -40,7 +40,7 @@ jobs:
       run: pnpm dlx playwright install --with-deps
 
     - name: Run Playwright tests
-      run: pnpm dlx playwright test --project chromium
+      run: pnpm e2e:test
 
     #- uses: actions/upload-artifact@v3
     #  if: always()

@@ -2,12 +2,13 @@ import { Component, lazy } from 'solid-js';
 
 import { LocaleProvider } from '~/locale';
 import { CounterProvider, RouterProvider } from '~/store';
+import { BrowserNavigationApi, Router } from '~/router';
 
 import Navbar from '~/components/navbar';
 import Sidebar from '~/components/sidebar';
 import Drawer from '~/components/drawer';
 import { CurrentRoute } from '~/components/routing';
-import { BrowserNavigationApi, Router } from '~/router';
+import RoutingHtmlTitle from '~/components/title';
 
 const Content: Component<{ drawerId: string }> = (props: {
     drawerId: string;
@@ -34,6 +35,7 @@ export const App: Component = () => {
         <LocaleProvider defaultLang="en">
             <CounterProvider initialCounter={0}>
                 <RouterProvider api={api} router={router}>
+                    <RoutingHtmlTitle />
                     <Drawer
                         drawerId={drawerId}
                         children={<Content drawerId={drawerId} />}

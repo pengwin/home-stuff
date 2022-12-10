@@ -1,4 +1,5 @@
 export default {
+    app: 'Home Stuff',
     langs: {
         en: 'Английский',
         ru: 'Русский',
