@@ -11,6 +11,14 @@ export default {
                 title: 'Language',
             },
         },
+        forms: {
+            required: 'Required',
+        },
+        modals: {
+            login: {
+                signIn: 'Sign In',
+            },
+        },
     },
     pages: {
         notFound: {

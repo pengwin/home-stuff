@@ -1,23 +1,24 @@
-export interface User {
+export interface Profile {
+    userId: number;
     name: string;
 }
 
 export interface UserApi {
-    getById(id: number): Promise<User>;
+    getUserProfile(userId: number): Promise<Profile>;
 }
 
 export class SwUserApi implements UserApi {
-    async getById(id: number): Promise<User> {
-        const res = await fetch(`https://swapi.dev/api/people/${id}/`, {
+    async getUserProfile(userId: number): Promise<Profile> {
+        const res = await fetch(`https://swapi.dev/api/people/${userId}/`, {
             headers: {
                 'Content-Type': 'application/json',
-                // 'Content-Type': 'application/x-www-form-urlencoded',
             },
         });
 
         const json = await res.json();
 
         return {
+            userId,
             name: json.name,
         };
     }

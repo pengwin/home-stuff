@@ -1,14 +1,16 @@
 import { createStore, produce } from 'solid-js/store';
-import { createContext, ParentProps, useContext } from 'solid-js';
+import { createContext, createEffect, ParentProps, useContext } from 'solid-js';
 
-import type { UserApi, User } from '~/api/user';
+import type { UserApi, Profile } from '~/api/user';
+import { User, AuthApi } from '~/api/auth';
 
 interface UserState {
     user?: User;
+    profile?: Profile;
 }
 
 interface UserStore {
-    login(): Promise<void>;
+    login(username: string, password: string): Promise<boolean>;
 }
 
 type UserModule = [UserState, UserStore];
@@ -16,24 +18,38 @@ type UserModule = [UserState, UserStore];
 const UserContext = createContext<UserModule>();
 
 interface UserProviderProps {
-    api: UserApi;
-    user?: User;
+    userApi: UserApi;
+    authApi: AuthApi;
 }
 
 function createUserStore(props: UserProviderProps): UserModule {
-    const [state, setState] = createStore<UserState>({
-        // eslint-disable-next-line solid/reactivity
-        user: props.user,
+    const [state, setState] = createStore<UserState>({});
+
+    createEffect(() => {
+        const user = props.authApi.getAuthenticated();
+        if (!user) {
+            return;
+        }
+
+        setState(
+            produce((s) => {
+                s.user = { ...user };
+            }),
+        );
     });
 
     const store: UserStore = {
-        async login() {
-            const user = await props.api.getById(33);
+        async login(username: string, password: string) {
+            const user = await props.authApi.login(username, password);
+            if (!user) {
+                return false;
+            }
             setState(
                 produce((s) => {
                     s.user = { ...user };
                 }),
             );
+            return true;
         },
     };
 
