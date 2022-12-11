@@ -1,6 +1,5 @@
 /* eslint-disable tailwindcss/classnames-order */
 import { useI18n } from '@solid-primitives/i18n';
-import { Login } from '~/components/modals';
 import { useApp } from '~/store';
 import { LangMenu } from './LangMenu';
 
@@ -15,7 +14,6 @@ export default function NavbarEnd() {
             >
                 {t('components.modals.login.signIn')}
             </button>
-            <Login />
             <LangMenu />
         </div>
     );

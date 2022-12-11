@@ -9,6 +9,7 @@ import Sidebar from '~/components/sidebar';
 import Drawer from '~/components/drawer';
 import { CurrentRoute } from '~/components/routing';
 import RoutingHtmlTitle from '~/components/title';
+import { LazyModals } from '../modals';
 
 const Content: Component<{ drawerId: string }> = (props: {
     drawerId: string;
@@ -43,6 +44,7 @@ export const App: Component<AppProps> = (props: AppProps) => {
                     children={<Content drawerId={drawerId} />}
                     sidebar={<Sidebar />}
                 />
+                <LazyModals />
             </LocaleProvider>
         </StoreProvider>
     );
