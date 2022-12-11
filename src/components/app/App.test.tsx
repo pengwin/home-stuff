@@ -10,6 +10,7 @@ expect.extend(matchers);
 
 describe('<App /> smoke tests', () => {
     test('it will render successfully', () => {
-        render(() => <App />);
+        const testUser = { name: '123' };
+        render(() => <App user={testUser} />);
     });
 });
