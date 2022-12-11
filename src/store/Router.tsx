@@ -65,7 +65,6 @@ function createRouterStore(props: RouterProviderProps): RouterModule {
                 s.params = routeMatch?.params;
             }),
         );
-        setState('params', () => routeMatch?.params);
     }
 }
 
