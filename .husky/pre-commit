@@ -3,6 +3,7 @@
 
 pnpm test
 pnpm e2e:test
+pnpm ts:check
 pnpm lint --max-warnings=0
 pnpm format:check
 #exit 1 # Commit will be aborted

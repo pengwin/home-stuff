@@ -21,7 +21,7 @@ export function LangMenuItems(props: Props) {
                 <span>{t('components.sidebar.lang.title')}</span>
             </li>
             <For each={langs}>
-                {(lang) => <LangMenuItem class={props.itemClass} lang={lang} />}
+                {lang => <LangMenuItem class={props.itemClass} lang={lang} />}
             </For>
         </>
     );

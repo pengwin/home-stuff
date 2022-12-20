@@ -59,7 +59,7 @@ function createRouterStore(props: RouterProviderProps): RouterModule {
     function updateState() {
         const routeMatch = matchRoute();
         setState(
-            produce((s) => {
+            produce(s => {
                 s.currentPath = routeMatch?.normalizedPath;
                 s.currentRoute = routeMatch?.metadata;
                 s.params = routeMatch?.params;
@@ -77,4 +77,10 @@ export function RouterProvider(props: ParentProps<RouterProviderProps>) {
     );
 }
 
-export const useRouter = () => useContext(RouterContext);
+export function useRouter() {
+    const routerModule = useContext(RouterContext);
+    if (!routerModule) {
+        throw new Error('RouterModule is not defined');
+    }
+    return routerModule;
+}

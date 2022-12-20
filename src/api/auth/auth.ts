@@ -7,7 +7,7 @@ export interface User {
 }
 
 export interface AuthApi {
-    login(username: string, password: string): Promise<User>;
+    login(username: string, password: string): Promise<User | undefined>;
     getAuthenticated(): User | undefined;
     setAuthenticated(user: User);
 }
@@ -15,7 +15,7 @@ export interface AuthApi {
 export class TestAuthApi implements AuthApi {
     login(username: string, password: string): Promise<User | undefined> {
         if (username !== 'test' && password === '1234') {
-            return;
+            return Promise.resolve(undefined);
         }
 
         const token =

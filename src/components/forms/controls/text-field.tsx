@@ -1,6 +1,8 @@
 import { useI18n } from '@solid-primitives/i18n';
-import { createMemo, Show } from 'solid-js';
-import { FormContext } from '../Form';
+import { Accessor, createMemo, Show } from 'solid-js';
+import { RequiredValidator } from '../validators/required';
+import { ErrorContext, Validator } from '../validators/validator';
+import { FormControlProps } from './form-control-props';
 
 interface TextFieldIntProps {
     label: string;
@@ -8,10 +10,11 @@ interface TextFieldIntProps {
     placeholder: string;
     value?: string;
     password?: boolean;
-    required?: boolean;
+    required?: boolean | undefined;
     errorText?: string;
     valid?: boolean;
     autocomplete?: boolean;
+    testId?: string;
     onChange?: (val: string) => void;
 }
 
@@ -40,6 +43,7 @@ function TextFieldInt(props: TextFieldIntProps) {
                 </Show>
             </label>
             <input
+                data-testid={props.testId}
                 name={props.name}
                 type={inputType()}
                 placeholder={props.placeholder}
@@ -64,35 +68,70 @@ function TextFieldInt(props: TextFieldIntProps) {
     );
 }
 
-interface TextFieldProps {
-    label: string;
-    name: string;
-    placeholder: string;
+interface TextFieldProps extends FormControlProps {
     password?: boolean;
-    required?: boolean;
-    context: FormContext;
+    placeholder: string;
+    required?: boolean | ErrorContext;
 }
 
 export default function TextField(props: TextFieldProps) {
-    // eslint-disable-next-line solid/reactivity
-    const [[get, set], error] = props.context.setField(
-        // eslint-disable-next-line solid/reactivity
-        props.name,
-        '',
-        // eslint-disable-next-line solid/reactivity
-        props.required,
-    );
+    const [t] = useI18n();
+
+    const defaultErrorText = createMemo(() => {
+        const label = props.label;
+        return t('components.forms.fieldRequired', { field: label });
+    });
+
+    const unwrappedErrorContext: Accessor<ErrorContext | undefined> =
+        createMemo(() => {
+            const required = props.required;
+            if (!required) {
+                return;
+            }
+
+            if (typeof required !== 'boolean') {
+                return required;
+            }
+
+            if (!required) {
+                return;
+            }
+
+            return {
+                error: defaultErrorText,
+            };
+        });
+
+    const ctx = createMemo(() => {
+        const validators: Array<Validator> = [];
+        const errorContext = unwrappedErrorContext();
+        if (errorContext) {
+            const validator = new RequiredValidator(errorContext);
+            validators.push(validator);
+        }
+        return props.context.addControl(props, '', validators);
+    });
+
+    const errorText = createMemo(() => {
+        const context = ctx();
+        return context.error()?.error();
+    });
+
+    const requiredAttr = createMemo(() => !!unwrappedErrorContext());
+
+    const onChange = s => ctx().set(s);
 
     return (
         <TextFieldInt
+            testId={props.testId}
             name={props.name}
             label={props.label}
             placeholder={props.placeholder}
             password={props.password}
-            required={props.required}
-            value={get()}
-            onChange={(s) => set(s)}
-            errorText={error()}
+            required={requiredAttr()}
+            value={ctx().get()}
+            onChange={onChange}
+            errorText={errorText()}
         />
     );
 }

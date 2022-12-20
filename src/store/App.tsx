@@ -31,15 +31,21 @@ export function AppProvider(props: ParentProps) {
         {
             showModal(modal: ModalType) {
                 setState(
-                    produce((s) => {
-                        s.modals[modal] = true;
+                    produce(s => {
+                        s.modals = {
+                            ...s.modals,
+                            [modal]: true,
+                        };
                     }),
                 );
             },
             hideModal(modal: ModalType) {
                 setState(
-                    produce((s) => {
-                        s.modals[modal] = false;
+                    produce(s => {
+                        s.modals = {
+                            ...s.modals,
+                            [modal]: false,
+                        };
                     }),
                 );
             },
@@ -53,4 +59,10 @@ export function AppProvider(props: ParentProps) {
     );
 }
 
-export const useApp = () => useContext(AppContext);
+export function useApp() {
+    const appModule = useContext(AppContext);
+    if (!appModule) {
+        throw new Error('AppModule is not defined');
+    }
+    return appModule;
+}

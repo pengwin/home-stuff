@@ -38,8 +38,16 @@ class PageCoverage implements Coverage {
             await mkdir(e2eRawDir, { recursive: true });
         }
 
+        const baseUrl = testInfo.project?.use?.baseURL;
+        if (baseUrl == null) {
+            throw new Error('base url is null');
+        }
         for (const entry of coverage) {
-            if (!checkUrl(entry.url, testInfo.project.use.baseURL)) {
+            if (!checkUrl(entry.url, baseUrl)) {
+                continue;
+            }
+
+            if (!entry.source) {
                 continue;
             }
 

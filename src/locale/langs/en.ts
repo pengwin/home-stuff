@@ -13,6 +13,7 @@ export default {
         },
         forms: {
             required: 'Required',
+            fieldRequired: 'Field "{{ field }}" is required',
         },
         modals: {
             login: {

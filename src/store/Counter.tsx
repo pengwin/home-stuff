@@ -27,10 +27,10 @@ export function CounterProvider(props: ParentProps<CounterProviderProps>) {
         state,
         {
             increment() {
-                setState('counter', (c) => c + 1);
+                setState('counter', c => c + 1);
             },
             decrement() {
-                setState('counter', (c) => c - 1);
+                setState('counter', c => c - 1);
             },
             reset() {
                 setState('counter', () => 0);
@@ -45,4 +45,10 @@ export function CounterProvider(props: ParentProps<CounterProviderProps>) {
     );
 }
 
-export const useCounter = () => useContext(CounterContext);
+export function useCounter() {
+    const counterModule = useContext(CounterContext);
+    if (!counterModule) {
+        throw new Error('CounterModule is not defined');
+    }
+    return counterModule;
+}
