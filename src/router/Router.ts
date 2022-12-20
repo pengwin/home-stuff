@@ -79,10 +79,8 @@ export class Router {
             '^' +
             path
                 .split('/')
-                .filter((s) => s?.length > 0)
-                .map((s) =>
-                    s.startsWith(':') ? `(?<${s.substring(1)}>.+)` : s,
-                )
+                .filter(s => s?.length > 0)
+                .map(s => (s.startsWith(':') ? `(?<${s.substring(1)}>.+)` : s))
                 .join('\\/') +
             '\\/$';
 
@@ -94,7 +92,7 @@ export function normalizePath(path: string) {
     return (
         path
             .split('/')
-            .filter((s) => s?.length > 0)
+            .filter(s => s?.length > 0)
             .join('/') + '/'
     );
 }

@@ -32,7 +32,7 @@ function createUserStore(props: UserProviderProps): UserModule {
         }
 
         setState(
-            produce((s) => {
+            produce(s => {
                 s.user = { ...user };
             }),
         );
@@ -45,7 +45,7 @@ function createUserStore(props: UserProviderProps): UserModule {
                 return false;
             }
             setState(
-                produce((s) => {
+                produce(s => {
                     s.user = { ...user };
                 }),
             );
@@ -65,4 +65,10 @@ export function UserProvider(props: ParentProps<UserProviderProps>) {
     );
 }
 
-export const useUser = () => useContext(UserContext);
+export function useUser() {
+    const userModule = useContext(UserContext);
+    if (!userModule) {
+        throw new Error('UserModule is not defined');
+    }
+    return userModule;
+}

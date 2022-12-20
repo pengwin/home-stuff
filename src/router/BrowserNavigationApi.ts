@@ -24,7 +24,7 @@ export class BrowserNavigationApi implements NavigationApi {
     }
 
     subscribe(listener: (state: unknown) => void) {
-        window.addEventListener('popstate', (e) => {
+        window.addEventListener('popstate', e => {
             listener(e.state);
         });
     }

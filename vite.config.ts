@@ -4,7 +4,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import Icons from 'unplugin-icons/vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
-export default defineConfig((env) => ({
+export default defineConfig(env => ({
     plugins: [
         solidPlugin(),
         Icons({ compiler: 'solid' }),
@@ -34,8 +34,6 @@ export default defineConfig((env) => ({
             reportsDirectory: './.artifacts/coverage',
             reporter: ['text', 'json', 'html', 'json-summary'],
             branches: 70,
-            /*all: true,
-      src: ['./src']*/
         },
         reporters: ['dot', 'junit'],
         outputFile: {

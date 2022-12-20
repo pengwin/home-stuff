@@ -1,5 +1,6 @@
 node_modules
 dist
+.vscode
 .artifacts
 /test-results/
 /playwright-report/

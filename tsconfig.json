@@ -16,6 +16,8 @@
         "noEmit": true,
         "isolatedModules": true,
         "resolveJsonModule": true,
+        "strictNullChecks": true,
+        "alwaysStrict": true,
         "paths": {
             "~/*": ["./src/*"]
         }

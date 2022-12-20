@@ -5,7 +5,7 @@ import { Form } from '~/components/forms';
 import TextField from '~/components/forms/controls/text-field';
 import { useI18n } from '@solid-primitives/i18n';
 import { useApp, useUser } from '~/store';
-import { Show } from 'solid-js';
+import { createMemo, Show } from 'solid-js';
 
 function Alert(props: { text: string }) {
     return (
@@ -30,12 +30,21 @@ function Alert(props: { text: string }) {
     );
 }
 
+function ErrorAlert(props: { errorText: string; hasError: boolean }) {
+    const errorText = createMemo(() => props.errorText || '');
+    return (
+        <Show when={props.hasError}>
+            <Alert text={errorText()} />
+        </Show>
+    );
+}
+
 export function Login() {
     const [t] = useI18n();
     const [_user, userStore] = useUser();
     const [_app, appStore] = useApp();
 
-    const onSubmit = async (res) => {
+    const onSubmit = async res => {
         if (await userStore.login(res.username, res.password)) {
             appStore.hideModal('Login');
         }
@@ -47,11 +56,12 @@ export function Login() {
                 class="grid grid-flow-row-dense place-content-center"
                 onSubmit={onSubmit}
             >
-                {(ctx) => (
+                {ctx => (
                     <>
-                        <Show when={ctx.error()}>
-                            <Alert text="Some Error" />
-                        </Show>
+                        <ErrorAlert
+                            hasError={ctx.formError()}
+                            errorText="Form Errors"
+                        />
                         <TextField
                             name="username"
                             label="Username"

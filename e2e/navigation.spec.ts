@@ -14,7 +14,9 @@ test.describe('Navigation tests', () => {
         for (const nav of navs) {
             await nav.click();
             const href = await nav.getAttribute('href');
-            await page.waitForURL(href);
+            test.fail(href == null, 'Href is null');
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            await page.waitForURL(href!);
         }
 
         await coverage.collect(page, testInfo);
