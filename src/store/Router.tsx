@@ -30,6 +30,7 @@ interface RouterProviderProps {
 }
 
 function createRouterStore(props: RouterProviderProps): RouterModule {
+    // eslint-disable-next-line solid/reactivity
     const routeMatch = matchRoute();
 
     const [state, setState] = createStore<RouterState>({

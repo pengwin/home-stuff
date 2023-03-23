@@ -3,6 +3,7 @@ import solidPlugin from 'vite-plugin-solid';
 import { visualizer } from 'rollup-plugin-visualizer';
 import Icons from 'unplugin-icons/vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import { faviconPlugin } from './build/favicon-plugin';
 
 export default defineConfig(env => ({
     plugins: [
@@ -12,11 +13,78 @@ export default defineConfig(env => ({
             filename: './.artifacts/bundle.html',
         }),
         tsconfigPaths(),
+        faviconPlugin(
+            {
+                icon: './src/favicon.png',
+                favicon: {
+                    path: '/assets',
+                    lang: 'en-US',
+                    developerName: '',
+                    developerURL: '',
+
+                    appName: 'Home Stuff',
+                    appShortName: 'HomeStuff',
+                    appDescription: 'Application to manage home stuff',
+                    start_url: '/',
+
+                    manifestMaskable: true,
+
+                    icons: {
+                        android: true,
+                        favicons: true,
+                        appleIcon: true,
+                        appleStartup: false,
+                        yandex: false,
+                        windows: false,
+                    },
+                },
+            },
+            env,
+        ),
     ],
     build: {
         target: 'esnext',
         modulePreload: false,
         minify: 'esbuild', // terser
+        rollupOptions: {
+            output: {
+                chunkFileNames: 'assets/js/[name]-[hash].js',
+                entryFileNames: 'assets/js/[name]-[hash].js',
+
+                assetFileNames: ({ name }) => {
+                    if (/\.(gif|jpe?g|png|svg)$/.test(name ?? '')) {
+                        return 'assets/images/[name]-[hash][extname]';
+                    }
+
+                    if (/\.ico$/.test(name ?? '')) {
+                        return 'assets/icons/[name]-[hash][extname]';
+                    }
+
+                    if (/\.css$/.test(name ?? '')) {
+                        return 'assets/css/[name]-[hash][extname]';
+                    }
+
+                    // default value
+                    // ref: https://rollupjs.org/guide/en/#outputassetfilenames
+                    return 'assets/[name]-[hash][extname]';
+                },
+            },
+        },
+    },
+    worker: {
+        rollupOptions: {
+            output: {
+                entryFileNames: opts => {
+                    if (opts.name === 'sw') {
+                        return '[name]-[hash].js';
+                    }
+
+                    return 'assets/js/worker/[name]-[hash]';
+                },
+                chunkFileNames: 'assets/js/worker/[name]-[hash]',
+                assetFileNames: 'assets/worker/[name]-[hash][extname]',
+            },
+        },
     },
     test: {
         environment: 'jsdom',

@@ -8,11 +8,15 @@ export function LangMenuItem(props: { lang: LangInfo; class?: string }) {
     const classValue = createMemo(
         () => (props.class || '') + ' ' + (isActive() ? 'active' : ''),
     );
+
     return (
         <li>
-            <a class={classValue()} onClick={() => locale(props.lang.locale)}>
+            <button
+                class={classValue()}
+                onClick={() => locale(props.lang.locale)}
+            >
                 {t(props.lang.textKey)}
-            </a>
+            </button>
         </li>
     );
 }

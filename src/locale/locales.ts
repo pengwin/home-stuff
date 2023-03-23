@@ -1,5 +1,5 @@
 import { en, ru } from './langs';
-import type { Locale } from './Langs';
+import type { Locale } from './langs';
 
 interface Locales {
     [key: string]: Locale;

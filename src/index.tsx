@@ -5,8 +5,10 @@ import App from '~/components/app';
 import { SwUserApi } from './api/user';
 import { TestAuthApi } from './api/auth';
 import { BrowserNavigationApi } from './router';
+import { registerServiceWorker } from './sw-loader';
 
 function main() {
+    registerServiceWorker();
     const dependencies = {
         userAPI: new SwUserApi(),
         authAPI: new TestAuthApi(),
