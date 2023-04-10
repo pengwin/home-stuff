@@ -8,6 +8,7 @@ import IconCloseThick from '~icons/mdi/close-thick';
 interface ModalProps {
     modal: ModalType;
     title: string;
+    dialogRole?: boolean;
 }
 
 export function Modal(props: ParentProps<ModalProps>) {
@@ -24,7 +25,11 @@ export function Modal(props: ParentProps<ModalProps>) {
                 class="modal-toggle"
                 checked={isVisible()}
             />
-            <div class="modal modal-bottom sm:modal-middle">
+            <div
+                class="modal modal-bottom sm:modal-middle"
+                data-testid={`modal-${props.modal}`}
+                role={props.dialogRole ? 'dialog' : undefined}
+            >
                 <div class="modal-box relative">
                     <label
                         class="btn-sm btn-circle btn absolute right-2 top-2"

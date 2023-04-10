@@ -4,8 +4,6 @@ import path from 'path';
 
 import { TestInfo, Page } from '@playwright/test';
 
-import v8toIstanbul from 'v8-to-istanbul';
-
 interface Coverage {
     start(page: Page, testInfo: TestInfo): Promise<Coverage>;
     collect(page: Page, testInfo: TestInfo): Promise<Coverage>;
@@ -18,7 +16,9 @@ class PageCoverage implements Coverage {
             return this;
         }
 
-        await page.coverage.startJSCoverage();
+        await page.coverage.startJSCoverage({
+            resetOnNavigation: false,
+        });
         return this;
     }
 
@@ -31,40 +31,26 @@ class PageCoverage implements Coverage {
         const fullPath = testInfo.titlePath.join('_');
         const hash = hashCode(fullPath).toString();
 
-        const coverage = await page.coverage.stopJSCoverage();
-        let counter = 0;
-        const e2eRawDir = './.artifacts/e2e/raw';
-        if (!existsSync(e2eRawDir)) {
-            await mkdir(e2eRawDir, { recursive: true });
-        }
-
         const baseUrl = testInfo.project?.use?.baseURL;
         if (baseUrl == null) {
             throw new Error('base url is null');
         }
-        for (const entry of coverage) {
-            if (!checkUrl(entry.url, baseUrl)) {
-                continue;
-            }
 
-            if (!entry.source) {
-                continue;
-            }
+        const coverage = (await page.coverage.stopJSCoverage()).filter(entry =>
+            checkUrl(entry.url, baseUrl),
+        );
 
-            const converter = v8toIstanbul('', 0, { source: entry.source });
+        const e2eV8RawDir = './.artifacts/e2e/v8-raw';
 
-            await converter.load();
-            converter.applyCoverage(entry.functions);
-            const coverageResult = JSON.stringify(converter.toIstanbul());
-            const coveragePath = path.join(
-                e2eRawDir,
-                `coverage_${hash}_${counter}.json`,
-            );
-            // eslint-disable-next-line no-console
-            console.info(`${counter}: Write coverage for ${entry.url}`);
-            await writeFile(coveragePath, coverageResult);
-            counter++;
+        if (!existsSync(e2eV8RawDir)) {
+            await mkdir(e2eV8RawDir, { recursive: true });
         }
+
+        const v8CoveragePath = path.join(e2eV8RawDir, `coverage_${hash}.json`);
+
+        // eslint-disable-next-line no-console
+        console.info(`Writing coverage for ${fullPath}`);
+        await writeFile(v8CoveragePath, JSON.stringify(coverage));
         return this;
     }
 }

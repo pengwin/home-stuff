@@ -1,16 +1,25 @@
 import { createStore, produce } from 'solid-js/store';
-import { createContext, createEffect, ParentProps, useContext } from 'solid-js';
+import {
+    createContext,
+    createResource,
+    createEffect,
+    ParentProps,
+    useContext,
+} from 'solid-js';
 
-import type { UserApi, Profile } from '~/api/user';
 import { User, AuthApi } from '~/api/auth';
+import { AuthApiError } from '~/api/auth/auth';
 
 interface UserState {
     user?: User;
-    profile?: Profile;
 }
 
 interface UserStore {
-    login(username: string, password: string): Promise<boolean>;
+    login(
+        username: string,
+        password: string,
+    ): Promise<AuthApiError | undefined>;
+    logout();
 }
 
 type UserModule = [UserState, UserStore];
@@ -18,7 +27,6 @@ type UserModule = [UserState, UserStore];
 const UserContext = createContext<UserModule>();
 
 interface UserProviderProps {
-    userApi: UserApi;
     authApi: AuthApi;
 }
 
@@ -26,30 +34,46 @@ function createUserStore(props: UserProviderProps): UserModule {
     const [state, setState] = createStore<UserState>({});
 
     createEffect(() => {
-        const user = props.authApi.getAuthenticated();
-        if (!user) {
-            return;
-        }
+        const [user] = createResource(() => props.authApi.getAuthenticated());
 
-        setState(
-            produce(s => {
-                s.user = { ...user };
-            }),
-        );
+        createEffect(() => {
+            const fetchedUser = user();
+            if (fetchedUser instanceof AuthApiError) {
+                return;
+            }
+
+            if (!fetchedUser) {
+                return;
+            }
+
+            setState(
+                produce(s => {
+                    s.user = { ...fetchedUser };
+                }),
+            );
+        });
     });
 
     const store: UserStore = {
         async login(username: string, password: string) {
             const user = await props.authApi.login(username, password);
-            if (!user) {
-                return false;
+            if (user instanceof AuthApiError) {
+                return user;
             }
             setState(
                 produce(s => {
                     s.user = { ...user };
                 }),
             );
-            return true;
+            return;
+        },
+        logout() {
+            props.authApi.removeAuthenticated();
+            setState(
+                produce(s => {
+                    s.user = undefined;
+                }),
+            );
         },
     };
 

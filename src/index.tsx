@@ -2,16 +2,19 @@ import './index.css';
 import { render } from 'solid-js/web';
 
 import App from '~/components/app';
-import { SwUserApi } from './api/user';
-import { TestAuthApi } from './api/auth';
+import { AuthServiceApi } from './api/auth';
 import { BrowserNavigationApi } from './router';
 import { registerServiceWorker } from './sw-loader';
+import { ApiMiddleware } from './api/api-middleware';
+import { LocalStorageTokenStorage } from './api/token-storage';
 
 function main() {
     registerServiceWorker();
+    const apiMiddleware = new ApiMiddleware();
+    const tokenStorage = new LocalStorageTokenStorage();
     const dependencies = {
-        userAPI: new SwUserApi(),
-        authAPI: new TestAuthApi(),
+        apiMiddleware,
+        authAPI: new AuthServiceApi(tokenStorage, apiMiddleware),
         navigationApi: new BrowserNavigationApi(),
     };
     render(

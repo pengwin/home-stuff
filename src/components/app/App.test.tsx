@@ -5,18 +5,25 @@ import matchers from '@testing-library/jest-dom/matchers';
 import { render } from 'solid-testing-library';
 
 import { App } from './App';
-import { Profile, UserApi } from '~/api/user';
-import { TestAuthApi } from '~/api/auth';
+import { AuthApi, User } from '~/api/auth';
 import { Location, NavigateOptions, NavigationApi } from '~/router';
+import { ApiMiddleware } from '~/api/api-middleware';
+import { AuthApiError } from '~/api/auth/auth';
 
 expect.extend(matchers);
 
-class TestUserApi implements UserApi {
-    getUserProfile(userId: number): Promise<Profile> {
-        return Promise.resolve({
-            name: 'Test',
-            userId,
-        });
+class TestAuthApi implements AuthApi {
+    login(_username: string, _password: string): Promise<User | AuthApiError> {
+        throw new Error('Method not implemented.');
+    }
+    getAuthenticated(): Promise<User | AuthApiError> {
+        return Promise.resolve(new AuthApiError('app', 'test'));
+    }
+    setAuthenticated(_user: User) {
+        throw new Error('Method not implemented.');
+    }
+    removeAuthenticated(): void {
+        throw new Error('Method not implemented.');
     }
 }
 
@@ -38,7 +45,7 @@ class TestNavApi implements NavigationApi {
 describe('<App /> smoke tests', () => {
     test('it will render successfully', () => {
         const dependencies = {
-            userAPI: new TestUserApi(),
+            apiMiddleware: new ApiMiddleware(),
             authAPI: new TestAuthApi(),
             navigationApi: new TestNavApi(),
         };

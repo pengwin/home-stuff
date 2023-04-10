@@ -99,6 +99,7 @@ export default defineConfig(env => ({
         // threads: false,
         // isolate: false,
         coverage: {
+            provider: 'c8',
             reportsDirectory: './.artifacts/coverage',
             reporter: ['text', 'json', 'html', 'json-summary'],
             branches: 70,

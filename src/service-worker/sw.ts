@@ -1,33 +1,63 @@
 /// <reference lib="webworker" />
 
-const cacheName = 'home-stuff-cache-v1';
+const defaultCacheName = 'home-stuff-cache-v1';
 
-const addResourcesToCache = async resources => {
-    const cache = await caches.open(cacheName);
-    await cache.addAll(resources);
-};
+interface Logger {
+    info: (...args: unknown[]) => void;
+    error: (...args: unknown[]) => void;
+}
 
-self.addEventListener('install', event => {
-    event.waitUntil(addResourcesToCache(['/', '/index.html']));
-});
+class NoOpLogger implements Logger {
+    public info(..._args: unknown[]) {
+        // do nothing
+    }
 
-self.addEventListener('fetch', e => {
-    e.respondWith(
-        (async () => {
-            const r = await caches.match(e.request);
-            // eslint-disable-next-line no-console
-            console.log(`[Service Worker] Fetching resource: ${e.request.url}`);
-            if (r) {
-                return r;
-            }
-            const response = await fetch(e.request);
-            const cache = await caches.open(cacheName);
-            // eslint-disable-next-line no-console
-            console.log(
-                `[Service Worker] Caching new resource: ${e.request.url}`,
-            );
-            cache.put(e.request, response.clone());
-            return response;
-        })(),
-    );
-});
+    public error(..._args: unknown[]) {
+        // do nothing
+    }
+}
+
+class AppServiceWorker {
+    constructor(private readonly cacheName, private readonly logger: Logger) {}
+
+    public setup(sw: ServiceWorkerGlobalScope) {
+        sw.addEventListener('install', e => this.install(e));
+        sw.addEventListener('fetch', this.fetch.bind(this));
+    }
+
+    public async install(event: ExtendableEvent) {
+        event.waitUntil(this.addResourcesToCache(['/', '/index.html']));
+    }
+
+    public async fetch(event: FetchEvent) {
+        event.respondWith(
+            (async () => {
+                const r = await caches.match(event.request);
+                // eslint-disable-next-line no-console
+                this.logger.info(
+                    `[Service Worker] Fetching resource: ${event.request.url}`,
+                );
+                if (r) {
+                    return r;
+                }
+                const response = await fetch(event.request);
+                const cache = await caches.open(this.cacheName);
+                cache.put(event.request, response.clone());
+                this.logger.info(
+                    `[Service Worker] Caching new resource: ${event.request.url}`,
+                );
+                return response;
+            })(),
+        );
+    }
+
+    private async addResourcesToCache(resources: string[]) {
+        const cache = await caches.open(this.cacheName);
+        await cache.addAll(resources);
+    }
+}
+
+const instance = new AppServiceWorker(defaultCacheName, new NoOpLogger());
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+instance.setup(self as any as ServiceWorkerGlobalScope);

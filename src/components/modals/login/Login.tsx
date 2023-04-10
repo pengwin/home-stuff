@@ -4,8 +4,8 @@ import { Modal } from '../Modal';
 import { Form } from '~/components/forms';
 import TextField from '~/components/forms/controls/text-field';
 import { useI18n } from '@solid-primitives/i18n';
-import { useApp, useUser } from '~/store';
-import { createMemo, Show } from 'solid-js';
+import { useApp, useUser, useApiError } from '~/store';
+import { createMemo, createSignal, Show } from 'solid-js';
 
 function Alert(props: { text: string }) {
     return (
@@ -43,24 +43,46 @@ export function Login() {
     const [t] = useI18n();
     const [_user, userStore] = useUser();
     const [_app, appStore] = useApp();
+    const [apiError, apiErrorState] = useApiError();
+
+    const [loading, setLoading] = createSignal(false);
 
     const onSubmit = async res => {
-        if (await userStore.login(res.username, res.password)) {
-            appStore.hideModal('Login');
+        setLoading(true);
+        try {
+            const error = await userStore.login(res.username, res.password);
+            if (!error) {
+                appStore.hideModal('Login');
+            } else {
+                console.error(error);
+                apiErrorState.set(
+                    `Login failed: ${error.type}, ${error.message} ${error.stack}}`,
+                );
+            }
+        } finally {
+            setLoading(false);
         }
     };
 
+    const hasApiError = () => !!apiError.errorText;
+    const apiErrorText = () => apiError.errorText || '';
+
     return (
-        <Modal modal="Login" title={t('components.modals.login.signIn')}>
+        <Modal
+            modal="Login"
+            title={t('components.modals.login.signIn')}
+            dialogRole
+        >
             <Form
                 class="grid grid-flow-row-dense place-content-center"
                 onSubmit={onSubmit}
             >
                 {ctx => (
                     <>
+                        <ErrorAlert hasError={ctx.formError()} errorText="" />
                         <ErrorAlert
-                            hasError={ctx.formError()}
-                            errorText="Form Errors"
+                            hasError={hasApiError()}
+                            errorText={apiErrorText()}
                         />
                         <TextField
                             name="username"
@@ -77,7 +99,10 @@ export function Login() {
                             required
                             context={ctx}
                         />
-                        <button class="btn btn-primary btn-md">
+                        <button
+                            disabled={loading()}
+                            class="btn btn-primary btn-md"
+                        >
                             {t('components.modals.login.signIn')}
                         </button>
                     </>

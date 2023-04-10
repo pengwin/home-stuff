@@ -18,6 +18,7 @@ export default {
         modals: {
             login: {
                 signIn: 'Sign In',
+                signOut: 'Sign Out',
             },
         },
     },

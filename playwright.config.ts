@@ -109,6 +109,10 @@ const config: PlaywrightTestConfig = {
     webServer: {
         command: 'pnpm dev',
         port: 3000,
+        reuseExistingServer: true,
+        env: {
+            VITE_AUTH_SERVICE_URL: 'http://localhost:5001',
+        },
     },
 };
 

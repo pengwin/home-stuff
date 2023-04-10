@@ -1,13 +1,19 @@
 import { ParentProps } from 'solid-js';
 import { AuthApi } from '~/api/auth';
-import { UserApi } from '~/api/user';
 import { NavigationApi, Router } from '~/router';
-import { AppProvider, CounterProvider, RouterProvider, UserProvider } from '.';
+import {
+    ApiErrorProvider,
+    AppProvider,
+    CounterProvider,
+    RouterProvider,
+    UserProvider,
+} from '.';
+import { ApiMiddleware } from '~/api/api-middleware';
 
 export interface StoreDependencies {
-    userAPI: UserApi;
     authAPI: AuthApi;
     navigationApi: NavigationApi;
+    apiMiddleware: ApiMiddleware;
 }
 
 interface StoreProviderProps {
@@ -18,19 +24,18 @@ interface StoreProviderProps {
 export function StoreProvider(props: ParentProps<StoreProviderProps>) {
     return (
         <AppProvider>
-            <CounterProvider initialCounter={0}>
-                <RouterProvider
-                    api={props.dependencies.navigationApi}
-                    router={props.router}
-                >
-                    <UserProvider
-                        userApi={props.dependencies.userAPI}
-                        authApi={props.dependencies.authAPI}
+            <ApiErrorProvider apiMiddleware={props.dependencies.apiMiddleware}>
+                <CounterProvider initialCounter={0}>
+                    <RouterProvider
+                        api={props.dependencies.navigationApi}
+                        router={props.router}
                     >
-                        {props.children}
-                    </UserProvider>
-                </RouterProvider>
-            </CounterProvider>
+                        <UserProvider authApi={props.dependencies.authAPI}>
+                            {props.children}
+                        </UserProvider>
+                    </RouterProvider>
+                </CounterProvider>
+            </ApiErrorProvider>
         </AppProvider>
     );
 }

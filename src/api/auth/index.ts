@@ -1,2 +1,2 @@
 export type { AuthApi, User } from './auth';
-export { TestAuthApi } from './auth';
+export { AuthServiceApi } from './auth';
