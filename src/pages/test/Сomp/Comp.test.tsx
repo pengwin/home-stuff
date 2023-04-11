@@ -1,15 +1,11 @@
 import { describe, expect, Nullable, test, afterEach } from 'vitest';
 
-import { render, fireEvent } from 'solid-testing-library';
+import { render, fireEvent } from '@solidjs/testing-library';
 
 import { I18nContext, createI18nContext } from '@solid-primitives/i18n';
 
-import matchers from '@testing-library/jest-dom/matchers';
-
 import { Comp } from './Comp';
 import { cssClasses } from './css-classes';
-
-expect.extend(matchers);
 
 function createLocaleDict() {
     return {

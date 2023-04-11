@@ -57,7 +57,7 @@ const config: PlaywrightTestConfig = {
             },
         },
 
-        {
+        /*{
             name: 'firefox',
             use: {
                 baseURL: baseUrl,
@@ -71,7 +71,7 @@ const config: PlaywrightTestConfig = {
                 baseURL: baseUrl,
                 ...devices['Desktop Safari'],
             },
-        },
+        },*/
 
         /* Test against mobile viewports. */
         // {

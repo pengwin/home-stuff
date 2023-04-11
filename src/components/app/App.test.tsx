@@ -1,16 +1,12 @@
-import { describe, expect, test } from 'vitest';
+import { describe, test } from 'vitest';
 
-import matchers from '@testing-library/jest-dom/matchers';
-
-import { render } from 'solid-testing-library';
+import { render } from '@solidjs/testing-library';
 
 import { App } from './App';
 import { AuthApi, User } from '~/api/auth';
 import { Location, NavigateOptions, NavigationApi } from '~/router';
 import { ApiMiddleware } from '~/api/api-middleware';
 import { AuthApiError } from '~/api/auth/auth';
-
-expect.extend(matchers);
 
 class TestAuthApi implements AuthApi {
     login(_username: string, _password: string): Promise<User | AuthApiError> {

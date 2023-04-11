@@ -1,14 +1,10 @@
 import { describe, expect, Nullable, test, afterEach } from 'vitest';
 
-import { render, fireEvent } from 'solid-testing-library';
-
-import matchers from '@testing-library/jest-dom/matchers';
+import { render, fireEvent } from '@solidjs/testing-library';
 
 import { CounterProvider } from '~/store';
 import { LocaleProvider, locales } from '~/locale';
 import StatefulComponent from './StatefulComponent';
-
-expect.extend(matchers);
 
 const renderComp = () => {
     const res = render(() => (

@@ -88,6 +88,10 @@ export default defineConfig(env => ({
     },
     test: {
         environment: 'jsdom',
+        globals: true,
+        setupFiles: ['node_modules/@testing-library/jest-dom/extend-expect.js'],
+        // otherwise, solid would be loaded twice:
+        deps: { registerNodeLoader: true },
         transformMode: {
             web: [/\.[jt]sx?$/],
         },
