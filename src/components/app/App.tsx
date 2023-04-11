@@ -2,7 +2,6 @@ import { Component, lazy } from 'solid-js';
 
 import { LocaleProvider } from '~/locale';
 import { StoreProvider, StoreDependencies } from '~/store';
-import { Router } from '~/router';
 
 import Navbar from '~/components/navbar';
 import Sidebar from '~/components/sidebar';
@@ -33,10 +32,8 @@ interface AppProps {
 export const App: Component<AppProps> = (props: AppProps) => {
     const drawerId = 'sidebar-drawer';
 
-    const router = new Router();
-
     return (
-        <StoreProvider dependencies={props.dependencies} router={router}>
+        <StoreProvider dependencies={props.dependencies}>
             <LocaleProvider defaultLang="en">
                 <RoutingHtmlTitle />
                 <Drawer

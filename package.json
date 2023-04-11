@@ -59,10 +59,11 @@
         "vitest": "^0.28.4"
     },
     "dependencies": {
+        "@nanostores/router": "^0.8.3",
         "@nanostores/solid": "^0.3.2",
-        "nanostores": "^0.7.4",
-        "solid-js": "^1.7.3",
+        "@solid-primitives/i18n": "^1.2.4",
         "jwt-decode": "^3.1.2",
-        "@solid-primitives/i18n": "^1.2.4"
+        "nanostores": "^0.7.4",
+        "solid-js": "^1.7.3"
     }
 }

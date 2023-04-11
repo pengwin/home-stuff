@@ -1,10 +1,10 @@
 import { createMemo } from 'solid-js';
-import { useRouter } from '~/store';
+import { useRouterMetadata } from '~/stores/router';
 
 export function Current() {
-    const [state] = useRouter();
+    const routerMetadata = useRouterMetadata();
 
-    const title = createMemo(() => state.currentRoute?.title || '');
+    const title = createMemo(() => routerMetadata()?.title || '');
 
     return <span>{title()}</span>;
 }

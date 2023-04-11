@@ -4,7 +4,6 @@ import { render } from '@solidjs/testing-library';
 
 import { App } from './App';
 import { AuthApi, User } from '~/api/auth';
-import { Location, NavigateOptions, NavigationApi } from '~/router';
 import { ApiMiddleware } from '~/api/api-middleware';
 import { AuthApiError } from '~/api/auth/auth';
 
@@ -23,27 +22,11 @@ class TestAuthApi implements AuthApi {
     }
 }
 
-class TestNavApi implements NavigationApi {
-    navigate(_path: string, _options?: NavigateOptions): void {
-        return;
-    }
-    subscribe(_listener: (state: unknown) => void) {
-        return;
-    }
-    get location(): Location {
-        return {
-            path: '/',
-            search: '',
-        };
-    }
-}
-
 describe('<App /> smoke tests', () => {
     test('it will render successfully', () => {
         const dependencies = {
             apiMiddleware: new ApiMiddleware(),
             authAPI: new TestAuthApi(),
-            navigationApi: new TestNavApi(),
         };
         render(() => <App dependencies={dependencies} />);
     });

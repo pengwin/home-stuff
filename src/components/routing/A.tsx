@@ -1,6 +1,5 @@
 import { children, ParentProps, createMemo } from 'solid-js';
-import { useRouter } from '~/store';
-import { normalizePath } from '~/router';
+import { open, useRouter } from '~/stores/router';
 
 interface PropsA {
     href: string;
@@ -81,12 +80,11 @@ interface PropsA {
 }
 
 export function A(props: ParentProps<PropsA>) {
-    const [state, router] = useRouter();
+    const routerState = useRouter();
 
-    const normalizedHref = createMemo(() => normalizePath(props.href));
-    const path = createMemo(() => state.currentPath || '');
+    const path = createMemo(() => routerState()?.path || '');
 
-    const isCurrent = createMemo(() => path() === normalizedHref());
+    const isCurrent = createMemo(() => path() === props.href);
     const toggleClass = createMemo(() =>
         isCurrent() ? props.activeClass : props.inactiveClass,
     );
@@ -96,7 +94,7 @@ export function A(props: ParentProps<PropsA>) {
 
     const onClick = (e: Event) => {
         e.preventDefault();
-        router.navigate(props.href);
+        open(props.href);
     };
 
     const content = children(() => props.children);

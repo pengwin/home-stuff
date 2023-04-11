@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@nanostores/router':
+    specifier: ^0.8.3
+    version: 0.8.3(nanostores@0.7.4)
   '@nanostores/solid':
     specifier: ^0.3.2
     version: 0.3.2(nanostores@0.7.4)(solid-js@1.7.3)
@@ -872,6 +875,15 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
+
+  /@nanostores/router@0.8.3(nanostores@0.7.4):
+    resolution: {integrity: sha512-AEGqyQQITIYgp232mIzwaG1wbP0yghCbEUi4ziy4kQaEfM8mRiaz/rrlnbDddd0MkwDZIWs3L3c3VodR5X9dUQ==}
+    engines: {node: ^14.0.0 || ^16.0.0 || >=18.0.0}
+    peerDependencies:
+      nanostores: ^0.7.0
+    dependencies:
+      nanostores: 0.7.4
+    dev: false
 
   /@nanostores/solid@0.3.2(nanostores@0.7.4)(solid-js@1.7.3):
     resolution: {integrity: sha512-OH4m81Bls8NCH2ANzqEujPvzzzLlunm0e6Vpqy9mMgBYzOcqxWr3SrZgIVA7KhMsjftINwcpMN7/FKo2MQa1aQ==}

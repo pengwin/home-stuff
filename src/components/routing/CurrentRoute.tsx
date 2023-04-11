@@ -1,6 +1,6 @@
 import { Component, createMemo } from 'solid-js';
 import { Dynamic } from 'solid-js/web';
-import { useRouter } from '~/store';
+import { useRouterMetadata } from '~/stores/router';
 
 interface CurrentRouteProps {
     notFound: Component;
@@ -9,9 +9,9 @@ interface CurrentRouteProps {
 export const CurrentRoute: Component<CurrentRouteProps> = (
     props: CurrentRouteProps,
 ) => {
-    const [route] = useRouter();
+    const routerMetadata = useRouterMetadata();
     const current = createMemo(() => {
-        return route?.currentRoute?.component || props.notFound;
+        return routerMetadata()?.component || props.notFound;
     });
     return <Dynamic component={current()} />;
 };
