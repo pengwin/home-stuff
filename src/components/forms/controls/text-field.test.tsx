@@ -2,8 +2,6 @@ import { describe, expect, Nullable, test, afterEach, vi } from 'vitest';
 
 import { render, fireEvent, waitFor } from '@solidjs/testing-library';
 
-import { I18nContext, createI18nContext } from '@solid-primitives/i18n';
-
 import TextField from './text-field';
 import { Form } from '../Form';
 import { ErrorContext } from '../validators/validator';

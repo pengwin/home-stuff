@@ -1,7 +1,14 @@
 import { createSignal, createMemo, Setter } from 'solid-js';
-import { useI18n } from '@solid-primitives/i18n';
 import IconAccount from '~icons/mdi/account';
 import { cssClasses } from './css-classes';
+
+import { useStore } from '@nanostores/solid';
+import { Lang, i18n, getLang, setLang } from '~/stores/i18n';
+
+export const messages = i18n('Comp', {
+    switchLang: 'Switch Lang',
+    flip: 'Flip',
+});
 
 type CharCase = 'upper' | 'lower' | undefined;
 
@@ -25,7 +32,7 @@ function applyCase(text: string, charCase: CharCase) {
     return text;
 }
 
-function flipLang(currentLang: string): string {
+function flipLang(currentLang: Lang): string {
     let lang = 'en';
     if (currentLang === 'en') {
         lang = 'ru';
@@ -35,13 +42,13 @@ function flipLang(currentLang: string): string {
 
 export function Comp(props: { text: string }) {
     const [charCase, setCharCase] = createSignal<CharCase>();
-    const [t, { locale }] = useI18n();
+    const t = useStore(messages);
 
     const text = createMemo(() => applyCase(props.text, charCase()));
     const changeLang = () => {
-        const currentLang = locale();
+        const currentLang = getLang();
         const newLang = flipLang(currentLang);
-        locale(newLang);
+        setLang(newLang);
     };
 
     return (
@@ -52,14 +59,14 @@ export function Comp(props: { text: string }) {
                 onClick={() => changeLang()}
             >
                 <IconAccount class="inline-block text-base" />
-                <span>{t('pages.test.Comp.SwitchLang')}</span>
+                <span>{t().switchLang}</span>
             </button>
             <button
                 class={`rounded border border-solid border-black ${cssClasses.btnFlip}`}
                 onClick={() => flipCase(text(), setCharCase)}
             >
                 <IconAccount class="inline-block text-base" />
-                <span>{t('pages.test.Comp.Flip')}</span>
+                <span>{t().switchLang}</span>
             </button>
         </h1>
     );

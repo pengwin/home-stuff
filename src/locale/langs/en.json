@@ -1,0 +1,36 @@
+{
+    "LangMenuItem": {
+        "en": "English",
+        "ru": "Russian"
+    },
+    "LangMenuItems": {
+        "title": "Language"
+    },
+    "TextField": {
+        "required": "Required",
+        "fieldRequired": "Field \"{ field }\" is required"
+    },
+    "modals/Login": {
+        "signIn": "Sign In"
+    },
+    "header/SignIn": {
+        "signIn": "Sign In",
+        "signOut": "Sign Out"
+    },
+    "RoutingHtmlTitle": {
+        "appName": "Home Stuff"
+    },
+    "sidebar/NavigationMenu": {
+        "navigation": "Navigation"
+    },
+    "NotFound": {
+        "mainText": "Not Found"
+    },
+    "Counter": {
+        "reset": "Reset"
+    },
+    "Comp": {
+        "switchLang": "Switch Lang",
+        "flip": "Flip"
+    }
+}

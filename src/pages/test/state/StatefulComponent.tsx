@@ -1,10 +1,16 @@
-import { useI18n } from '@solid-primitives/i18n';
 import { createMemo } from 'solid-js';
 
 import { useCounter } from '~/store';
 
+import { useStore } from '@nanostores/solid';
+import { i18n } from '~/stores/i18n';
+
+export const messages = i18n('Counter', {
+    reset: 'Reset',
+});
+
 const Counter = () => {
-    const [t] = useI18n();
+    const t = useStore(messages);
     const [state, store] = useCounter();
 
     const counter = createMemo(() => state.counter);
@@ -31,7 +37,7 @@ const Counter = () => {
                 onClick={() => store.reset()}
                 role="button"
             >
-                <span>{t('pages.test.state.reset')}</span>
+                <span>{t().reset}</span>
             </button>
         </h1>
     );

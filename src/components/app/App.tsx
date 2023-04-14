@@ -1,6 +1,5 @@
 import { Component, lazy } from 'solid-js';
 
-import { LocaleProvider } from '~/locale';
 import { StoreProvider, StoreDependencies } from '~/store';
 
 import Navbar from '~/components/navbar';
@@ -34,7 +33,6 @@ export const App: Component<AppProps> = (props: AppProps) => {
 
     return (
         <StoreProvider dependencies={props.dependencies}>
-            <LocaleProvider defaultLang="en">
                 <RoutingHtmlTitle />
                 <Drawer
                     drawerId={drawerId}
@@ -42,7 +40,6 @@ export const App: Component<AppProps> = (props: AppProps) => {
                     sidebar={<Sidebar />}
                 />
                 <LazyModals />
-            </LocaleProvider>
         </StoreProvider>
     );
 };

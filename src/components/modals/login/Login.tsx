@@ -3,9 +3,15 @@ import { Modal } from '../Modal';
 
 import { Form } from '~/components/forms';
 import TextField from '~/components/forms/controls/text-field';
-import { useI18n } from '@solid-primitives/i18n';
 import { useApp, useUser, useApiError } from '~/store';
 import { createMemo, createSignal, Show } from 'solid-js';
+
+import { useStore } from '@nanostores/solid';
+import { i18n } from '~/stores/i18n';
+
+export const messages = i18n('modals/Login', {
+    signIn: 'Sign In',
+});
 
 function Alert(props: { text: string }) {
     return (
@@ -40,7 +46,7 @@ function ErrorAlert(props: { errorText: string; hasError: boolean }) {
 }
 
 export function Login() {
-    const [t] = useI18n();
+    const t = useStore(messages);
     const [_user, userStore] = useUser();
     const [_app, appStore] = useApp();
     const [apiError, apiErrorState] = useApiError();
@@ -70,7 +76,7 @@ export function Login() {
     return (
         <Modal
             modal="Login"
-            title={t('components.modals.login.signIn')}
+            title={t().signIn}
             dialogRole
         >
             <Form
@@ -103,7 +109,7 @@ export function Login() {
                             disabled={loading()}
                             class="btn btn-primary btn-md"
                         >
-                            {t('components.modals.login.signIn')}
+                            {t().signIn}
                         </button>
                     </>
                 )}

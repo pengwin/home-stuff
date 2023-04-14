@@ -1,0 +1,36 @@
+{
+    "LangMenuItem": {
+        "en": "Английский",
+        "ru": "Русский"
+    },
+    "LangMenuItems": {
+        "title": "Язык"
+    },
+    "TextField": {
+        "required": "*",
+        "fieldRequired":  "Поле \"{ field }\" должно быть заполнено"
+    },
+    "modals/Login": {
+        "signIn": "Войти"
+    },
+    "header/SignIn": {
+        "signIn": "Войти",
+        "signOut": "Выйти"
+    },
+    "RoutingHtmlTitle": {
+        "appName": "Home Stuff"
+    },
+    "sidebar/NavigationMenu": {
+        "navigation": "Навигация"
+    },
+    "NotFound": {
+        "mainText": "Страница не найдена"
+    },
+    "Counter": {
+        "reset": "Сброс"
+    },
+    "Comp": {
+        "switchLang": "Переключить язык",
+        "flip": "Перевернуть"
+    }
+}

@@ -1,8 +1,16 @@
-import { useI18n } from '@solid-primitives/i18n';
 import { Accessor, createMemo, Show } from 'solid-js';
 import { RequiredValidator } from '../validators/required';
 import { ErrorContext, Validator } from '../validators/validator';
 import { FormControlProps } from './form-control-props';
+
+import { params } from '@nanostores/i18n';
+import { useStore } from '@nanostores/solid';
+import { i18n } from '~/stores/i18n';
+
+export const messages = i18n('TextField', {
+    required: 'Required',
+    fieldRequired: params<{ field: string }>('Field "{ field }" is required'),
+});
 
 interface TextFieldIntProps {
     label: string;
@@ -19,7 +27,7 @@ interface TextFieldIntProps {
 }
 
 function TextFieldInt(props: TextFieldIntProps) {
-    const [t] = useI18n();
+    const t = useStore(messages);
     const inputType = createMemo(() => (props.password ? 'password' : 'text'));
     const hasError = createMemo(() => !!props.errorText);
     const onInput = (e: InputEvent) => {
@@ -38,7 +46,7 @@ function TextFieldInt(props: TextFieldIntProps) {
                 <span class="label-text">{props.label}</span>
                 <Show when={props.required}>
                     <span class="label-text-alt text-base-300">
-                        {t('components.forms.required')}
+                        {t().required}
                     </span>
                 </Show>
             </label>
@@ -75,11 +83,11 @@ interface TextFieldProps extends FormControlProps {
 }
 
 export default function TextField(props: TextFieldProps) {
-    const [t] = useI18n();
+    const t = useStore(messages);
 
     const defaultErrorText = createMemo(() => {
         const label = props.label;
-        return t('components.forms.fieldRequired', { field: label });
+        return t().fieldRequired({ field: label });
     });
 
     const unwrappedErrorContext: Accessor<ErrorContext | undefined> =

@@ -1,32 +1,39 @@
 /* eslint-disable tailwindcss/classnames-order */
 import { Show } from 'solid-js';
-import { useI18n } from '@solid-primitives/i18n';
 import { useApp, useUser } from '~/store';
+
+import { useStore } from '@nanostores/solid';
+import { i18n } from '~/stores/i18n';
+
+export const messages = i18n('header/SignIn', {
+    signIn: 'Sign In',
+    signOut: 'Sign Out',
+});
 
 export function SignInButton() {
     const [_app, appStore] = useApp();
-    const [t] = useI18n();
+    const t = useStore(messages);
     return (
         <button
             class="btn btn-sm"
             data-testid="login-btn"
             onClick={() => appStore.showModal('Login')}
         >
-            {t('components.modals.login.signIn')}
+            {t().signIn}
         </button>
     );
 }
 
 export function SignOutButton() {
     const [_userState, userStore] = useUser();
-    const [t] = useI18n();
+    const t = useStore(messages);
     return (
         <button
             class="btn btn-sm"
             data-testid="logout-btn"
             onClick={() => userStore.logout()}
         >
-            {t('components.modals.login.signOut')}
+            {t().signOut}
         </button>
     );
 }

@@ -2,8 +2,6 @@ import { describe, expect, Nullable, test, afterEach } from 'vitest';
 
 import { render, fireEvent } from '@solidjs/testing-library';
 
-import { I18nContext, createI18nContext } from '@solid-primitives/i18n';
-
 import { Comp } from './Comp';
 import { cssClasses } from './css-classes';
 

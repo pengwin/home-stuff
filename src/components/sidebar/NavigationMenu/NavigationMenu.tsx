@@ -1,14 +1,19 @@
-import { useI18n } from '@solid-primitives/i18n';
-
 import { MenuItem } from './MenuItem';
 
+import { useStore } from '@nanostores/solid';
+import { i18n } from '~/stores/i18n';
+
+export const messages = i18n('sidebar/NavigationMenu', {
+    navigation: 'Navigation',
+});
+
 export function NavigationMenu() {
-    const [t] = useI18n();
+    const t = useStore(messages);
 
     return (
         <>
             <li class="menu-title">
-                <span>{t('components.sidebar.navigation')}</span>
+                <span>{t().navigation}</span>
             </li>
             <MenuItem href="/test/comp/111" text="Test.Comp 111" />
             <MenuItem href="/test/comp/abc" text="Test.Comp abc" />
