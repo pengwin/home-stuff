@@ -1,17 +1,17 @@
-import { I18nContext, createI18nContext } from '@solid-primitives/i18n';
-import { ParentProps } from 'solid-js';
+import { createChainedI18nContext } from '@solid-primitives/i18n';
 
-import { locales } from './locales';
+import { locales as dictionaries } from './locales';
 
-interface LocaleProviderProps {
-    defaultLang: 'en' | 'ru';
-}
+const [I18nProvider, useI18nContext] = createChainedI18nContext({
+    dictionaries,
+    locale: 'en',
+});
 
-export function LocaleProvider(props: ParentProps<LocaleProviderProps>) {
-    const localeContext = createI18nContext(locales, props.defaultLang);
-    return (
-        <I18nContext.Provider value={localeContext}>
-            {props.children}
-        </I18nContext.Provider>
-    );
-}
+export const useI18n = () => {
+    const context = useI18nContext();
+    if (!context)
+        throw new Error('useI18n must be used within an I18nProvider');
+    return context;
+};
+
+export { I18nProvider as LocaleProvider };

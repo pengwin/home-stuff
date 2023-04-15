@@ -37,7 +37,7 @@ export const App: Component<AppProps> = (props: AppProps) => {
 
     return (
         <StoreProvider dependencies={props.dependencies} router={router}>
-            <LocaleProvider defaultLang="en">
+            <LocaleProvider>
                 <RoutingHtmlTitle />
                 <Drawer
                     drawerId={drawerId}

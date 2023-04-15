@@ -1,6 +1,6 @@
 /* eslint-disable tailwindcss/classnames-order */
 import { Show } from 'solid-js';
-import { useI18n } from '@solid-primitives/i18n';
+import { useI18n } from '~/locale';
 import { useApp, useUser } from '~/store';
 
 export function SignInButton() {
@@ -12,7 +12,7 @@ export function SignInButton() {
             data-testid="login-btn"
             onClick={() => appStore.showModal('Login')}
         >
-            {t('components.modals.login.signIn')}
+            {t.components.modals.login.signIn()}
         </button>
     );
 }
@@ -26,7 +26,7 @@ export function SignOutButton() {
             data-testid="logout-btn"
             onClick={() => userStore.logout()}
         >
-            {t('components.modals.login.signOut')}
+            {t.components.modals.login.signOut()}
         </button>
     );
 }

@@ -1,51 +1,29 @@
 import { describe, expect, Nullable, test, afterEach } from 'vitest';
 
-import { render, fireEvent } from 'solid-testing-library';
+import { render, fireEvent } from '@solidjs/testing-library';
 
-import { I18nContext, createI18nContext } from '@solid-primitives/i18n';
-
-import matchers from '@testing-library/jest-dom/matchers';
+import { LocaleProvider, locales, useI18n } from '~/locale';
 
 import { Comp } from './Comp';
 import { cssClasses } from './css-classes';
 
-expect.extend(matchers);
-
-function createLocaleDict() {
-    return {
-        ru: {
-            pages: {
-                test: {
-                    Comp: {
-                        SwitchLang: 'Переключить язык',
-                        Flip: 'Перевернуть',
-                    },
-                },
-            },
-        },
-        en: {
-            pages: {
-                test: {
-                    Comp: {
-                        SwitchLang: 'Switch lang',
-                        Flip: 'Flip',
-                    },
-                },
-            },
-        },
-    };
-}
-
 const renderComp = (text?: string, lang?: string) => {
-    const dict = createLocaleDict();
     const textVal = text || 'test';
     const langVal = lang || 'en';
-    const value = createI18nContext(dict, langVal);
-    return render(() => (
-        <I18nContext.Provider value={value}>
-            <Comp text={textVal} />
-        </I18nContext.Provider>
-    ));
+
+    const InnerComp = () => {
+        const [_, { setLocale }] = useI18n();
+        setLocale(langVal);
+        return <Comp text={textVal} />;
+    };
+
+    return render(() => {
+        return (
+            <LocaleProvider>
+                <InnerComp />
+            </LocaleProvider>
+        );
+    });
 };
 
 describe('<Comp />', () => {
@@ -93,19 +71,17 @@ describe('<Comp />', () => {
     });
 
     describe('Switch lang', () => {
-        const dict = createLocaleDict();
-
         test('should have "switch lang" button', () => {
             const { getByText, unmount } = renderComp();
             componentUnmount = unmount;
             expect(
-                getByText(dict.en.pages.test.Comp.SwitchLang),
+                getByText(locales.en.pages.test.Comp.SwitchLang),
             ).toBeInTheDocument();
         });
 
         test.each([
-            [5, 'en', dict.en.pages.test.Comp.SwitchLang],
-            [3, 'ru', dict.ru.pages.test.Comp.SwitchLang],
+            [5, 'en', locales.en.pages.test.Comp.SwitchLang],
+            [3, 'ru', locales.ru.pages.test.Comp.SwitchLang],
         ])(
             '%d:[%s] "switch lang" button should switch lang and label on click from "%s" to "%s" and back.',
             async (testNo: number, lang: string, expected: string) => {

@@ -1,4 +1,4 @@
-import { useI18n } from '@solid-primitives/i18n';
+import { useI18n } from '~/locale';
 import { createMemo, For } from 'solid-js';
 
 import { langs } from '~/locale';
@@ -18,7 +18,7 @@ export function LangMenuItems(props: Props) {
     return (
         <>
             <li class={classValue()}>
-                <span>{t('components.sidebar.lang.title')}</span>
+                <span>{t.components.sidebar.lang.title()}</span>
             </li>
             <For each={langs}>
                 {lang => <LangMenuItem class={props.itemClass} lang={lang} />}

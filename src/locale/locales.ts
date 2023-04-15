@@ -1,3 +1,4 @@
+import { I18nPath } from '@solid-primitives/i18n';
 import { en, ru } from './langs';
 import type { Locale } from './langs';
 
@@ -7,17 +8,17 @@ interface Locales {
 
 export interface LangInfo {
     locale: string;
-    textKey: string;
+    textKey: (i18n: I18nPath<Locale>) => string;
 }
 
 export const langs: LangInfo[] = [
     {
         locale: 'en',
-        textKey: 'langs.en',
+        textKey: i18n => i18n.langs.en(),
     },
     {
         locale: 'ru',
-        textKey: 'langs.ru',
+        textKey: i18n => i18n.langs.ru(),
     },
 ];
 

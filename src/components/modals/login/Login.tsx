@@ -3,7 +3,7 @@ import { Modal } from '../Modal';
 
 import { Form } from '~/components/forms';
 import TextField from '~/components/forms/controls/text-field';
-import { useI18n } from '@solid-primitives/i18n';
+import { useI18n } from '~/locale';
 import { useApp, useUser, useApiError } from '~/store';
 import { createMemo, createSignal, Show } from 'solid-js';
 
@@ -70,7 +70,7 @@ export function Login() {
     return (
         <Modal
             modal="Login"
-            title={t('components.modals.login.signIn')}
+            title={t.components.modals.login.signIn()}
             dialogRole
         >
             <Form
@@ -103,7 +103,7 @@ export function Login() {
                             disabled={loading()}
                             class="btn btn-primary btn-md"
                         >
-                            {t('components.modals.login.signIn')}
+                            {t.components.modals.login.signIn()}
                         </button>
                     </>
                 )}

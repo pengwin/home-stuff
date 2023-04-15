@@ -38,7 +38,7 @@ export function Modal(props: ParentProps<ModalProps>) {
                         <IconCloseThick />
                     </label>
                     <h3 class="text-lg font-bold">{props.title}</h3>
-                    <div class="py-4">{content}</div>
+                    <div class="py-4">{content()}</div>
                 </div>
             </div>
         </Portal>

@@ -1,33 +1,12 @@
 import { describe, expect, Nullable, test, afterEach, vi } from 'vitest';
 
-import { render, fireEvent, waitFor } from 'solid-testing-library';
+import { render, fireEvent, waitFor } from '@solidjs/testing-library';
 
-import matchers from '@testing-library/jest-dom/matchers';
-
-import { I18nContext, createI18nContext } from '@solid-primitives/i18n';
+import { LocaleProvider, locales, useI18n } from '~/locale';
 
 import TextField from './text-field';
 import { Form } from '../Form';
 import { ErrorContext } from '../validators/validator';
-
-expect.extend(matchers);
-
-const localeDict = {
-    en: {
-        components: {
-            forms: {
-                required: 'Required',
-            },
-        },
-    },
-    ru: {
-        components: {
-            forms: {
-                required: 'Обязательно',
-            },
-        },
-    },
-};
 
 const formId = 'test-form';
 
@@ -50,19 +29,15 @@ const renderField = (
     obSubmit?: () => void,
     lang?: string,
 ) => {
-    const value = createI18nContext(localeDict, lang || 'en');
-    return render(() => (
-        <I18nContext.Provider value={value}>
-            <Form
-                testId={formId}
-                onSubmit={
-                    obSubmit
-                        ? obSubmit
-                        : () => {
-                              /* empty */
-                          }
-                }
-            >
+    const emptySubmit = () => {
+        /* empty */
+    };
+
+    const InnerForm = () => {
+        const [_, { setLocale }] = useI18n();
+        setLocale(lang || 'en');
+        return (
+            <Form testId={formId} onSubmit={obSubmit ? obSubmit : emptySubmit}>
                 {ctx => (
                     <TextField
                         testId={testId}
@@ -75,7 +50,13 @@ const renderField = (
                     />
                 )}
             </Form>
-        </I18nContext.Provider>
+        );
+    };
+
+    return render(() => (
+        <LocaleProvider>
+            <InnerForm />
+        </LocaleProvider>
     ));
 };
 
@@ -119,8 +100,8 @@ describe('<TextField />', () => {
         });
 
         test.each([
-            [localeDict.en.components.forms.required, 'en'],
-            [localeDict.ru.components.forms.required, 'ru'],
+            [locales.en.components.forms.required, 'en'],
+            [locales.ru.components.forms.required, 'ru'],
         ])('required label with text "%s" if lang = %s', (label, locale) => {
             const testId = 'text-field';
             const { getByText, unmount } = renderField(
