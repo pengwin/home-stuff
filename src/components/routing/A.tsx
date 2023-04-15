@@ -108,7 +108,7 @@ export function A(props: ParentProps<PropsA>) {
             onClick={onClick}
             role={props.role}
         >
-            {content}
+            {content()}
         </a>
     );
 }

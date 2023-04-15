@@ -1,4 +1,4 @@
-import { useI18n } from '@solid-primitives/i18n';
+import { useI18n } from '~/locale';
 import { createMemo } from 'solid-js';
 import { useRouter } from '~/store';
 
@@ -10,7 +10,7 @@ export function RoutingHtmlTitle() {
 
     const title = createMemo(() => {
         const routeTitle = state.currentRoute?.title;
-        const appName = t('app');
+        const appName = t.app();
         if (!routeTitle) {
             return appName;
         }

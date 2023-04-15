@@ -1,4 +1,4 @@
-import { useI18n } from '@solid-primitives/i18n';
+import { useI18n } from '~/locale';
 import { Accessor, createMemo, Show } from 'solid-js';
 import { RequiredValidator } from '../validators/required';
 import { ErrorContext, Validator } from '../validators/validator';
@@ -38,7 +38,7 @@ function TextFieldInt(props: TextFieldIntProps) {
                 <span class="label-text">{props.label}</span>
                 <Show when={props.required}>
                     <span class="label-text-alt text-base-300">
-                        {t('components.forms.required')}
+                        {t.components.forms.required()}
                     </span>
                 </Show>
             </label>
@@ -79,7 +79,7 @@ export default function TextField(props: TextFieldProps) {
 
     const defaultErrorText = createMemo(() => {
         const label = props.label;
-        return t('components.forms.fieldRequired', { field: label });
+        return t.components.forms.fieldRequired({ field: label });
     });
 
     const unwrappedErrorContext: Accessor<ErrorContext | undefined> =

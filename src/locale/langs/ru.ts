@@ -13,7 +13,8 @@ export default {
         },
         forms: {
             required: '*',
-            fieldRequired: 'Поле "{{ field }}" должно быть заполнено',
+            fieldRequired: ({ field }: { field: string }) =>
+                `Поле "${field}" должно быть заполнено`,
         },
         modals: {
             login: {

@@ -1,4 +1,4 @@
-import { useI18n } from '@solid-primitives/i18n';
+import { useI18n } from '~/locale';
 
 import { MenuItem } from './MenuItem';
 
@@ -8,7 +8,7 @@ export function NavigationMenu() {
     return (
         <>
             <li class="menu-title">
-                <span>{t('components.sidebar.navigation')}</span>
+                <span>{t.components.sidebar.navigation()}</span>
             </li>
             <MenuItem href="/test/comp/111" text="Test.Comp 111" />
             <MenuItem href="/test/comp/abc" text="Test.Comp abc" />

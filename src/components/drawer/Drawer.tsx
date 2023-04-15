@@ -12,11 +12,11 @@ export function Drawer(props: ParentProps<Props>) {
         <div class="drawer-mobile drawer">
             <input id={props.drawerId} type="checkbox" class="drawer-toggle" />
             <div class="drawer-content flex flex-col items-center">
-                {content}
+                {content()}
             </div>
             <div class="drawer-side lg:shadow-sm">
                 <label for={props.drawerId} class="drawer-overlay" />
-                {sidebar}
+                {sidebar()}
             </div>
         </div>
     );
