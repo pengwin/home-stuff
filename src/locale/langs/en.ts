@@ -24,6 +24,17 @@ export default {
         },
     },
     pages: {
+        index: {
+            mainChart: {
+                title: 'Main Chart',
+                labels: {
+                    a: 'A',
+                    b: 'B',
+                    c: 'C',
+                },
+            },
+            regenerateBtn: 'Regenerate',
+        },
         notFound: {
             mainText: 'Not Found',
         },

@@ -6,7 +6,7 @@ install:
 build:
 	pnpm build
 
-serve:
+serve: build
 	pnpm serve
 
 dev:

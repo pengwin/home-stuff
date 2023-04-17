@@ -24,6 +24,17 @@ export default {
         },
     },
     pages: {
+        index: {
+            mainChart: {
+                title: 'Главный график',
+                labels: {
+                    a: 'A',
+                    b: 'Б',
+                    c: 'В',
+                },
+            },
+            regenerateBtn: 'Перегенерировать',
+        },
         notFound: {
             mainText: 'Страница не найдена',
         },

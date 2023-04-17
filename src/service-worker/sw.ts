@@ -21,6 +21,9 @@ class AppServiceWorker {
     constructor(private readonly cacheName, private readonly logger: Logger) {}
 
     public setup(sw: ServiceWorkerGlobalScope) {
+        if (import.meta.env.DEV) {
+            return;
+        }
         sw.addEventListener('install', e => this.install(e));
         sw.addEventListener('fetch', this.fetch.bind(this));
     }
