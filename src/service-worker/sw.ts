@@ -18,7 +18,11 @@ class NoOpLogger implements Logger {
 }
 
 class AppServiceWorker {
-    constructor(private readonly cacheName, private readonly logger: Logger) {}
+    constructor(
+        private readonly useCache: boolean,
+        private readonly cacheName,
+        private readonly logger: Logger,
+    ) {}
 
     public setup(sw: ServiceWorkerGlobalScope) {
         if (import.meta.env.DEV) {
@@ -29,10 +33,16 @@ class AppServiceWorker {
     }
 
     public async install(event: ExtendableEvent) {
+        if (!this.useCache) {
+            return;
+        }
         event.waitUntil(this.addResourcesToCache(['/', '/index.html']));
     }
 
     public async fetch(event: FetchEvent) {
+        if (!this.useCache) {
+            return;
+        }
         event.respondWith(
             (async () => {
                 const r = await caches.match(event.request);
@@ -60,7 +70,11 @@ class AppServiceWorker {
     }
 }
 
-const instance = new AppServiceWorker(defaultCacheName, new NoOpLogger());
+const instance = new AppServiceWorker(
+    false,
+    defaultCacheName,
+    new NoOpLogger(),
+);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 instance.setup(self as any as ServiceWorkerGlobalScope);

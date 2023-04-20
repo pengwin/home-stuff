@@ -1,6 +1,11 @@
 import type { Component } from 'solid-js';
 import { createStore } from 'solid-js/store';
-import { BarChart, BarChartData } from '~/components/chart';
+import {
+    BarChart,
+    DoughnutChart,
+    PieChart,
+    ChartData,
+} from '~/components/chart';
 
 import { useI18n } from '~/locale';
 
@@ -22,7 +27,7 @@ const Index: Component = () => {
             value: 30,
             color: { r: 255, g: 205, b: 86 },
         },
-    ] as BarChartData[]);
+    ] as ChartData[]);
 
     const reGenerate = () => {
         /*setData({
@@ -41,7 +46,7 @@ const Index: Component = () => {
             color: { r: 255, g: 205, b: 86 },
         });*/
 
-        const newData: BarChartData[] = [
+        const newData: ChartData[] = [
             {
                 label: () => t.pages.index.mainChart.labels.a(),
                 value: Math.floor(Math.random() * 100),
@@ -76,6 +81,11 @@ const Index: Component = () => {
     return (
         <div>
             <BarChart title={t.pages.index.mainChart.title()} data={getData} />
+            <DoughnutChart
+                title={t.pages.index.mainChart.title()}
+                data={getData}
+            />
+            <PieChart title={t.pages.index.mainChart.title()} data={getData} />
             <button class="btn" onClick={reGenerate}>
                 {t.pages.index.regenerateBtn()}
             </button>
