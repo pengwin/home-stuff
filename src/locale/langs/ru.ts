@@ -5,6 +5,11 @@ export default {
         ru: 'Русский',
     },
     components: {
+        chart: {
+            chartSpinner: {
+                text: 'Загрузка диаграммы',
+            },
+        },
         sidebar: {
             navigation: 'Навигация',
             lang: {
@@ -24,6 +29,17 @@ export default {
         },
     },
     pages: {
+        index: {
+            mainChart: {
+                title: 'Главный график',
+                labels: {
+                    a: 'A',
+                    b: 'Б',
+                    c: 'В',
+                },
+            },
+            regenerateBtn: 'Перегенерировать',
+        },
         notFound: {
             mainText: 'Страница не найдена',
         },

@@ -8,7 +8,6 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:solid/typescript',
         'prettier',
-        'plugin:tailwindcss/recommended',
         'plugin:css/recommended',
         'plugin:i18next/recommended',
     ],
@@ -17,7 +16,7 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
     },
-    plugins: ['@typescript-eslint', 'solid', 'tailwindcss', 'css', 'i18next'],
+    plugins: ['@typescript-eslint', 'solid', 'css', 'i18next'],
     rules: {
         quotes: ['error', 'single'],
         semi: ['error', 'always'],

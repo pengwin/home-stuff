@@ -5,6 +5,11 @@ export default {
         ru: 'Russian',
     },
     components: {
+        chart: {
+            chartSpinner: {
+                text: 'Loading chart',
+            },
+        },
         sidebar: {
             navigation: 'Navigation',
             lang: {
@@ -24,6 +29,17 @@ export default {
         },
     },
     pages: {
+        index: {
+            mainChart: {
+                title: 'Main Chart',
+                labels: {
+                    a: 'A',
+                    b: 'B',
+                    c: 'C',
+                },
+            },
+            regenerateBtn: 'Regenerate',
+        },
         notFound: {
             mainText: 'Not Found',
         },
