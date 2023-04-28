@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/classnames-order */
 import { Show } from 'solid-js';
 import { useI18n } from '~/locale';
 import { useApp, useUser } from '~/store';

@@ -21,12 +21,12 @@ export interface ChartData {
     onClick?: () => void;
 }
 
-interface ChartProps {
+export interface ChartProps {
     title: string;
     data: ChartData[];
 }
 
-type ChartComponentType = 'bar' | 'doughnut' | 'pie';
+export type ChartComponentType = 'bar' | 'doughnut' | 'pie';
 type ChartType = Chart<ChartComponentType>;
 
 export function BaseChart(chartComponentType: ChartComponentType) {
@@ -185,6 +185,6 @@ export function BaseChart(chartComponentType: ChartComponentType) {
             onCleanup(() => chart?.destroy());
         });
 
-        return <canvas ref={ctx} />;
+        return <canvas role="figure" ref={ctx} />;
     };
 }

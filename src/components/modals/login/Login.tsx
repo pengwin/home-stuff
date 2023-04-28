@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/classnames-order */
 import { Modal } from '../Modal';
 
 import { Form } from '~/components/forms';

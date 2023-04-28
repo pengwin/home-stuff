@@ -1,11 +1,6 @@
-import type { Component } from 'solid-js';
+import { Component, createSignal, For } from 'solid-js';
 import { createStore } from 'solid-js/store';
-import {
-    BarChart,
-    DoughnutChart,
-    PieChart,
-    ChartData,
-} from '~/components/chart';
+import { LazyChart, ChartData, ChartComponentType } from '~/components/chart';
 
 import { useI18n } from '~/locale';
 
@@ -28,6 +23,7 @@ const Index: Component = () => {
             color: { r: 255, g: 205, b: 86 },
         },
     ] as ChartData[]);
+    const [chartType, setChartType] = createSignal<ChartComponentType>('bar');
 
     const reGenerate = () => {
         /*setData({
@@ -78,14 +74,47 @@ const Index: Component = () => {
         setData(newData);
     };
 
+    const changeChartType = (e: Event) => {
+        const target = e.target as HTMLSelectElement;
+        setChartType(target.value as ChartComponentType);
+    };
+
+    const chartOptionsMap: Record<
+        ChartComponentType,
+        { text: string; selected: boolean }
+    > = {
+        bar: { text: 'Bar', selected: true },
+        doughnut: { text: 'Doughnut', selected: false },
+        pie: { text: 'Pie', selected: false },
+    };
+
+    const chartOptions = Object.entries(chartOptionsMap).map(([key, value]) => {
+        return {
+            value: key,
+            text: value.text,
+            selected: value.selected,
+        };
+    });
+
     return (
         <div>
-            <BarChart title={t.pages.index.mainChart.title()} data={getData} />
-            <DoughnutChart
+            <select
+                class="select select-bordered select-xs max-w-xs"
+                onChange={changeChartType}
+            >
+                <For each={chartOptions}>
+                    {item => (
+                        <option selected={item.selected} value={item.value}>
+                            {item.text}
+                        </option>
+                    )}
+                </For>
+            </select>
+            <LazyChart
+                type={chartType()}
                 title={t.pages.index.mainChart.title()}
                 data={getData}
             />
-            <PieChart title={t.pages.index.mainChart.title()} data={getData} />
             <button class="btn" onClick={reGenerate}>
                 {t.pages.index.regenerateBtn()}
             </button>

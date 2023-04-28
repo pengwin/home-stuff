@@ -5,6 +5,11 @@ export default {
         ru: 'Russian',
     },
     components: {
+        chart: {
+            chartSpinner: {
+                text: 'Loading chart',
+            },
+        },
         sidebar: {
             navigation: 'Navigation',
             lang: {

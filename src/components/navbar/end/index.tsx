@@ -1,4 +1,3 @@
-/* eslint-disable tailwindcss/classnames-order */
 import { LangMenu } from './LangMenu';
 import { LoginButton } from './LoginButton';
 
