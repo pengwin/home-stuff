@@ -5,6 +5,26 @@ export default {
         ru: 'Русский',
     },
     components: {
+        grid: {
+            cellComponents: {
+                num: {
+                    fractionDigits: () => 2,
+                    numberFormatLocale: 'ru-RU',
+                },
+                date: {
+                    fullFormat: 'DD.MM.YYYY HH:mm:ss',
+                    justNow: 'Только что',
+                    dateFormat: 'DD.MM.YYYY',
+                    timeFormat: 'HH:mm:ss',
+                    nDaysAgo: (n: number) =>
+                        n === 1 ? 'День назад' : `${n} дней назад`,
+                    nHoursAgo: (n: number) =>
+                        n === 1 ? 'Час назад' : `${n} часов назад`,
+                    nMinutesAgo: (n: number) =>
+                        n === 1 ? 'Минуту назад' : `${n} минут назад`,
+                },
+            },
+        },
         chart: {
             chartSpinner: {
                 text: 'Загрузка диаграммы',

@@ -5,6 +5,25 @@ export default {
         ru: 'Russian',
     },
     components: {
+        grid: {
+            cellComponents: {
+                num: {
+                    numberFormatLocale: 'en-US',
+                },
+                date: {
+                    fullFormat: 'DD/MM/YYYY HH:mm:ss',
+                    justNow: 'Just now',
+                    dateFormat: 'DD/MM/YYYY',
+                    timeFormat: 'HH:mm:ss',
+                    nDaysAgo: (n: number) =>
+                        n === 1 ? 'A day ago' : `${n} days ago`,
+                    nHoursAgo: (n: number) =>
+                        n === 1 ? 'An hour ago' : `${n} hours ago`,
+                    nMinutesAgo: (n: number) =>
+                        n === 1 ? 'A minute ago' : `${n} minutes ago`,
+                },
+            },
+        },
         chart: {
             chartSpinner: {
                 text: 'Loading chart',
