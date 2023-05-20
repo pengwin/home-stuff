@@ -1,12 +1,11 @@
 import { Component, createMemo, createSignal, For } from 'solid-js';
 import { LazyChart, ChartData, ChartComponentType } from '~/components/chart';
 import {
-    Grid,
-    GridDescription,
-    StringColumnDescription,
-    DateColumnDescription,
-    NumberColumnDescription,
-} from '~/components/grid';
+    Table,
+    DateColumn,
+    StringColumn,
+    NumberColumn,
+} from '~/components/table';
 import dayjs from 'dayjs';
 
 import { useI18n } from '~/locale';
@@ -20,13 +19,6 @@ interface Expense {
 
 const Index: Component = () => {
     const [t] = useI18n();
-
-    const gridDescription = new GridDescription<Expense>({
-        category: new StringColumnDescription<Expense>(),
-        amount: new NumberColumnDescription<Expense>(),
-        date: new DateColumnDescription<Expense>({}, 'DD.MM.YYYY HH:mm'),
-        detail: new StringColumnDescription<Expense>(),
-    });
 
     function randomDate() {
         return dayjs().add(Math.floor(Math.random() * 100000), 'minutes');
@@ -199,7 +191,36 @@ const Index: Component = () => {
             <button class="btn" onClick={reGenerate}>
                 {t.pages.index.regenerateBtn()}
             </button>
-            <Grid description={gridDescription} data={selectedData()} />
+            <Table data={selectedData()}>
+                {ctx => (
+                    <>
+                        <StringColumn
+                            ctx={ctx}
+                            id="category"
+                            header={() => 'Category'}
+                            accessorFn={t => t.category}
+                        />
+                        <NumberColumn
+                            ctx={ctx}
+                            id="amount"
+                            header={() => 'Amount'}
+                            accessorFn={t => t.amount}
+                        />
+                        <DateColumn
+                            ctx={ctx}
+                            id="date"
+                            header={() => 'Date'}
+                            accessorFn={t => t.date}
+                        />
+                        <StringColumn
+                            ctx={ctx}
+                            id="detail"
+                            header={() => 'Detail'}
+                            accessorFn={t => t.detail}
+                        />
+                    </>
+                )}
+            </Table>
         </div>
     );
 };
