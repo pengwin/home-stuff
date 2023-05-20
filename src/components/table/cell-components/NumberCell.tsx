@@ -3,7 +3,7 @@ import { Accessor, createMemo } from 'solid-js';
 import { useI18n } from '~/locale';
 import { numberFormatter } from './number-formatter';
 
-import { Column, ColumnProps } from '../Table';
+import { Column, ColumnProps } from '../Column';
 
 function NumberCell(props: { value: Accessor<number> }) {
     const [t] = useI18n();

@@ -5,7 +5,7 @@ import { useI18n } from '~/locale';
 
 import { formatDate } from './date-formatter';
 
-import { Column, ColumnProps } from '../Table';
+import { Column, ColumnProps } from '../Column';
 
 function DateCell(props: {
     value: Accessor<dayjs.Dayjs>;

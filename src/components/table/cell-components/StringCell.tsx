@@ -1,5 +1,6 @@
 import { Accessor } from 'solid-js';
-import { Column, ColumnProps } from '../Table';
+
+import { Column, ColumnProps } from '../Column';
 
 function StringCell(props: { value: Accessor<string> }) {
     return <span>{props.value()}</span>;
