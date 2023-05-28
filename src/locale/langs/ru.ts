@@ -77,6 +77,9 @@ export default {
             state: {
                 reset: 'сброс',
             },
+            tablePerf: {
+                regenerateBtn: 'Перегенерировать',
+            },
         },
     },
 };

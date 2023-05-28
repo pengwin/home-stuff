@@ -3,12 +3,7 @@ import dayjs from 'dayjs';
 import { createStore } from 'solid-js/store';
 
 import { LazyChart, ChartData, ChartComponentType } from '~/components/chart';
-import {
-    Table,
-    DateColumn,
-    StringColumn,
-    NumberColumn,
-} from '~/components/table';
+import { Table } from '~/components/table';
 
 import { useI18n } from '~/locale';
 import { HeaderTitle } from '~/components/table/HeaderTitle';
@@ -235,26 +230,22 @@ const Index: Component = () => {
             >
                 {ctx => (
                     <>
-                        <StringColumn
-                            ctx={ctx}
+                        <ctx.StringColumn
                             id="category"
                             title={t.pages.index.table.category}
                             accessorFn={t => t.category}
                         />
-                        <NumberColumn
-                            ctx={ctx}
+                        <ctx.NumberColumn
                             id="amount"
                             title={t.pages.index.table.amount}
                             accessorFn={t => t.amount}
                         />
-                        <DateColumn
-                            ctx={ctx}
+                        <ctx.DateColumn
                             id="date"
                             title={t.pages.index.table.date}
                             accessorFn={t => t.date}
                         />
-                        <StringColumn
-                            ctx={ctx}
+                        <ctx.StringColumn
                             id="detail"
                             title={t.pages.index.table.detail}
                             accessorFn={t => t.detail}
