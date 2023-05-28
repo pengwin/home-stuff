@@ -1,23 +1,31 @@
-import { For } from 'solid-js';
+import { For, createMemo } from 'solid-js';
 
-import { ColumnDef } from './table-context';
+import { ColumnDef, HeaderFactory } from './table-context';
 
 interface TheadProps<T> {
     def: ColumnDef<T>;
+    header: HeaderFactory;
 }
 
 function Thead<T>(props: TheadProps<T>) {
-    return <th>{props.def.header()}</th>;
+    const header = createMemo(() =>
+        props.header(props.def.id(), props.def.title),
+    );
+
+    return <th>{header()}</th>;
 }
 
 interface TableHeadProps<T> {
     columns: ReadonlyArray<ColumnDef<T>>;
+    header: HeaderFactory;
 }
 
 export function TableHead<T>(props: TableHeadProps<T>) {
     return (
         <thead>
-            <For each={props.columns}>{def => <Thead def={def} />}</For>
+            <For each={props.columns}>
+                {def => <Thead def={def} header={props.header} />}
+            </For>
         </thead>
     );
 }

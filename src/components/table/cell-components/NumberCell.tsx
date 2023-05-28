@@ -4,6 +4,7 @@ import { useI18n } from '~/locale';
 import { numberFormatter } from './number-formatter';
 
 import { Column, ColumnProps } from '../Column';
+import { SortOrder } from '../table-context';
 
 function NumberCell(props: { value: Accessor<number> }) {
     const [t] = useI18n();
@@ -44,14 +45,19 @@ function NumberCell(props: { value: Accessor<number> }) {
 }
 
 export interface NumberColumnProps<T>
-    extends Omit<ColumnProps<T, number>, 'valueRender'> {
+    extends Omit<ColumnProps<T, number>, 'valueRender' | 'sortFn'> {
     dateFormat?: string;
+}
+
+function sort(a: number, b: number, order: SortOrder) {
+    return order === 'asc' ? a - b : b - a;
 }
 
 export function NumberColumn<T>(props: NumberColumnProps<T>) {
     return (
         <Column<T, number>
             {...props}
+            sortFn={sort}
             valueRender={a => <NumberCell value={a} />}
         />
     );

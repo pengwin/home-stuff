@@ -1,10 +1,20 @@
 import { Accessor, JSX } from 'solid-js';
 import { produce, SetStoreFunction } from 'solid-js/store';
 
+export type SortOrder = 'asc' | 'desc';
+
+export type SortFn<T> = (s: Array<T>, order: SortOrder) => void;
+
+export type HeaderFactory = (
+    id: string,
+    title: Accessor<string | JSX.Element>,
+) => JSX.Element;
+
 export interface ColumnDef<T> {
     id: Accessor<string>;
-    header: Accessor<string | JSX.Element>;
+    title: Accessor<string | JSX.Element>;
     value: (i: T) => JSX.Element;
+    sortFn: SortFn<T>;
 }
 
 export interface TableContext<T> {

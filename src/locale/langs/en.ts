@@ -57,6 +57,12 @@ export default {
                     c: 'C',
                 },
             },
+            table: {
+                category: 'Category',
+                amount: 'Amount',
+                date: 'Date',
+                detail: 'Detail',
+            },
             regenerateBtn: 'Regenerate',
         },
         notFound: {

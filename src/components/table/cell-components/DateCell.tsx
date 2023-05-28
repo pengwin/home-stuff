@@ -6,6 +6,7 @@ import { useI18n } from '~/locale';
 import { formatDate } from './date-formatter';
 
 import { Column, ColumnProps } from '../Column';
+import { SortOrder } from '../table-context';
 
 function DateCell(props: {
     value: Accessor<dayjs.Dayjs>;
@@ -52,14 +53,21 @@ function DateCell(props: {
 }
 
 export interface DateColumnProps<T>
-    extends Omit<ColumnProps<T, dayjs.Dayjs>, 'valueRender'> {
+    extends Omit<ColumnProps<T, dayjs.Dayjs>, 'valueRender' | 'sortFn'> {
     dateFormat?: string;
+}
+
+function sort(a: dayjs.Dayjs, b: dayjs.Dayjs, order: SortOrder) {
+    return order === 'asc'
+        ? a.valueOf() - b.valueOf()
+        : b.valueOf() - a.valueOf();
 }
 
 export function DateColumn<T>(props: DateColumnProps<T>) {
     return (
         <Column<T, dayjs.Dayjs>
             {...props}
+            sortFn={sort}
             valueRender={a => (
                 <DateCell value={a} dateFormat={props.dateFormat} />
             )}
