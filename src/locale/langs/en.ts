@@ -76,6 +76,9 @@ export default {
             state: {
                 reset: 'reset',
             },
+            tablePerf: {
+                regenerateBtn: 'Regenerate',
+            },
         },
     },
 };

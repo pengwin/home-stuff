@@ -23,6 +23,13 @@ export const routes: Route[] = [
                 },
             },
             {
+                path: '/table-perf',
+                metadata: {
+                    title: 'TablePerf',
+                    component: lazy(() => import('~/pages/test/table-perf')),
+                },
+            },
+            {
                 path: '/comp/:text',
                 metadata: {
                     title: 'Comp',

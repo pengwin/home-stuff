@@ -1,15 +1,11 @@
 import { JSX, children, createMemo } from 'solid-js';
 import { createStore } from 'solid-js/store';
 
-import {
-    ColumnDef,
-    TableContext,
-    TableContextImpl,
-    HeaderFactory,
-    SortOrder,
-} from './table-context';
+import { ColumnDef, HeaderFactory, SortOrder } from './table-context';
 import { TableHead } from './TableHead';
 import { TableBody } from './TableBody';
+import { TableContextImpl } from './table-context-impl';
+import { TableContextWithColumns } from './table-context-with-columns';
 
 interface TableInnerProps<T> {
     data: T[];
@@ -31,7 +27,7 @@ interface TableProps<T, U extends JSX.Element> {
     header?: HeaderFactory;
     sortOrder?: SortOrder;
     sortBy?: string;
-    children: (ctx: TableContext<T>) => U;
+    children: (ctx: TableContextWithColumns<T>) => U;
 }
 
 const defaultHeader: HeaderFactory = (_, title) => <>{title()}</>;
@@ -39,7 +35,7 @@ const defaultHeader: HeaderFactory = (_, title) => <>{title()}</>;
 export function Table<T, U extends JSX.Element>(props: TableProps<T, U>) {
     const [columns, setColumns] = createStore<ColumnDef<T>[]>([]);
 
-    const ctx: TableContext<T> = new TableContextImpl(setColumns);
+    const ctx: TableContextWithColumns<T> = new TableContextImpl(setColumns);
 
     const header = createMemo(() => props.header ?? defaultHeader);
 
