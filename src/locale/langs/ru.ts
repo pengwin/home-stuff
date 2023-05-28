@@ -58,6 +58,12 @@ export default {
                     c: 'В',
                 },
             },
+            table: {
+                category: 'Категория',
+                amount: 'Сумма',
+                date: 'Дата',
+                detail: 'Детали',
+            },
             regenerateBtn: 'Перегенерировать',
         },
         notFound: {

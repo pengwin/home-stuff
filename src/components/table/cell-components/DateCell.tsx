@@ -1,5 +1,3 @@
-import { CellContext } from '@tanstack/solid-table';
-import type { JSX } from 'solid-js/jsx-runtime';
 import dayjs from 'dayjs';
 import { Accessor, createMemo } from 'solid-js';
 
@@ -7,7 +5,10 @@ import { useI18n } from '~/locale';
 
 import { formatDate } from './date-formatter';
 
-function DateCellComponent(props: {
+import { Column, ColumnProps } from '../Column';
+import { SortOrder } from '../table-context';
+
+function DateCell(props: {
     value: Accessor<dayjs.Dayjs>;
     dateFormat?: string;
 }) {
@@ -51,12 +52,25 @@ function DateCellComponent(props: {
     );
 }
 
-export function DateCell<T>(
-    info: CellContext<T, dayjs.Dayjs>,
-    dateFormat?: string,
-): () => JSX.Element {
-    return function _DateCellComponent() {
-        const getValue = () => info.getValue();
-        return <DateCellComponent value={getValue} dateFormat={dateFormat} />;
-    };
+export interface DateColumnProps<T>
+    extends Omit<ColumnProps<T, dayjs.Dayjs>, 'valueRender' | 'sortFn'> {
+    dateFormat?: string;
+}
+
+function sort(a: dayjs.Dayjs, b: dayjs.Dayjs, order: SortOrder) {
+    return order === 'asc'
+        ? a.valueOf() - b.valueOf()
+        : b.valueOf() - a.valueOf();
+}
+
+export function DateColumn<T>(props: DateColumnProps<T>) {
+    return (
+        <Column<T, dayjs.Dayjs>
+            {...props}
+            sortFn={sort}
+            valueRender={a => (
+                <DateCell value={a} dateFormat={props.dateFormat} />
+            )}
+        />
+    );
 }

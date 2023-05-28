@@ -1,11 +1,12 @@
-import { CellContext } from '@tanstack/solid-table';
-import type { JSX } from 'solid-js/jsx-runtime';
 import { Accessor, createMemo } from 'solid-js';
 
 import { useI18n } from '~/locale';
 import { numberFormatter } from './number-formatter';
 
-function NumberCellComponent(props: { value: Accessor<number> }) {
+import { Column, ColumnProps } from '../Column';
+import { SortOrder } from '../table-context';
+
+function NumberCell(props: { value: Accessor<number> }) {
     const [t] = useI18n();
 
     const formattedValue = createMemo(() => {
@@ -43,9 +44,21 @@ function NumberCellComponent(props: { value: Accessor<number> }) {
     );
 }
 
-export function NumberCell<T>(info: CellContext<T, number>): () => JSX.Element {
-    const getValue = () => info.getValue();
-    return function _NumberCellComponent() {
-        return <NumberCellComponent value={getValue} />;
-    };
+export interface NumberColumnProps<T>
+    extends Omit<ColumnProps<T, number>, 'valueRender' | 'sortFn'> {
+    dateFormat?: string;
+}
+
+function sort(a: number, b: number, order: SortOrder) {
+    return order === 'asc' ? a - b : b - a;
+}
+
+export function NumberColumn<T>(props: NumberColumnProps<T>) {
+    return (
+        <Column<T, number>
+            {...props}
+            sortFn={sort}
+            valueRender={a => <NumberCell value={a} />}
+        />
+    );
 }

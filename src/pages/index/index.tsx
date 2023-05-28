@@ -1,15 +1,18 @@
 import { Component, createMemo, createSignal, For } from 'solid-js';
+import dayjs from 'dayjs';
+import { createStore } from 'solid-js/store';
+
 import { LazyChart, ChartData, ChartComponentType } from '~/components/chart';
 import {
-    Grid,
-    GridDescription,
-    StringColumnDescription,
-    DateColumnDescription,
-    NumberColumnDescription,
-} from '~/components/grid';
-import dayjs from 'dayjs';
+    Table,
+    DateColumn,
+    StringColumn,
+    NumberColumn,
+} from '~/components/table';
 
 import { useI18n } from '~/locale';
+import { HeaderTitle } from '~/components/table/HeaderTitle';
+import { SortOrder } from '~/components/table/table-context';
 
 interface Expense {
     category: string;
@@ -21,18 +24,11 @@ interface Expense {
 const Index: Component = () => {
     const [t] = useI18n();
 
-    const gridDescription = new GridDescription<Expense>({
-        category: new StringColumnDescription<Expense>(),
-        amount: new NumberColumnDescription<Expense>(),
-        date: new DateColumnDescription<Expense>({}, 'DD.MM.YYYY HH:mm'),
-        detail: new StringColumnDescription<Expense>(),
-    });
-
     function randomDate() {
         return dayjs().add(Math.floor(Math.random() * 100000), 'minutes');
     }
 
-    const [getData, setData] = createSignal<Expense[]>([
+    const [data, setData] = createStore<Expense[]>([
         {
             category: 'Food',
             amount: 100,
@@ -90,9 +86,9 @@ const Index: Component = () => {
     const selectedData = createMemo<Expense[]>(() => {
         const cat = selectedCategory();
         if (cat === null) {
-            return getData();
+            return data;
         }
-        return getData().filter(x => x.category === selectedCategory());
+        return data.filter(x => x.category === selectedCategory());
     });
 
     function createSelectCategoryHandler(category: string | null) {
@@ -108,7 +104,7 @@ const Index: Component = () => {
 
     const getChartData = createMemo<ChartData[]>(() =>
         Object.entries(
-            getData().reduce((acc, expense) => {
+            data.reduce((acc, expense) => {
                 if (acc[expense.category]) {
                     acc[expense.category].amount += expense.amount;
                 } else {
@@ -177,6 +173,32 @@ const Index: Component = () => {
         };
     });
 
+    const [getSortBy, setSortBy] = createSignal<string | undefined>();
+    const [getSortOrder, setSortOrder] = createSignal<SortOrder | undefined>();
+
+    const flipSort = (id: string) => {
+        let sortOrder = getSortOrder();
+        if (getSortBy() !== id) {
+            setSortBy(id);
+            sortOrder = undefined;
+        }
+        if (sortOrder === undefined) {
+            setSortOrder('asc');
+        } else if (sortOrder === 'asc') {
+            setSortOrder('desc');
+        } else if (sortOrder === 'desc') {
+            setSortOrder(undefined);
+        }
+    };
+
+    const sortOrderById = (id: string) => {
+        if (getSortBy() !== id) {
+            return;
+        }
+
+        return getSortOrder;
+    };
+
     return (
         <div>
             <select
@@ -199,7 +221,47 @@ const Index: Component = () => {
             <button class="btn" onClick={reGenerate}>
                 {t.pages.index.regenerateBtn()}
             </button>
-            <Grid description={gridDescription} data={selectedData()} />
+            <Table
+                data={selectedData()}
+                sortOrder={getSortOrder()}
+                sortBy={getSortBy()}
+                header={(id, title) => (
+                    <HeaderTitle
+                        title={title}
+                        sortOrder={sortOrderById(id)}
+                        sortHandler={() => flipSort(id)}
+                    />
+                )}
+            >
+                {ctx => (
+                    <>
+                        <StringColumn
+                            ctx={ctx}
+                            id="category"
+                            title={t.pages.index.table.category}
+                            accessorFn={t => t.category}
+                        />
+                        <NumberColumn
+                            ctx={ctx}
+                            id="amount"
+                            title={t.pages.index.table.amount}
+                            accessorFn={t => t.amount}
+                        />
+                        <DateColumn
+                            ctx={ctx}
+                            id="date"
+                            title={t.pages.index.table.date}
+                            accessorFn={t => t.date}
+                        />
+                        <StringColumn
+                            ctx={ctx}
+                            id="detail"
+                            title={t.pages.index.table.detail}
+                            accessorFn={t => t.detail}
+                        />
+                    </>
+                )}
+            </Table>
         </div>
     );
 };
