@@ -99,10 +99,16 @@ export default defineConfig(env => ({
         // threads: false,
         // isolate: false,
         coverage: {
-            provider: 'c8',
+            enabled: true,
+            extension: '.ts',
+            clean: true,
+            provider: 'v8',
             reportsDirectory: './.artifacts/coverage',
             reporter: ['text', 'json', 'html', 'json-summary'],
             branches: 70,
+        },
+        deps: {
+            inline: [/solid-js/, /@solidjs\/router/],
         },
         reporters: ['dot', 'junit'],
         outputFile: {

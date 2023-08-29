@@ -1,24 +1,21 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './utils/baseTest';
 
 import { locales } from '../src/locale/locales';
 import { cssClasses } from '../src/pages/test/Сomp/css-classes';
-import { coverage } from './utils/coverage';
 
 test.describe('Localization tests', () => {
     test('Should show button in english and switch language from en to run and back on click on switch lang button', async ({
-        page,
-    }, testInfo) => {
-        await coverage.start(page, testInfo);
-
-        await page.goto('/test/comp/test');
-        const btn = await page.locator(`.${cssClasses.btnSwitchLang}`);
+        mainPage,
+    }) => {
+        await mainPage.originalPage.goto('/test/comp/test');
+        const btn = await mainPage.originalPage.locator(
+            `.${cssClasses.btnSwitchLang}`,
+        );
         await expect(btn).toHaveText(locales.en.pages.test.Comp.SwitchLang);
         await btn.click();
         await expect(btn).toHaveText(locales.ru.pages.test.Comp.SwitchLang);
         await btn.click();
         await expect(btn).toHaveText(locales.en.pages.test.Comp.SwitchLang);
-
-        await coverage.collect(page, testInfo);
     });
 });
 

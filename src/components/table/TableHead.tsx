@@ -23,9 +23,11 @@ interface TableHeadProps<T> {
 export function TableHead<T>(props: TableHeadProps<T>) {
     return (
         <thead>
-            <For each={props.columns}>
-                {def => <Thead def={def} header={props.header} />}
-            </For>
+            <tr>
+                <For each={props.columns}>
+                    {def => <Thead def={def} header={props.header} />}
+                </For>
+            </tr>
         </thead>
     );
 }

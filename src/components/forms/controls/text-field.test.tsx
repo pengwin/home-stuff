@@ -1,6 +1,6 @@
-import { describe, expect, Nullable, test, afterEach, vi } from 'vitest';
-
-import { render, fireEvent, waitFor } from '@solidjs/testing-library';
+import { describe, expect, test, afterEach, vi } from 'vitest';
+import { cleanup, render, fireEvent, waitFor } from '@solidjs/testing-library';
+import '@testing-library/jest-dom';
 
 import { LocaleProvider, locales, useI18n } from '~/locale';
 
@@ -61,23 +61,16 @@ const renderField = (
 };
 
 describe('<TextField />', () => {
-    let componentUnmount: Nullable<() => void> = null;
-
-    afterEach(() => {
-        if (componentUnmount) {
-            componentUnmount();
-        }
-    });
+    afterEach(cleanup);
 
     describe('should render <input /> with', () => {
         test.each([['text'], ['TEXT']])('placeholder="%s"', placeholder => {
-            const { getByPlaceholderText, unmount } = renderField({
+            const { getByPlaceholderText } = renderField({
                 testId: 'text-field',
                 label: 'Test Label',
                 name: 'test',
                 placeholder,
             });
-            componentUnmount = unmount;
             const inputEl = getByPlaceholderText(
                 placeholder,
             ) as HTMLInputElement;
@@ -87,13 +80,13 @@ describe('<TextField />', () => {
 
         test('type="text" if password = false', () => {
             const testId = 'text-field';
-            const { getByTestId, unmount } = renderField({
+            const { getByTestId } = renderField({
                 testId,
                 label: 'Test Label',
                 name: 'test',
                 placeholder: 'Test Text',
             });
-            componentUnmount = unmount;
+
             const inputEl = getByTestId(testId) as HTMLInputElement;
             expect(inputEl).toBeInTheDocument();
             expect(inputEl.type).toBe('text');
@@ -104,7 +97,7 @@ describe('<TextField />', () => {
             [locales.ru.components.forms.required, 'ru'],
         ])('required label with text "%s" if lang = %s', (label, locale) => {
             const testId = 'text-field';
-            const { getByText, unmount } = renderField(
+            const { getByText } = renderField(
                 {
                     testId,
                     label: 'Test Label',
@@ -115,33 +108,33 @@ describe('<TextField />', () => {
                 undefined,
                 locale,
             );
-            componentUnmount = unmount;
+
             expect(getByText(label)).toBeInTheDocument();
         });
 
         test('type="password" if password = true', () => {
             const testId = 'text-field';
-            const { getByTestId, unmount } = renderField({
+            const { getByTestId } = renderField({
                 testId,
                 label: 'Test Label',
                 name: 'test',
                 placeholder: 'Test Text',
                 password: true,
             });
-            componentUnmount = unmount;
+
             const inputEl = getByTestId(testId) as HTMLInputElement;
             expect(inputEl).toBeInTheDocument();
             expect(inputEl.type).toBe('password');
         });
 
         test.each([['text'], ['TEXT']])('label with text "%s"', label => {
-            const { getByText, unmount } = renderField({
+            const { getByText } = renderField({
                 testId: 'text-field',
                 label,
                 name: 'test',
                 placeholder: '',
             });
-            componentUnmount = unmount;
+
             expect(getByText(label)).toBeInTheDocument();
         });
     });
@@ -151,7 +144,7 @@ describe('<TextField />', () => {
             // arrange
             const onSubmit = vi.fn();
             const testId = 'text-field';
-            const { getByTestId, unmount } = renderField(
+            const { getByTestId } = renderField(
                 {
                     testId,
                     label: 'Test Label',
@@ -162,7 +155,6 @@ describe('<TextField />', () => {
                 },
                 onSubmit,
             );
-            componentUnmount = unmount;
 
             const testValue = '123';
 
@@ -181,7 +173,7 @@ describe('<TextField />', () => {
             // arrange
             const onSubmit = vi.fn();
             const testId = 'text-field';
-            const { getByTestId, unmount } = renderField(
+            const { getByTestId } = renderField(
                 {
                     testId,
                     label: 'Test Label',
@@ -192,7 +184,6 @@ describe('<TextField />', () => {
                 },
                 onSubmit,
             );
-            componentUnmount = unmount;
 
             const testValue = 'SomeTestValue';
 
@@ -213,7 +204,7 @@ describe('<TextField />', () => {
             // arrange
             const onSubmit = vi.fn();
             const testId = 'text-field';
-            const { getByTestId, unmount } = renderField(
+            const { getByTestId } = renderField(
                 {
                     testId,
                     label: 'Test Label',
@@ -224,7 +215,6 @@ describe('<TextField />', () => {
                 },
                 onSubmit,
             );
-            componentUnmount = unmount;
 
             // act
             const inputEl = getByTestId(testId) as HTMLInputElement;
@@ -241,7 +231,7 @@ describe('<TextField />', () => {
             // arrange
             const onSubmit = vi.fn();
             const testId = 'text-field';
-            const { getByTestId, unmount } = renderField(
+            const { getByTestId } = renderField(
                 {
                     testId,
                     label: 'Test Label',
@@ -252,7 +242,6 @@ describe('<TextField />', () => {
                 },
                 onSubmit,
             );
-            componentUnmount = unmount;
 
             // act
             const inputEl = getByTestId(testId) as HTMLInputElement;

@@ -1,6 +1,6 @@
 import { describe, expect, Nullable, test, afterEach } from 'vitest';
-
 import { render, fireEvent } from '@solidjs/testing-library';
+import '@testing-library/jest-dom';
 
 import { CounterProvider } from '~/store';
 import { LocaleProvider, locales } from '~/locale';

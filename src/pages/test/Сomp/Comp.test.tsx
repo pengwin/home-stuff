@@ -1,6 +1,6 @@
-import { describe, expect, Nullable, test, afterEach } from 'vitest';
-
-import { render, fireEvent } from '@solidjs/testing-library';
+import { describe, expect, test, afterEach } from 'vitest';
+import { cleanup, render, fireEvent } from '@solidjs/testing-library';
+import '@testing-library/jest-dom';
 
 import { LocaleProvider, locales, useI18n } from '~/locale';
 
@@ -27,24 +27,18 @@ const renderComp = (text?: string, lang?: string) => {
 };
 
 describe('<Comp />', () => {
-    let componentUnmount: Nullable<() => void> = null;
-
-    afterEach(() => {
-        if (componentUnmount) {
-            componentUnmount();
-        }
-    });
+    afterEach(cleanup);
 
     describe('Flip', () => {
         test('it will render a text', () => {
-            const { getByText, unmount } = renderComp();
-            componentUnmount = unmount;
+            const { getByText } = renderComp();
+
             expect(getByText('test')).toBeInTheDocument();
         });
 
         test('should Flip have button', async () => {
-            const { container, unmount } = renderComp();
-            componentUnmount = unmount;
+            const { container } = renderComp();
+
             const btnFlip = container.getElementsByClassName(
                 cssClasses.btnFlip,
             )[0];
@@ -57,8 +51,8 @@ describe('<Comp />', () => {
         ])(
             'should flip %s to %s on click back and forth',
             async (text: string, expected: string) => {
-                const { container, getByText, unmount } = renderComp(text);
-                componentUnmount = unmount;
+                const { container, getByText } = renderComp(text);
+
                 const btnFlip = container.getElementsByClassName(
                     cssClasses.btnFlip,
                 );
@@ -72,8 +66,8 @@ describe('<Comp />', () => {
 
     describe('Switch lang', () => {
         test('should have "switch lang" button', () => {
-            const { getByText, unmount } = renderComp();
-            componentUnmount = unmount;
+            const { getByText } = renderComp();
+
             expect(
                 getByText(locales.en.pages.test.Comp.SwitchLang),
             ).toBeInTheDocument();
@@ -85,8 +79,7 @@ describe('<Comp />', () => {
         ])(
             '%d:[%s] "switch lang" button should switch lang and label on click from "%s" to "%s" and back.',
             async (testNo: number, lang: string, expected: string) => {
-                const { unmount, container } = renderComp('', lang);
-                componentUnmount = unmount;
+                const { container } = renderComp('', lang);
 
                 const getSwitchButton = (): [
                     HTMLButtonElement,

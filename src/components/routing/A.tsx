@@ -7,6 +7,7 @@ interface PropsA {
     activeClass?: string;
     inactiveClass?: string;
     class?: string;
+    ariaLabel: string;
     role:
         | 'alert'
         | 'alertdialog'
@@ -107,6 +108,7 @@ export function A(props: ParentProps<PropsA>) {
             class={classValue()}
             onClick={onClick}
             role={props.role}
+            aria-label={props.ariaLabel}
         >
             {content()}
         </a>

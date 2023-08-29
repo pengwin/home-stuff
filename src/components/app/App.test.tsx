@@ -1,6 +1,6 @@
-import { describe, test } from 'vitest';
-
-import { render } from '@solidjs/testing-library';
+import { describe, test, afterEach } from 'vitest';
+import { cleanup, render } from '@solidjs/testing-library';
+import '@testing-library/jest-dom';
 
 import { App } from './App';
 import { AuthApi, User } from '~/api/auth';
@@ -39,6 +39,8 @@ class TestNavApi implements NavigationApi {
 }
 
 describe('<App /> smoke tests', () => {
+    afterEach(cleanup);
+
     test('it will render successfully', () => {
         const dependencies = {
             apiMiddleware: new ApiMiddleware(),

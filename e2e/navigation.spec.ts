@@ -1,13 +1,9 @@
-import { test } from '@playwright/test';
-
-import { coverage } from './utils/coverage';
+import { test } from './utils/baseTest';
 
 test.describe('Navigation tests', () => {
-    test('Click on all navigation buttons', async ({ page }, testInfo) => {
-        await coverage.start(page, testInfo);
-
-        await page.goto('/');
-        const navs = await page
+    test('Click on all navigation buttons', async ({ mainPage }) => {
+        await mainPage.goToIndex();
+        const navs = await mainPage.originalPage
             .locator('.drawer-side')
             .getByRole('navigation')
             .elementHandles();
@@ -16,9 +12,7 @@ test.describe('Navigation tests', () => {
             const href = await nav.getAttribute('href');
             test.fail(href == null, 'Href is null');
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            await page.waitForURL(href!);
+            await mainPage.originalPage.waitForURL(href!);
         }
-
-        await coverage.collect(page, testInfo);
     });
 });

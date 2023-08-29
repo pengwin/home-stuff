@@ -9,6 +9,7 @@ export function MenuItem(props: { href: string; text: string }) {
                 inactiveClass=""
                 class=""
                 role="navigation"
+                ariaLabel={props.text}
             >
                 {props.text}
             </A>

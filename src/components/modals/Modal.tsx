@@ -1,4 +1,4 @@
-import { children, createMemo, ParentProps } from 'solid-js';
+import { children, createEffect, createMemo, ParentProps } from 'solid-js';
 import { Portal } from 'solid-js/web';
 import { useApp } from '~/store';
 import type { ModalType } from '~/store';
@@ -13,26 +13,37 @@ interface ModalProps {
 
 export function Modal(props: ParentProps<ModalProps>) {
     const [appState, appStore] = useApp();
+    // eslint-disable-next-line prefer-const
+    let modalRef: HTMLDialogElement | undefined;
     const modalId = createMemo(() => `modal-id-${props.modal}`);
     const isVisible = createMemo(() => appState.modals[props.modal]);
+
+    createEffect(() => {
+        if (modalRef) {
+            if (isVisible()) {
+                modalRef.showModal();
+            } else {
+                modalRef.close();
+            }
+        }
+    });
 
     const content = children(() => props.children);
     return (
         <Portal mount={document.body}>
-            <input
-                type="checkbox"
+            <dialog
                 id={modalId()}
-                class="modal-toggle"
-                checked={isVisible()}
-            />
-            <div
+                ref={modalRef}
                 class="modal modal-bottom sm:modal-middle"
                 data-testid={`modal-${props.modal}`}
                 role={props.dialogRole ? 'dialog' : undefined}
             >
-                <div class="modal-box relative">
+                <div
+                    class="modal-box relative"
+                    data-testid={`modal-${props.modal}-content`}
+                >
                     <label
-                        class="btn-sm btn-circle btn absolute right-2 top-2"
+                        class="btn-sm btn-circle btn-ghost btn absolute right-2 top-2"
                         onClick={() => appStore.hideModal(props.modal)}
                     >
                         <IconCloseThick />
@@ -40,7 +51,7 @@ export function Modal(props: ParentProps<ModalProps>) {
                     <h3 class="text-lg font-bold">{props.title}</h3>
                     <div class="py-4">{content()}</div>
                 </div>
-            </div>
+            </dialog>
         </Portal>
     );
 }

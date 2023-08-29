@@ -9,7 +9,7 @@ export function Drawer(props: ParentProps<Props>) {
     const content = children(() => props.children);
     const sidebar = children(() => props.sidebar);
     return (
-        <div class="drawer-mobile drawer">
+        <div class="drawer lg:drawer-open">
             <input id={props.drawerId} type="checkbox" class="drawer-toggle" />
             <div class="drawer-content flex flex-col items-center">
                 {content()}

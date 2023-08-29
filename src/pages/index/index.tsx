@@ -99,16 +99,19 @@ const Index: Component = () => {
 
     const getChartData = createMemo<ChartData[]>(() =>
         Object.entries(
-            data.reduce((acc, expense) => {
-                if (acc[expense.category]) {
-                    acc[expense.category].amount += expense.amount;
-                } else {
-                    acc[expense.category] = {
-                        amount: expense.amount,
-                    };
-                }
-                return acc;
-            }, {} as Record<string, { amount: number }>),
+            data.reduce(
+                (acc, expense) => {
+                    if (acc[expense.category]) {
+                        acc[expense.category].amount += expense.amount;
+                    } else {
+                        acc[expense.category] = {
+                            amount: expense.amount,
+                        };
+                    }
+                    return acc;
+                },
+                {} as Record<string, { amount: number }>,
+            ),
         ).map(x => {
             const [label, { amount }] = x;
             const color = {
