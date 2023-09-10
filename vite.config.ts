@@ -108,7 +108,7 @@ export default defineConfig(env => ({
             branches: 70,
         },
         deps: {
-            inline: [/solid-js/, /@solidjs\/router/],
+            inline: [/solid-js/],
         },
         reporters: ['dot', 'junit'],
         outputFile: {
