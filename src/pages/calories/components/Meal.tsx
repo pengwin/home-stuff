@@ -70,11 +70,15 @@ export function MealWithPortions(props: { meal: ResultMeal }) {
         });
     });
 
-    const size = createMemo(() => props.meal.meal.portion.mul(props.meal.portions));
+    const size = createMemo(() =>
+        props.meal.meal.portion.mul(props.meal.portions),
+    );
 
     return (
         <div>
-            <MealTitle>{props.meal.meal.title} (<VC value={size()} />)</MealTitle>
+            <MealTitle>
+                {props.meal.meal.title} (<VC value={size()} />)
+            </MealTitle>
             <MealPFC meal={meal()} />
         </div>
     );

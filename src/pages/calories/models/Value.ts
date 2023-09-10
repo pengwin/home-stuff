@@ -44,9 +44,31 @@ export class Value {
         });
     }
 
+    public sub(b: Value): Value {
+        return new Value({
+            amount: this.amount - b.amount,
+            unit: this.unit,
+        });
+    }
+
+    public diff(b: Value): Value {
+        const diff = this.sub(b).abs();
+        return new Value({
+            amount: (diff.amount / this.amount) * 100,
+            unit: '%',
+        });
+    }
+
     public ceil(): Value {
         return new Value({
             amount: Math.ceil(this.amount),
+            unit: this.unit,
+        });
+    }
+
+    public abs(): Value {
+        return new Value({
+            amount: Math.abs(this.amount),
             unit: this.unit,
         });
     }

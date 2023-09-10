@@ -66,6 +66,32 @@ export class PFC implements PFCState {
         });
     }
 
+    sub(b: PFC): PFC {
+        return new PFC({
+            proteins: this.proteins.sub(b.proteins),
+            fats: this.fats.sub(b.fats),
+            carbohydrates: this.carbohydrates.sub(b.carbohydrates),
+        });
+    }
+
+    diff(b: PFC): PFC {
+        return new PFC({
+            proteins: this.proteins.diff(b.proteins),
+            fats: this.fats.diff(b.fats),
+            carbohydrates: this.carbohydrates.diff(b.carbohydrates),
+        });
+    }
+
+    averageDiff(b: PFC): number {
+        const diff = this.diff(b);
+        return (
+            (diff.proteins.amount +
+                diff.fats.amount +
+                diff.carbohydrates.amount) /
+            3
+        );
+    }
+
     ceil(): PFC {
         return new PFC({
             proteins: this.proteins.ceil(),

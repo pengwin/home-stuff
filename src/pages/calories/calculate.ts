@@ -1,5 +1,7 @@
 import { Meal, ResultMeal } from './models/Meal';
 import { PFC } from './models/PFC';
+import { ShiftArray } from './models/ShiftArray';
+import { Value } from './models/Value';
 
 export function calculateMeals(
     selectedMeals: Meal[],
@@ -11,53 +13,49 @@ export function calculateMeals(
         return result;
     }
 
-    function addToResult(i: ResultMeal) {
-        const existing = result.find(r => r.meal.title === i.meal.title);
-        if (!existing) {
-            result.push(i);
-            return;
-        }
-        if (i.portions > existing.portions) {
-            result.push(i);
-            return;
-        }
-    }
-
     const sm = selectedMeals;
-    const tr = targetRates;
 
-    let resultProtein: ResultMeal = { meal: sm[0], portions: 100000 };
-    let resultFat: ResultMeal = { meal: sm[0], portions: 100000 };
-    let resultCarbohydrates: ResultMeal = { meal: sm[0], portions: 100000 };
+    const shiftArray = new ShiftArray(sm.length, 10);
 
-    for (let i = 0; i < sm.length; i++) {
-        const meal = sm[i];
-
-        const portions = tr.div(meal).ceil();
-
-        if (resultProtein.portions > portions.p.amount) {
-            resultProtein = { meal, portions: portions.p.amount };
+    const resultMeals = (a: number[]) => {
+        const result: ResultMeal[] = [];
+        for (let i = 0; i < a.length; i++) {
+            const item = a[i];
+            const meal = sm[i];
+            const portions = item;
+            result.push({ meal, portions });
         }
-        if (resultFat.portions > portions.f.amount) {
-            resultFat = { meal, portions: portions.f.amount };
+        return result;
+    };
+
+    const resultRates = () => {
+        let result = new PFC({
+            proteins: new Value({ amount: 0, unit: 'g' }),
+            fats: new Value({ amount: 0, unit: 'g' }),
+            carbohydrates: new Value({ amount: 0, unit: 'g' }),
+        });
+
+        const rm = resultMeals(shiftArray.array);
+        for (let i = 0; i < rm.length; i++) {
+            const item = rm[i];
+            result = result.add(item.meal.mul(item.portions));
         }
-        if (resultCarbohydrates.portions > portions.c.amount) {
-            resultCarbohydrates = {
-                meal,
-                portions: portions.c.amount,
-            };
+
+        return result;
+    };
+
+    let resultArray = shiftArray.array;
+    let currentAverageDiff = Infinity;
+
+    while (!shiftArray.isFinal) {
+        const actualRates = resultRates();
+        const averageDiff = actualRates.averageDiff(targetRates);
+        if (averageDiff < currentAverageDiff) {
+            currentAverageDiff = averageDiff;
+            resultArray = shiftArray.array;
         }
+        shiftArray.shift();
     }
 
-    if (resultProtein) {
-        addToResult(resultProtein);
-    }
-    if (resultFat) {
-        addToResult(resultFat);
-    }
-    if (resultCarbohydrates) {
-        addToResult(resultCarbohydrates);
-    }
-
-    return result;
+    return resultMeals(resultArray);
 }
