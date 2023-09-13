@@ -2,14 +2,15 @@ import { Component } from 'solid-js';
 import { routes as defaultRoutes } from './routes';
 
 export interface RouteMetadata {
-    title: string;
-    component?: Component;
+    readonly title: string;
+    readonly component?: Component;
+    readonly hideInMenu?: boolean;
 }
 
 export interface Route {
-    path: string;
-    metadata: RouteMetadata;
-    children?: Route[];
+    readonly path: string;
+    readonly metadata: RouteMetadata;
+    readonly children?: ReadonlyArray<Route>;
 }
 
 interface RouteMatch {
@@ -45,7 +46,7 @@ class PathMatcher {
 export class Router {
     private readonly matchers: PathMatcher[];
 
-    constructor(routes?: Route[]) {
+    constructor(routes?: ReadonlyArray<Route>) {
         routes = routes || defaultRoutes;
         this.matchers = routes.reduce<PathMatcher[]>(
             (a, r) => a.concat(this.resolveMatchers(r)),

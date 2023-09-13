@@ -17,11 +17,11 @@ const Content: Component<{ drawerId: string }> = (props: {
     return (
         <div class="container mx-auto">
             <Navbar drawerId={props.drawerId} />
-            <div class="container mx-auto px-4">
+            <main class="container mx-auto px-4">
                 <CurrentRoute
                     notFound={lazy(() => import('~/pages/not-found'))}
                 />
-            </div>
+            </main>
         </div>
     );
 };

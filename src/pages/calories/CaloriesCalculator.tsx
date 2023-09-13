@@ -8,9 +8,11 @@ import { Meal } from './models/Meal';
 import { Meals, MealsWithPortions } from './components/Meals';
 import { Value } from './models/Value';
 import { ResultRates } from './components/Result';
-import { Container } from './components/Container';
+import { Section } from '~/components/layout/Section';
 import { calculateMeals } from './calculate';
 import { PFC, PFCState } from './models/PFC';
+import { SectionTitle } from '~/components/layout/SectionTitle';
+import { MainTitle } from '~/components/layout/MainTitle';
 
 class PFCPercentages extends PFC {
     public weight: Value;
@@ -113,9 +115,9 @@ export default function CaloriesCalculator() {
     });
 
     return (
-        <div>
-            <h1 class="uppercase font-bold font-mono">Calories Calculator</h1>
-            <Container>
+        <>
+            <MainTitle>Calories Calculator</MainTitle>
+            <Section>
                 <div class="grid gap-4 grid-cols-4 grid-rows-2">
                     <ValueInput
                         param="carbohydrates"
@@ -154,20 +156,20 @@ export default function CaloriesCalculator() {
                         setState={setPfcPRates}
                     />
                 </div>
-            </Container>
-            <Container>
-                <h2 class="uppercase font-bold font-mono">Meals to select</h2>
+            </Section>
+            <Section>
+                <SectionTitle>Meals to select</SectionTitle>
                 <Meals list={meals} onChange={onSelectedMealsChange} />
-            </Container>
-            <Container>
-                <h2 class="uppercase font-bold font-mono">Calculated meals</h2>
+            </Section>
+            <Section>
+                <SectionTitle>Calculated meals</SectionTitle>
                 <MealsWithPortions meals={resultMeals()} />
-            </Container>
+            </Section>
             <ResultRates
                 pfcRates={pfcRates}
                 resultRates={resultRates()}
                 targetRates={targetRates()}
             />
-        </div>
+        </>
     );
 }

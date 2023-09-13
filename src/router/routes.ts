@@ -1,18 +1,20 @@
 import { Route } from './Router';
 import { lazy } from 'solid-js';
 
-export const routes: Route[] = [
+export const routes: ReadonlyArray<Route> = [
     {
         path: '/',
         metadata: {
             title: 'Home',
             component: lazy(() => import('~/pages/index')),
+            hideInMenu: true,
         },
     },
     {
         path: '/test/',
         metadata: {
             title: 'Test',
+            hideInMenu: true,
         },
         children: [
             {
@@ -34,6 +36,7 @@ export const routes: Route[] = [
                 metadata: {
                     title: 'Comp',
                     component: lazy(() => import('~/pages/test/Сomp')),
+                    hideInMenu: true,
                 },
             },
         ],
@@ -45,6 +48,13 @@ export const routes: Route[] = [
             component: lazy(
                 () => import('~/pages/calories/CaloriesCalculator'),
             ),
+        },
+    },
+    {
+        path: '/wordplay/cases',
+        metadata: {
+            title: 'Wordplay.Cases',
+            component: lazy(() => import('~/pages/wordplay/cases/Cases')),
         },
     },
 ];

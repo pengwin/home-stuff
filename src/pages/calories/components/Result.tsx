@@ -1,8 +1,9 @@
 /* eslint-disable i18next/no-literal-string */
 
-import { Container } from './Container';
+import { Section } from '~/components/layout/Section';
 import { PFC } from '../models/PFC';
 import { ValueComponent as VC } from './Value';
+import { SectionTitle } from '~/components/layout/SectionTitle';
 
 interface ResultRatesProps {
     resultRates: PFC;
@@ -12,8 +13,8 @@ interface ResultRatesProps {
 
 export function ResultRates(props: ResultRatesProps) {
     return (
-        <Container>
-            <h2 class="uppercase font-bold font-mono">Result Rates</h2>
+        <Section>
+            <SectionTitle>Result Rates</SectionTitle>
             <div>
                 <span>Proteins:</span> <VC value={props.resultRates.p} />/
                 <VC value={props.targetRates.p} /> (
@@ -30,6 +31,6 @@ export function ResultRates(props: ResultRatesProps) {
                 <VC value={props.targetRates.c} /> (
                 <VC value={props.pfcRates.c} />)
             </div>
-        </Container>
+        </Section>
     );
 }
