@@ -27,6 +27,7 @@
         "@iconify-json/mdi": "^1.1.54",
         "@playwright/test": "^1.37.1",
         "@solid-primitives/i18n": "^1.4.1",
+        "@solidjs/router": "^0.8.3",
         "@solidjs/testing-library": "^0.8.4",
         "@testing-library/jest-dom": "^6.1.2",
         "@types/jest": "^29.5.4",
