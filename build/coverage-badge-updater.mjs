@@ -17,16 +17,26 @@ function getPercentageColor(pct) {
     return colors[index];
 }
 
-export function replace(content, label, pct) {
-    // ![](https://img.shields.io/badge/Unit_Test_Coverage-100%-0000FF.svg?prefix=$lines$)
+function getBadge(label, pct) {
+    if (pct === null) {
+        return `https://img.shields.io/badge/${label}-unknown-lightgrey`;
+    }
+    const color = getPercentageColor(pct);
+    return `https://img.shields.io/badge/${label}-${pct}%25-${color}`;
+}
 
-    const start = `${label}-`;
-    const end = '.svg?prefix=$lines$';
+export function replace(content, anchor, label, pct) {
+    // ![](https://img.shields.io/badge/Unit_Test_Coverage-100%-0000FF)
+
+    const start = `![${anchor}](`;
+    const end = ')';
     const startPos = content.indexOf(start) + start.length;
     const endPos = content.indexOf(end, startPos);
-    const prefix = content.substr(0, startPos);
-    const postfix = content.substr(endPos);
-    return prefix + `${pct}%-${getPercentageColor(pct)}` + postfix;
+    return (
+        content.substring(0, startPos) +
+        getBadge(label, pct) +
+        content.substring(endPos)
+    );
 }
 
 /* c8 ignore start */
@@ -41,13 +51,30 @@ async function main() {
     );
 
     let readme = await fs.readFile('./README.md', 'utf-8');
-    readme = replace(readme, 'Unit_Test_Coverage', coverageUnit);
-    readme = replace(readme, 'E2E_Coverage', coverageE2e);
+    readme = replace(
+        readme,
+        'UnitTestCoverage',
+        'Unit_Test_Coverage',
+        coverageUnit,
+    );
+    readme = replace(readme, 'E2ECoverage', 'E2E_Coverage', coverageE2e);
 
     await fs.writeFile('./README.md', readme);
 }
 
+async function checkFile(file) {
+    try {
+        await fs.access(file, fs.F_OK);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
 async function loadCoverage(file, type) {
+    if (!(await checkFile(file))) {
+        return null;
+    }
     const coverageStr = await fs.readFile(file, 'utf-8');
     const coverage = JSON.parse(coverageStr);
     return coverage.total[type].pct;

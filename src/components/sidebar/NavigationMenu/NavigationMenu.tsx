@@ -15,6 +15,8 @@ export function NavigationMenu() {
             <MenuItem href="/test/comp/test" text="Test.Comp Test" />
             <MenuItem href="/test/state" text="Test.State" />
             <MenuItem href="/test/table-perf" text="Test.TablePerf" />
+            <MenuItem href="/wordplay/cases" text="WordPlay.Cases" />
+            <MenuItem href="/calories/calculator" text="Calories.Calculator" />
         </>
     );
 }

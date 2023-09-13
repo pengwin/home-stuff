@@ -38,4 +38,13 @@ export const routes: Route[] = [
             },
         ],
     },
+    {
+        path: '/calories/calculator',
+        metadata: {
+            title: 'Calories.Calculator',
+            component: lazy(
+                () => import('~/pages/calories/CaloriesCalculator'),
+            ),
+        },
+    },
 ];
