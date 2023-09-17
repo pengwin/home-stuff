@@ -1,15 +1,14 @@
 import { Accessor, createSignal } from 'solid-js';
 import { SentenceItem } from './SentenceItem';
 import { Sentence } from './Sentence';
+import { AnswerState, toAnswerState } from './AnswerState';
 
 export interface TaskState {
     readonly index: number;
     readonly word: string;
-    readonly selectedAnswer: Accessor<string>;
-    readonly setAnswer: (answer: string) => void;
+    readonly selectedAnswer: Accessor<AnswerState | undefined>;
     readonly isFinalized: Accessor<boolean>;
-    readonly correctOption: string;
-    readonly options: ReadonlyArray<string>;
+    readonly options: ReadonlyArray<AnswerState>;
 }
 
 function shuffle(array: ReadonlyArray<string>): ReadonlyArray<string> {
@@ -34,10 +33,12 @@ function shuffle(array: ReadonlyArray<string>): ReadonlyArray<string> {
 }
 
 function sentenceItemToTaskState(task: SentenceItem, index: number): TaskState {
-    const [selectedAnswer, answerSetter] = createSignal<string>('');
+    const [selectedAnswer, answerSetter] = createSignal<
+        AnswerState | undefined
+    >();
     const [isFinalized, setFinalized] = createSignal<boolean>(false);
 
-    const setAnswer = (answer: string) => {
+    const setAnswer = (answer: AnswerState) => {
         if (isFinalized()) {
             return;
         }
@@ -47,14 +48,23 @@ function sentenceItemToTaskState(task: SentenceItem, index: number): TaskState {
         }
         answerSetter(answer);
     };
+
+    const answerStates = shuffle(task.task!.options).map(answer =>
+        // eslint-disable-next-line solid/reactivity
+        toAnswerState(
+            answer,
+            task.task!.correctOption,
+            selectedAnswer,
+            setAnswer,
+        ),
+    );
+
     return {
         index,
         word: task.word,
         selectedAnswer,
-        setAnswer,
         isFinalized,
-        correctOption: task.task!.correctOption,
-        options: shuffle(task.task!.options),
+        options: answerStates,
     };
 }
 

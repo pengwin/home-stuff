@@ -12,9 +12,11 @@ export function SentenceItem(props: {
     const isFinalized = createMemo(() => taskState()?.isFinalized() || false);
     const showBold = createMemo(() => !!props.item.task && !isFinalized());
     const showBrackets = createMemo(() => !answer() && props.item.task);
-    const isCorrect = createMemo(() => taskState()?.correctOption === answer());
+    const isCorrect = createMemo(
+        () => taskState()?.selectedAnswer()?.isCorrect || false,
+    );
     const word = createMemo(() => {
-        const result = answer() || props.item.word;
+        const result = answer()?.answer || props.item.word;
         if (showBrackets()) {
             return `[${result}]`;
         }
